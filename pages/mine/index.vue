@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="mine">
 		mine
 	</view>
 </template>
@@ -17,6 +17,8 @@
 	}
 </script>
 
-<style>
-
+<style lang="scss">
+	.mine{
+		background-color: red;
+	}
 </style>

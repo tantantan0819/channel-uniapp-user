@@ -1,19 +1,6 @@
-<template>
-	<view>
-		
-	</view>
-</template>
-
-<script>
-	export default {
-		data() {
-			return {
-				
-			};
-		}
+.yellow{
+	background-color: red;
+	.aa{
+		background-color: yellow;
 	}
-</script>
-
-<style lang="scss">
-
-</style>
+}
