@@ -15,7 +15,7 @@
 			}
 		},
 		onLoad() {
-			console.log(this.$api.get('cart.viewCart',{name: 'haha'}),'调用')
+			
 		},
 		methods: {
 

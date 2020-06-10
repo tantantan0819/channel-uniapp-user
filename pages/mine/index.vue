@@ -1,5 +1,6 @@
 <template>
 	<view class="mine">
+<<<<<<< HEAD
 		<view class="mine_top">
 			<!-- <image src="../../static/img/mine_bg.png" mode=""></image> -->
 		</view>
@@ -33,6 +34,7 @@
 </script>
 
 <style lang="scss">
+<<<<<<< HEAD
   .line-up{
 	  width: 100%;
 	  display: flex;
@@ -66,5 +68,10 @@
 		  }
 	  }
   }
+=======
+	.mine{
+		background-color: red;
+	}
+>>>>>>> cb7d8d3bfcf07de54ad8366fc4da247562c80af2
 </style>
  
