@@ -1,6 +1,5 @@
 <template>
 	<view class="mine">
-
 		<view class="mine_top">
 			<!-- <image src="../../static/img/mine_bg.png" mode=""></image> -->
 		</view>
