@@ -3,7 +3,55 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/index/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/index/forget",
+			"style": {
+				"navigationBarTitleText": "找回密码"
+			}
+		},
+		{
+			"path": "pages/index/code",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/index/register",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		},
+		{
+			"path": "pages/index/search",
+			"style": {
+				"navigationBarTitleText": "搜索"
+			}
+		},
+		{
+			"path": "pages/index/list",
+			"style": {
+				"navigationBarTitleText": "产品列表"
+			}
+		},
+		{
+			"path": "pages/index/customer",
+			"style": {
+				"navigationBarTitleText": "官方客服"
+			}
+		},
+		{
+			"path": "pages/index/customer",
+			"style": {
+				"navigationBarTitleText": "立即申请"
 			}
 		},
 		{
@@ -31,43 +79,43 @@
 			}
 		}
 	],
-	"tabBar": {
-	    "color": "#999999",
-	    "selectedColor": "#333333",
-	    "borderStyle": "black",
-	    "backgroundColor": "#ffffff",
-	    "list": [{
-	        "pagePath": "pages/index/index",
-	        "iconPath": "static/image/tab_icon1.png",
-	        "selectedIconPath": "static/image/tab_icon6.png",
-	        "text": "首页"
-	    }, {
-	        "pagePath": "pages/service/index",
-	        "iconPath": "static/image/tab_icon2.png",
-	        "selectedIconPath": "static/image/tab_icon7.png",
-	        "text": "服务"
-	    },{
-	        "pagePath": "pages/news/index",
-	         "iconPath": "static/image/tab_icon3.png",
-	        "selectedIconPath": "static/image/tab_icon8.png",
-	        "text": "新闻"
-	    },
-		{
-		    "pagePath": "pages/query/index",
-		     "iconPath": "static/image/tab_icon4.png",
-		    "selectedIconPath": "static/image/tab_icon9.png",
-		    "text": "查询"
-		},{
-	        "pagePath": "pages/mine/index",
-	        "iconPath": "static/image/tab_icon5.png",
-	        "selectedIconPath": "static/image/tab_icon10.png",
-	        "text": "我的"
-	    }]
-	},
+	// "tabBar": {
+	//     "color": "#999999",
+	//     "selectedColor": "#333333",
+	//     "borderStyle": "black",
+	//     "backgroundColor": "#ffffff",
+	//     "list": [{
+	//         "pagePath": "pages/index/index",
+	//         "iconPath": "static/image/tab_icon1.png",
+	//         "selectedIconPath": "static/image/tab_icon6.png",
+	//         "text": "首页"
+	//     }, {
+	//         "pagePath": "pages/service/index",
+	//         "iconPath": "static/image/tab_icon2.png",
+	//         "selectedIconPath": "static/image/tab_icon7.png",
+	//         "text": "服务"
+	//     },{
+	//         "pagePath": "pages/news/index",
+	//          "iconPath": "static/image/tab_icon3.png",
+	//         "selectedIconPath": "static/image/tab_icon8.png",
+	//         "text": "新闻"
+	//     },
+	// 	{
+	// 	    "pagePath": "pages/query/index",
+	// 	     "iconPath": "static/image/tab_icon4.png",
+	// 	    "selectedIconPath": "static/image/tab_icon9.png",
+	// 	    "text": "查询"
+	// 	},{
+	//         "pagePath": "pages/mine/index",
+	//         "iconPath": "static/image/tab_icon5.png",
+	//         "selectedIconPath": "static/image/tab_icon10.png",
+	//         "text": "我的"
+	//     }]
+	// },
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#F8F8F8"
 	}
 }
