@@ -84,3 +84,36 @@ page{
 .mt20{
 	margin-top: 20upx;
 }
+.mb30{
+	margin-bottom: 30upx;
+}
+.wrp{
+	width: 690upx;
+	margin: 0 auto;
+}
+.ct{
+	display: flex;
+	align-items: center;
+}
+.cc{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.cs{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.title{
+	padding: 30upx 0;
+	text{
+		font-size: 36upx;
+		color: #333333;
+		font-weight: bold;
+	}
+	image{
+		width: 30upx;
+		height: 34upx;
+	}
+}
