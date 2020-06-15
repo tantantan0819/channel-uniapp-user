@@ -1,5 +1,6 @@
 <template>
 	<view class="home">
+		<v-login></v-login>
 		<view class="login ct"  @click="login">
 			<image src="../../static/image/home_head.png" mode=""></image>
 			<text>登录即可申请银行贷款</text>
