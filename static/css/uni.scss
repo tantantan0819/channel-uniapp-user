@@ -84,6 +84,9 @@ page{
 .mt20{
 	margin-top: 20upx;
 }
+.mt30{
+	margin-top: 30upx;
+}
 .mb30{
 	margin-bottom: 30upx;
 }
@@ -303,4 +306,47 @@ page{
 				}
 			}
 		}
+	}
+	//表单
+	.form{
+		.item{
+			background:rgba(255,255,255,1);
+			border-radius:10upx;
+			padding: 38upx 28upx;
+			margin-bottom: 22upx;
+			text{
+				width: 130upx;
+				font-size:26upx;
+				font-weight:bold;
+				color:rgba(51,51,51,1);
+			}
+			input{
+				font-size:26upx;
+				width: 464upx;
+			}
+		}
+	}
+	radio-group{
+		flex: 1;
+	}
+	.uni-list-cell{
+		flex: 1;
+		view{
+			font-size:28upx;
+			color:rgba(153,153,153,1);
+		}
+	}
+	.edu{
+		flex: auto!important;
+	}
+	.uni-radio-input{
+		width: 28upx!important;
+		height: 28upx!important;
+		&::before{
+			font-size: 26upx!important;
+		}
+	}
+	.uni-radio-input-checked{
+		background-color: #FE7800!important;
+		border-color: #FE7800!important;
 	}
