@@ -92,6 +92,10 @@
 				eduId: 0
 			}
 		},
+		  onNavigationBarButtonTap:function(e){
+		            console.log(this.sexId)
+					
+		},
 		methods: {
 			    sexChange: function(evt) {
 					for (let i = 0; i < this.sex.length; i++) {
@@ -100,7 +104,7 @@
 							break;
 						}
 					}
-					},
+				},
 			   marChange: function(evt) {
 			    	for (let i = 0; i < this.marriage.length; i++) {
 			    		if (this.marriage[i].value === evt.target.value) {

@@ -75,7 +75,129 @@
 		{
 			"path": "pages/index/apply/basic",
 			"style": {
-				"navigationBarTitleText": "个人基本信息"
+				"navigationBarTitleText": "个人基本信息",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "保存",
+								"fontSize": "32upx",
+								"float": "right"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/index/apply/unit",
+			"style": {
+				"navigationBarTitleText": "工作单位信息",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "保存",
+								"fontSize": "32upx",
+								"float": "right"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/index/apply/company",
+			"style": {
+				"navigationBarTitleText": "企业信息",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "保存",
+								"fontSize": "32upx",
+								"float": "right"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/index/apply/business",
+			"style": {
+				"navigationBarTitleText": "商业保险信息",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "保存",
+								"fontSize": "32upx",
+								"float": "right"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/index/apply/full",
+			"style": {
+				"navigationBarTitleText": "全款车信息",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "保存",
+								"fontSize": "32upx",
+								"float": "right"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/index/apply/mortgage",
+			"style": {
+				"navigationBarTitleText": "按揭车信息",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "保存",
+								"fontSize": "32upx",
+								"float": "right"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/index/apply/full-room",
+			"style": {
+				"navigationBarTitleText": "全款房信息",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "保存",
+								"fontSize": "32upx",
+								"float": "right"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/index/apply/other",
+			"style": {
+				"navigationBarTitleText": "其它信息",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "保存",
+								"fontSize": "32upx",
+								"float": "right"
+							}
+						]
+					}
+				}
 			}
 		},
 		{

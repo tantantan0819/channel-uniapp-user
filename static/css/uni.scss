@@ -350,3 +350,11 @@ page{
 		background-color: #FE7800!important;
 		border-color: #FE7800!important;
 	}
+	.mul{
+		input{
+			margin-bottom: 10upx;
+			&:last-child{
+				margin-bottom: 0;
+			}
+		}
+	}

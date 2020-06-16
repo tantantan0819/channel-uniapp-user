@@ -27,27 +27,27 @@
 					},
 					{
 						name: '请填写工作单位信息',
-						link:'',
+						link:'/pages/index/apply/unit',
 					},
 					{
 						name: '请填写企业信息',
-						link:'',
+						link:'/pages/index/apply/company',
 					},
 					{
 						name: '请填写商业保险信息',
-						link:'',
+					    link:'/pages/index/apply/business',
 					},
 					{
 						name: '请填写全款车信息',
-						link:'',
+						 link:'/pages/index/apply/full',
 					},
 					{
 						name: '请填写按揭车信息',
-						link:'',
+						link:'/pages/index/apply/mortgage',
 					},
 					{
 						name: '请填写全款房信息',
-						link:'',
+						link:'/pages/index/apply/full-room',
 					},
 					{
 						name: '请填写按揭房信息',
@@ -55,7 +55,7 @@
 					},
 					{
 						name: '请填写其他信息',
-						link:'',
+						link:'/pages/index/apply/other',
 					},
 				]
 			}

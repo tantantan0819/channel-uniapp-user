@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import Api from './api/index'
-import store from './stores'
+import store from './store'
 import myComponents from './components'
 Vue.config.productionTip = false
 
