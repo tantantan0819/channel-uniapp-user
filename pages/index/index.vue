@@ -14,7 +14,7 @@
 				<image src="../../static/image/home_search.png" mode="" @click="search"></image>
 			</view>
 			<view class="hot_item mb30" v-for="(item,index) in hotNum" :key="index">
-				<view class="hot_top">
+				<view class="hot_top" @click="detail">
 					<view class="ct">
 						<text>产品名称333333</text>
 						<text>产品类型：产品类型</text>
@@ -26,7 +26,7 @@
 				</view>
 				<view class="hot_bottom cs">
 					<text>在线咨询：<text @click="customer">立即联系</text></text>
-					 <text class="cc">立即申请</text>
+					 <text class="cc" @click="apply">立即申请</text>
 				</view>
 			</view>
 			<view class="hot_more cc " v-bind:class="{ active: isMore }">
@@ -94,12 +94,22 @@
 			},
 			login(){
 				uni.navigateTo({
-					 url: '/pages/index/login'
+					 url: '/pages/index/login/login'
 				})
 			},
 			customer(){
 				uni.navigateTo({
 					 url: '/pages/index/customer'
+				})
+			},
+			apply(){
+				uni.navigateTo({
+					 url: '/pages/index/apply/apply'
+				})
+			},
+			detail(){
+				uni.navigateTo({
+					 url: '/pages/index/detail'
 				})
 			}
 		}

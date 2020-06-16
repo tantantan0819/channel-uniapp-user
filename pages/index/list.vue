@@ -1,7 +1,7 @@
 <template>
 	<view class="list wrp">
 		<view class="keyword ct">
-			 <input class="uni-input" focus placeholder="请输入关键字" />
+			 <input class="uni-input" placeholder="请输入关键字" />
 			 <text class="cc">搜索</text>
 		</view>
 		<view class="condition cs">
@@ -11,7 +11,7 @@
 			<text>最近查看</text>
 		</view>
 		<view class="hot_item mb30" v-for="(item,index) in 4" :key="index">
-			<view class="hot_top">
+			<view class="hot_top" @click="detail">
 				<view class="ct">
 					<text>产品名称333333</text>
 					<text>产品类型：产品类型</text>
@@ -23,7 +23,7 @@
 			</view>
 			<view class="hot_bottom cs">
 				<text>在线咨询：<text @click="customer">立即联系</text></text>
-				 <text class="cc">立即申请</text>
+				 <text class="cc" @click="apply">立即申请</text>
 			</view>
 		</view>
 	</view>
@@ -40,6 +40,16 @@
 			customer(){
 				uni.navigateTo({
 					 url: '/pages/index/customer'
+				})
+			},
+			apply(){
+				uni.navigateTo({
+					 url: '/pages/index/apply'
+				})
+			},
+			detail(){
+				uni.navigateTo({
+					 url: '/pages/index/detail'
 				})
 			}
 		}

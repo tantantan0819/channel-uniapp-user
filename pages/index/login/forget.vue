@@ -1,8 +1,8 @@
 <template>
 	<view class="login wrp">
 		<view class="logo cc">
-			<image src="../../static/image/logo.png" mode=""></image>
-			<image src="../../static/image/login_text.png" mode=""></image>
+			<image src="../../../static/image/logo.png" mode=""></image>
+			<image src="../../../static/image/login_text.png" mode=""></image>
 		</view>
 		<view class="login_form">
 			<view class="login_item ct">
@@ -42,11 +42,6 @@
 			}
 		},
 		methods: {
-			login(){
-				uni.navigateTo({
-					 url: '/pages/index/forget'
-				})
-			},
 			back(){
 				uni.navigateBack({
 				    delta: 1

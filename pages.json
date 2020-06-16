@@ -7,25 +7,25 @@
 			}
 		},
 		{
-			"path": "pages/index/login",
+			"path": "pages/index/login/login",
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
 		},
 		{
-			"path": "pages/index/forget",
+			"path": "pages/index/login/forget",
 			"style": {
 				"navigationBarTitleText": "找回密码"
 			}
 		},
 		{
-			"path": "pages/index/code",
+			"path": "pages/index/login/code",
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
 		},
 		{
-			"path": "pages/index/register",
+			"path": "pages/index/login/register",
 			"style": {
 				"navigationBarTitleText": "注册"
 			}
@@ -49,9 +49,33 @@
 			}
 		},
 		{
-			"path": "pages/index/customer",
+			"path": "pages/index/apply/apply",
 			"style": {
 				"navigationBarTitleText": "立即申请"
+			}
+		},
+		{
+			"path": "pages/index/classify",
+			"style": {
+				"navigationBarTitleText": "分类专区"
+			}
+		},
+		{
+			"path": "pages/index/detail",
+			"style": {
+				"navigationBarTitleText": "产品详情"
+			}
+		},
+		{
+			"path": "pages/index/apply/user",
+			"style": {
+				"navigationBarTitleText": "用户信息"
+			}
+		},
+		{
+			"path": "pages/index/apply/basic",
+			"style": {
+				"navigationBarTitleText": "个人基本信息"
 			}
 		},
 		{

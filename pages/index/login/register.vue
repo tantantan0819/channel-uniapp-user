@@ -1,8 +1,8 @@
 <template>
 	<view class="login wrp">
 		<view class="logo cc">
-			<image src="../../static/image/logo.png" mode=""></image>
-			<image src="../../static/image/login_text.png" mode=""></image>
+			<image src="../../../static/image/logo.png" mode=""></image>
+			<image src="../../../static/image/login_text.png" mode=""></image>
 		</view>
 		<view class="login_form">
 			<view class="login_item ct">
@@ -11,8 +11,20 @@
 			</view>
 			<view class="login_item ct code_box">
 				<text>验证码</text>
-				<input class="uni-input" placeholder="请输入验证码" />
+				<input class="uni-input" focus placeholder="请输入验证码" />
 				<view class="code cc">发验证码</view>
+			</view>
+			<view class="login_item ct">
+				<text>密码</text>
+				 <input class="uni-input" password placeholder="请设置6-14位密码" />
+			</view>
+			<view class="login_item ct">
+				<text>确认密码</text>
+				 <input class="uni-input" password placeholder="请输入确认密码" />
+			</view>
+			<view class="login_item ct">
+				<text>推荐人</text>
+				 <input class="uni-input" password placeholder="请输入推荐人手机号（选填）" />
 			</view>
 		</view>
 		<view class="login_wrp cc">
@@ -31,11 +43,6 @@
 			}
 		},
 		methods: {
-			login(){
-				uni.navigateTo({
-					 url: '/pages/index/forget'
-				})
-			},
 			back(){
 				uni.navigateBack({
 				    delta: 1

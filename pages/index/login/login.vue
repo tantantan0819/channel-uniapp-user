@@ -1,8 +1,8 @@
 <template>
 	<view class="login wrp">
 		<view class="logo cc">
-			<image src="../../static/image/logo.png" mode=""></image>
-			<image src="../../static/image/login_text.png" mode=""></image>
+			<image src="../../../static/image/logo.png" mode=""></image>
+			<image src="../../../static/image/login_text.png" mode=""></image>
 		</view>
 		<view class="login_form">
 			<view class="login_item ct">
@@ -25,9 +25,9 @@
 		<text class="login_code cc" @click="code">验证码登录 >></text>
 		<text class="login_quick cc">快捷登录</text>
 		<view class="login_method">
-			<image src="../../static/image/login_method1.png" mode=""></image>
-			<image src="../../static/image/login_method2.png" mode=""></image>
-			<image src="../../static/image/login_method3.png" mode=""></image>
+			<image src="../../../static/image/login_method1.png" mode=""></image>
+			<image src="../../../static/image/login_method2.png" mode=""></image>
+			<image src="../../../static/image/login_method3.png" mode=""></image>
 		</view>
 	</view>
 </template>
@@ -47,7 +47,7 @@
 			},
 			code(){
 			uni.navigateTo({
-				 url: '/pages/index/code'
+				 url: '/pages/index/login/code'
 			})
 			}
 		}
@@ -75,7 +75,7 @@
 			display: inline-block;
 			width: 113upx;
 			height: 2upx;
-			background: url(../../static/image/login_quick2.png);
+			background: url(../../../static/image/login_quick2.png);
 			transform: rotate(180deg);
 			position: absolute;
 			top: 20upx;
@@ -86,7 +86,7 @@
 			display: inline-block;
 			width: 113upx;
 			height: 2upx;
-			background: url(../../static/image/login_quick2.png);
+			background: url(../../../static/image/login_quick2.png);
 			position: absolute;
 			top: 20upx;
 			right: 160upx;

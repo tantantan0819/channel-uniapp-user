@@ -10,10 +10,10 @@
 				</view>
 			</view>
 		</view>
-		<view class="footer" v-bind:class="{ active: isPicture }">
+		<view class="footer" v-bind:class="{ active: isPicture }" id="footer">
 			<view class="send ">
 				<view class="wrp ct">
-					<image src="../../static/image/customer_icon1.png" mode="" @click="showPicture"></image>
+					<image id="pictureImg" src="../../static/image/customer_icon1.png" mode="" @click="showPicture"></image>
 					<input class="uni-input" focus placeholder="说点什么..." />
 					 <text class="cc">发送</text>
 				</view>
@@ -31,6 +31,21 @@
 		data() {
 			return {
 				isPicture: false
+			}
+		},
+		mounted() {
+			let _this = this
+			document.onclick = function(){
+				var e = e || window.event; //浏览器兼容性
+				var elem = e.target || e.srcElement;
+				while (elem) { //循环判断至跟节点，防止点击的是div子元素
+				    if (elem.id && elem.id=='footer' || elem.tagName=='INPUT') {
+				        return;
+				    }//如果还有别的div不想点击，就加else if判断
+				    elem = elem.parentNode;
+				}
+				//这里写你想实现的效果
+				_this.isPicture = false;
 			}
 		},
 		methods: {
@@ -60,7 +75,7 @@
 		position: fixed;
 		bottom: -250upx;
 		width: 100%;
-		transition: all 0.15s ease-in-out;
+		transition: all 0.1s ease-in-out;
 		.picture{
 			padding: 37upx 0 93upx 0;
 			display: flex;
