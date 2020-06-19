@@ -11,7 +11,7 @@
 				</label>
 			 </radio-group>
 		</view>
-		<view class="item ct mt30">
+		<view class="item ct mt30 mulbox">
 			<text>购置价</text>
 			<view class="mul">
 				 <input class="uni-input" placeholder="请填写一手车购置价（单位/元）" />
@@ -54,7 +54,7 @@
 			
 			}
 		},
-		  onNavigationBarButtonTap:function(e){
+		onNavigationBarButtonTap:function(e){
 		           
 					
 		},

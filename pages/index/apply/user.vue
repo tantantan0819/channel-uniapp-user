@@ -22,6 +22,10 @@
 				
 			}
 		},
+		onNavigationBarButtonTap:function(e){
+		           
+					
+		},
 		methods: {
 			
 		}

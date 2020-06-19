@@ -1,5 +1,6 @@
 import VTab from './VTab'
 import VLogin from './VLogin'
+import VContact from './VContact'
 
 
 let ComponentCaches ={}
@@ -22,7 +23,8 @@ function registerCommonComponent(vue,name,Component,options = {}){
 export default {
     registerComponent: vue => {
         vue.component('v-tab', VTab);
-		vue.component('v-login', VLogin)
+		vue.component('v-login', VLogin);
+		vue.component('v-contact', VContact)
         // registerCommonComponent(vue,'loading',Loading)
         // registerCommonComponent(vue,'tost',Tost)
     }

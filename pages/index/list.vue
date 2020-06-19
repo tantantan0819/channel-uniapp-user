@@ -6,8 +6,8 @@
 		</view>
 		<view class="condition cs">
 			<text>地区：请选择地区 </text>
-			<text class="ct">利息 <image src="../../static/image/home_icon.png" mode=""></image></text>
-			<text class="ct">额度 <image src="../../static/image/home_icon.png" mode=""></image></text>
+			<text class="ct select">利息</text>
+			<text class="ct select">额度</text>
 			<text>最近查看</text>
 		</view>
 		<view class="hot_item mb30" v-for="(item,index) in 4" :key="index">
@@ -35,6 +35,11 @@
 			return {
 				
 			}
+		},
+		onLoad(options) {
+			uni.setNavigationBarTitle({
+			    title: options.title
+			});
 		},
 		methods: {
 			customer(){
@@ -66,6 +71,20 @@
 				width:14upx;
 				height:9upx;
 				margin-left: 10upx;
+			}
+		}
+		.select{
+			position: relative;
+			&::before{
+				content: '';
+				display: inline-block;
+				width: 14upx;
+				height: 9upx;
+				background-image: url(../../static/image/list_icon.png);
+				background-size: 14upx 9upx;
+				position: absolute;
+				top: 20upx;
+				right: -20upx;
 			}
 		}
 	}

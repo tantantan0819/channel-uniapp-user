@@ -1,7 +1,7 @@
 <template>
 	<view class="mine">
 		<view class="mine_top">
-			<!-- <image src="../../static/img/mine_bg.png" mode=""></image> -->
+			<image src="../../static/image/mine_bg.png" mode=""></image>
 		</view>
 		<view class="line-up">
 			<view class="line-item mt20">
@@ -12,7 +12,7 @@
 					<text>个人信息</text>
 				</view>
 				<view class="line-right">
-					<uni-icons type="contact" size="30"></uni-icons>
+					<!-- <uni-icons type="contact" size="30"></uni-icons> -->
 				</view>
 			</view>
 		</view>

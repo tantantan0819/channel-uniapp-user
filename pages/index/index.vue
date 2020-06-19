@@ -1,6 +1,5 @@
 <template>
 	<view class="home">
-		<v-login></v-login>
 		<view class="login ct"  @click="login">
 			<image src="../../static/image/home_head.png" mode=""></image>
 			<text>登录即可申请银行贷款</text>
@@ -39,13 +38,14 @@
 				<text>产品分类</text>
 			</view>
 			<view class="product_con">
-				<view class="item" v-for="(item,index) in product" :key="index">
+				<view class="item" v-for="(item,index) in product" :key="index" @click="link(item.link)">
 					<image :src="item.icon" mode=""></image>
 					<text>{{item.name}}</text>
 				</view>
 			</view>
 		</view>
 		<v-tab></v-tab>
+		<v-contact></v-contact>
 	</view>
 </template>
 
@@ -57,24 +57,29 @@
 				hotNum: 2,
 				product:[
 					{
-						icon: '../../static/image/product1.png',
+						icon: '../../static/image/home1.png',
 						name: '快速查找',
-						link: ''
+						link: '/pages/index/list'
 					},	
 					{
-						icon: '../../static/image/product2.png',
-						name: '信用卡',
-						link: ''
+						icon: '../../static/image/home2.png',
+						name: '抵押贷款',
+						link: '/pages/index/classify'
 					},
 					{
-						icon: '../../static/image/product1.png',
-						name: '快速查找',
+						icon: '../../static/image/home3.png',
+						name: '信用贷款',
 						link: ''
 					},	
 					{
-						icon: '../../static/image/product2.png',
+						icon: '../../static/image/home4.png',
 						name: '信用卡',
-						link: ''
+						link: '/pages/service/credit?title='+'信用卡申请'
+					},
+					{
+						icon: '../../static/image/home5.png',
+						name: '帮助',
+						link: '/pages/index/help'
 					},
 				]
 			}
@@ -104,12 +109,17 @@
 			},
 			apply(){
 				uni.navigateTo({
-					 url: '/pages/index/apply/apply'
+					 url: '/pages/service/credit?title='+'贷款申请'
 				})
 			},
 			detail(){
 				uni.navigateTo({
 					 url: '/pages/index/detail'
+				})
+			},
+			link(url){
+				uni.navigateTo({
+					 url: url
 				})
 			}
 		}

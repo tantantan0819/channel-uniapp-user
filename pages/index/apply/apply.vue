@@ -5,7 +5,7 @@
 		</text>
 		<view class="login_wrp cc">
 			<view class="login_btn cc" >
-				<text>立即申请</text>
+				<text @click="match">确认匹配</text>
 			</view>
 		</view>
 	</view>
@@ -51,7 +51,7 @@
 					},
 					{
 						name: '请填写按揭房信息',
-						link:'',
+						link:'/pages/index/apply/mortgage-room',
 					},
 					{
 						name: '请填写其他信息',
@@ -64,6 +64,11 @@
 			link(url){
 				uni.navigateTo({
 					 url: url
+				})
+			},
+			match(){
+				uni.navigateTo({
+					 url: '/pages/index/list?title='+'产品匹配'
 				})
 			}
 		}
@@ -92,7 +97,7 @@
 			display: inline-block;
 			width: 28upx;
 			height: 28upx;
-			background: url(../../../static/image/home_icon.png);
+			background: url(../../../static/image/apply_icon.png);
 			background-size: 28upx 28upx;
 			position: absolute;
 			top: 50%;

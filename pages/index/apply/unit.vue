@@ -32,6 +32,17 @@
 			 <input class="uni-input" placeholder="请填写自存流水（单位/元）" />
 		</view>
 		<view class="item ct mt30">
+			<text>是否购买</text>
+			<checkbox-group @change="buyChange">
+				<label class="uni-list-cell uni-list-cell-pd" v-for="item in buy" :key="item.value">
+					<view>
+						<checkbox :value="item.value" :checked="item.checked" />
+					</view>
+					<view>{{item.name}}</view>
+				</label>
+			</checkbox-group>
+		</view>
+		<view class="item ct mt30 mulbox">
 			<text>公积金</text>
 			<view class="mul">
 				<input class="uni-input" placeholder="请填写公积金基数（单位/元）" />
@@ -39,7 +50,7 @@
 				<input class="uni-input" placeholder="请填写公积金已缴费时间（单位/月）" />
 			</view>
 		</view>
-		<view class="item ct mt30">
+		<view class="item ct mt30 mulbox">
 			<text>社保</text>
 			<view class="mul">
 				<input class="uni-input" placeholder="请填写社保基数（单位/元）" />
@@ -66,7 +77,17 @@
 						name: '否',
 					},
 				],
+				buy: [{
+						value: '0',
+						name: '公积金'
+					},
+					{
+						value: '1',
+						name: '社保',
+					},
+				],
 				jobId: 0,
+				buyId: 0,
 				
 			}
 		},
@@ -83,6 +104,18 @@
 						}
 					}
 				},
+				buyChange: function (e) {
+					var items = this.buy,
+						values = e.detail.value;
+					for (var i = 0, lenI = items.length; i < lenI; ++i) {
+						const item = items[i]
+						if(values.indexOf(item.value) >= 0){
+							this.$set(item,'checked',true)
+						}else{
+							this.$set(item,'checked',false)
+						}
+					}
+				}
 		}
 	}
 </script>

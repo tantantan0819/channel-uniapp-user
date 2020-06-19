@@ -80,6 +80,7 @@ $uni-font-size-paragraph:30rpx;
 
 page{
 	background-color: #f7f7f7;
+	padding-bottom: 50upx;
 }
 .mt20{
 	margin-top: 20upx;
@@ -324,6 +325,29 @@ page{
 				font-size:26upx;
 				width: 464upx;
 			}
+			checkbox-group{
+				display: flex;
+				width: 464upx;
+				flex: 1;
+			}
+			uni-label{
+				display: flex;
+				align-items: center;
+			}
+			uni-view{
+				font-size:26upx;
+			}
+			.uni-checkbox-input{
+				width: 38upx;
+				height: 38upx;
+				color: #fe7800!important;
+				&::before{
+					font-size: 34upx;
+				}
+			}
+			.uni-checkbox-input{
+				border-color: #fe7800!important;
+			}
 		}
 	}
 	radio-group{
@@ -356,5 +380,25 @@ page{
 			&:last-child{
 				margin-bottom: 0;
 			}
+		}
+	}
+	.mulbox{
+		flex-direction: column;
+		align-items: flex-start;
+		.mul{
+			margin-top: 10upx;
+			width: 100%;
+			input{
+				width: 100%;
+			}
+		}
+		uni-label{
+			flex: auto!important;
+			width: 136upx;
+			margin-top: 8upx;
+		}
+		uni-radio-group{
+			flex-wrap: wrap;
+			margin-top: 10upx;
 		}
 	}

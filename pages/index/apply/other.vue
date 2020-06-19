@@ -1,7 +1,7 @@
 <template>
 	<view class="form wrp">
 	
-		<view class="item ct mt30">
+		<view class="item ct mt30 mulbox">
 			<text>微粒贷</text>
 			<view class="mul">
 				<input class="uni-input" placeholder="请填写微粒贷已使用时间（单位/月）" />
@@ -16,7 +16,7 @@
 			<text>借呗额度</text>
 			<input class="uni-input" placeholder="请填写借呗额度（单位/万元）" />
 		</view>
-		<view class="item ct mt30">
+		<view class="item ct mt30 mulbox">
 			<text>近6个月</text>
 			<view class="mul">
 				<input class="uni-input" placeholder="请填写近6个月是否有下款或上征信的贷款" />
