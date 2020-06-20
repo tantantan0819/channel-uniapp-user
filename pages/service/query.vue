@@ -12,7 +12,31 @@
 		<view class="query_nav">
 			<view class="item" v-for="(item,index) in nav" :key="index" :class="{'active':index == navIndex}" @click="change(index)">{{item}}</view>
 		</view>
-		
+		<view class="wrp hot">
+			<view class="title cs">
+				<text>热门推荐</text>
+				<image src="../../static/image/home_search.png" mode="" @click="search"></image>
+			</view>
+			<view class="hot_item mb30">
+				<view class="hot_top" @click="detail">
+					<view class="ct">
+						<text>产品名称333333</text>
+						<text>产品类型：产品类型</text>
+					</view>
+					<view class="ct">
+						<text>最低月利率：<text>最低月利率</text></text>
+						<text>最高额度：<text>最高额度</text></text>
+					</view>
+				</view>
+				<view class="hot_bottom cs hot_query">
+					<text>在线咨询：<text @click="customer">立即联系</text></text>
+					<text v-if="navIndex == 0">2020/5/13 16:45 提交申请</text>
+					<text v-else-if="navIndex == 1">2020/5/13 16:45 开始审核</text>
+					<text v-else-if="navIndex == 2">2020/5/13 16:45 通过申请</text>
+					<text v-else>2020/5/13 16:45 拒绝申请</text>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -32,6 +56,21 @@
 		methods: {
 			change(index){
 				this.navIndex = index;
+			},
+			detail(){
+				uni.navigateTo({
+					 url: '/pages/index/detail'
+				})
+			},
+			customer(){
+				uni.navigateTo({
+					 url: '/pages/index/customer'
+				})
+			},
+			apply(){
+				uni.navigateTo({
+					 url: '/pages/service/credit?title='+'贷款申请'
+				})
 			}
 		}
 	}
@@ -39,6 +78,16 @@
 
 
 <style lang="scss">
+	.hot_query{
+		text{
+			&:nth-child(2){
+				width: auto!important;
+				height: auto!important;
+				background-color: transparent;
+				color:rgba(153,153,153,1);
+			}
+		}
+	}
 	.query_nav{
 		display: flex;
 		justify-content: space-around;
