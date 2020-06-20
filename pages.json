@@ -67,6 +67,28 @@
 			}
 		},
 		{
+			"path": "pages/index/complaint",
+			"style": {
+				"navigationBarTitleText": "投诉"
+			}
+		},
+		{
+			"path": "pages/index/write",
+			"style": {
+				"navigationBarTitleText": "写评论",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "发送",
+								"fontSize": "32upx",
+								"float": "right"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
 			"path": "pages/index/apply/user",
 			"style": {
 				"navigationBarTitleText": "用户信息",
@@ -235,13 +257,47 @@
 		{
 			"path": "pages/service/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "自助服务"
 			}
 		},
 		{
 			"path": "pages/service/credit",
 			"style": {
 				"navigationBarTitleText": "信用卡申请"
+			}
+		},
+		{
+			"path": "pages/service/query",
+			"style": {
+				"navigationBarTitleText": "申请查询",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "消息",
+								"fontSize": "32upx",
+								"float": "right"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/info",
+			"style": {
+				"navigationBarTitleText": "消息"
+			}
+		},
+		{
+			"path": "pages/service/member",
+			"style": {
+				"navigationBarTitleText": "升级会员"
+			}
+		},
+		{
+			"path": "pages/service/share",
+			"style": {
+				"navigationBarTitleText": "分享"
 			}
 		},
 		{
@@ -269,13 +325,79 @@
 		{
 			"path": "pages/query/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "查询"
 			}
 		},
 		{
 			"path": "pages/mine/index",
 			"style": {
 				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/mine/info",
+			"style": {
+				"navigationBarTitleText": "个人资料",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "保存",
+								"fontSize": "32upx",
+								"float": "right"
+							}
+						]
+					}
+				}
+			}
+		},	
+		{
+			"path": "pages/mine/nickname",
+			"style": {
+				"navigationBarTitleText": "设置昵称",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "保存",
+								"fontSize": "32upx",
+								"float": "right"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/mine/sex",
+			"style": {
+				"navigationBarTitleText": "设置性别",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "保存",
+								"fontSize": "32upx",
+								"float": "right"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/mine/realname",
+			"style": {
+				"navigationBarTitleText": "实名认证"
+			}
+		},
+		{
+			"path": "pages/mine/realname-result",
+			"style": {
+				"navigationBarTitleText": "实名认证"
+			}
+		},
+		{
+			"path": "pages/mine/phone",
+			"style": {
+				"navigationBarTitleText": "更改手机号"
 			}
 		}
 	],

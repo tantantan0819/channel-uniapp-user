@@ -122,9 +122,10 @@
 				
 			}
 		},
-		  onNavigationBarButtonTap:function(e){
-		            console.log(this.licenseId)
-					
+		onNavigationBarButtonTap:function(e){
+		         uni.navigateBack({
+		         	delta: 1
+		         });
 		},
 		methods: {
 			    licChange: function(evt) {

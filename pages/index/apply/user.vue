@@ -23,8 +23,9 @@
 			}
 		},
 		onNavigationBarButtonTap:function(e){
-		           
-					
+		         uni.navigateBack({
+		         	delta: 1
+		         });
 		},
 		methods: {
 			

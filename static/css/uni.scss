@@ -88,6 +88,9 @@ page{
 .mt30{
 	margin-top: 30upx;
 }
+.mt40{
+	margin-top: 40upx;
+}
 .mb30{
 	margin-bottom: 30upx;
 }
@@ -402,3 +405,110 @@ page{
 			margin-top: 10upx;
 		}
 	}
+	.line-up{
+		  width: 100%;
+		  display: flex;
+		  flex-direction: column;
+		  align-items: center;
+		  .line-item{
+			  width:690upx;
+			  height:100upx;
+			  background:rgba(255,255,255,1);
+			  border-radius:10upx;
+			  display: flex;
+			  align-items: center;
+			  justify-content: space-between;
+			  .line-right{
+				  padding-right: 32upx;
+				  image{
+					  width: 15upx;
+					  height: 26upx;
+				  }
+				  text{
+					  font-size:30upx;
+					  color:rgba(153,153,153,1);
+					  margin-right: 35upx;
+				  }
+			  }
+			  .alone{
+				  text{
+					  padding-left: 28upx;
+				  }
+			  }
+			  .line_left{
+				  display: flex;
+				  align-items: center;
+				 .line-img{
+					 width: 107upx;
+					 height: 48upx;
+					 padding: 0 35upx 0 24upx;
+				 }
+				 text{
+					 font-size:30upx;
+					 font-weight:bold;
+					 color:rgba(51,51,51,1);
+				 }
+			  }
+			  .info{
+				  image{
+					  width: 37upx;
+					  height: 40upx;
+				  }
+			  }
+		  }
+	}
+	.info_user{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		.item{
+			width:690upx;
+			height:80upx;
+			background:rgba(255,255,255,1);
+			border-radius:6px;
+			input{
+				width:690upx;
+				height:80upx;
+				background:rgba(255,255,255,1);
+				border-radius:6px;
+				padding: 0 20upx;
+				font-size:30upx;
+				color:rgba(153,153,153,1);
+			}
+		}
+	}
+	.classify_con{
+		padding: 27upx 36upx 26upx 39upx;
+		display: flex;
+		flex-wrap: wrap;
+		.item{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-right: 66upx;
+			&:nth-child(3n+3){
+				margin-right: 0;
+			}
+			image{
+				width: 88upx;
+				height: 88upx;
+			}
+			text{
+				margin-top: 8upx;
+				font-size:26upx;
+				color:rgba(51,51,51,1);
+				width: 88upx;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		}
+	}
+	uni-swiper .uni-swiper-dots-horizontal{
+		right: 20upx!important;
+		left: auto;
+		}
+		uni-swiper .uni-swiper-dot-active{
+			background:rgba(254,153,0,1);
+		}
+		

@@ -49,7 +49,7 @@
 			},
 			apply(){
 				uni.navigateTo({
-					 url: '/pages/index/apply'
+					 url: '/pages/service/credit?title='+'贷款申请'
 				})
 			},
 			detail(){

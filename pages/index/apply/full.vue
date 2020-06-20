@@ -54,10 +54,11 @@
 			
 			}
 		},
-		onNavigationBarButtonTap:function(e){
-		           
-					
-		},
+	onNavigationBarButtonTap:function(e){
+	         uni.navigateBack({
+	         	delta: 1
+	         });
+	},
 		methods: {
 			    regChange: function(evt) {
 					for (let i = 0; i < this.register.length; i++) {

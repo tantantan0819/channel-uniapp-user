@@ -135,9 +135,10 @@
 				payId: 0,
 			}
 		},
-		  onNavigationBarButtonTap:function(e){
-		            console.log(this.effectId)
-					
+		onNavigationBarButtonTap:function(e){
+		         uni.navigateBack({
+		         	delta: 1
+		         });
 		},
 		methods: {
 			    effChange: function(evt) {

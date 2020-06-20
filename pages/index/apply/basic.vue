@@ -92,9 +92,10 @@
 				eduId: 0
 			}
 		},
-		  onNavigationBarButtonTap:function(e){
-		            console.log(this.sexId)
-					
+		onNavigationBarButtonTap:function(e){
+		         uni.navigateBack({
+		         	delta: 1
+		         });
 		},
 		methods: {
 			    sexChange: function(evt) {

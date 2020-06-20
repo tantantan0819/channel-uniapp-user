@@ -1,6 +1,6 @@
 <template>
 	<view class="home">
-		<view class="login ct"  @click="login">
+		<view class="login ct"  @click="login(true)">
 			<image src="../../static/image/home_head.png" mode=""></image>
 			<text>登录即可申请银行贷款</text>
 			<view class="head cc">
@@ -69,7 +69,8 @@
 					{
 						icon: '../../static/image/home3.png',
 						name: '信用贷款',
-						link: ''
+						link: '',
+						link: '/pages/index/classify'
 					},	
 					{
 						icon: '../../static/image/home4.png',
@@ -97,10 +98,16 @@
 				this.isMore?this.hotNum--:this.hotNum++;
 				this.isMore = !this.isMore;
 			},
-			login(){
-				uni.navigateTo({
-					 url: '/pages/index/login/login'
-				})
+			login(login){
+				if(login){
+					uni.switchTab({
+						url:'/pages/mine/index'
+					});
+				}else{
+					uni.navigateTo({
+						 url: '/pages/index/login/login'
+					})
+				}
 			},
 			customer(){
 				uni.navigateTo({

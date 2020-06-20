@@ -91,9 +91,10 @@
 				
 			}
 		},
-		 onNavigationBarButtonTap:function(e){
-		            console.log(this.jobId)
-					
+		onNavigationBarButtonTap:function(e){
+		         uni.navigateBack({
+		         	delta: 1
+		         });
 		},
 		methods: {
 			    jobChange: function(evt) {

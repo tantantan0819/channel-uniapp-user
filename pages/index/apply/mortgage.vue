@@ -73,10 +73,11 @@
 			agingId: 0,
 			}
 		},
-		  onNavigationBarButtonTap:function(e){
-		           
-					
-		},
+		 onNavigationBarButtonTap:function(e){
+		          uni.navigateBack({
+		          	delta: 1
+		          });
+		 },
 		methods: {
 			    morChange: function(evt) {
 					for (let i = 0; i < this.mortgage.length; i++) {
