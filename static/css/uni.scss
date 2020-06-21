@@ -511,4 +511,19 @@ page{
 		uni-swiper .uni-swiper-dot-active{
 			background:rgba(254,153,0,1);
 		}
-		
+
+.uni-picker-action{
+	font-size:26upx!important;
+}
+.uni-picker-action-cancel{
+	color:rgba(153,153,153,1)!important;
+}
+.uni-picker-action-confirm{
+	color:rgba(51,51,51,1)!important;
+}
+.uni-picker-item{
+	font-size: 30upx!important;
+}
+.uni-popup{
+	z-index: 999;
+}

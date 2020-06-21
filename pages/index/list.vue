@@ -5,10 +5,25 @@
 			 <text class="cc">搜索</text>
 		</view>
 		<view class="condition cs">
-			<text>地区：请选择地区 </text>
-			<text class="ct select">利息</text>
-			<text class="ct select">额度</text>
-			<text>最近查看</text>
+			<view class="item ct">
+				  <picker @change="bindPickerChange" :value="areaValue" :range="array">
+				        <text class="font">地区：请选择</text>
+				   </picker>
+			</view>
+			<view class="item ct">
+				
+				  <picker @change="interestChange" :value="interestValue" :range="interest">
+					  <text class="font select">利息</text>
+				   </picker>
+			</view>
+			<view class="item ct">
+				  <picker @change="quotaChange" :value="quotaValue" :range="quota">
+					  <text class="font select">额度</text>
+				   </picker>
+			</view>
+			<view class="item ct">
+				<text class="font">最近查看</text>
+			</view>
 		</view>
 		<view class="hot_item mb30" v-for="(item,index) in 4" :key="index">
 			<view class="hot_top" @click="detail">
@@ -32,16 +47,32 @@
 <script>
 	export default {
 		data() {
-			return {
-				
+			return { 
+				areaValue: 0,
+				quotaValue: 0,
+				interestValue: 0,
+				 array: ['中国', '美国', '巴西', '日本'],
+				 interest: ['高','低'],
+				 quota: ['额度1','额度2']
 			}
 		},
 		onLoad(options) {
+			let title = options.title ? options.title : '产品列表'
 			uni.setNavigationBarTitle({
-			    title: options.title
+			    title: title
 			});
 		},
 		methods: {
+			  bindPickerChange: function(e) {
+			            console.log('picker发送选择改变，携带值为', e.target.value)
+			            this.areaValue = e.target.value
+			        },
+					interestChange: function(e) {
+					          this.interestValue = e.target.value
+					      },
+						  quotaChange: function(e) {
+						            this.quotaValue = e.target.value
+						        },
 			customer(){
 				uni.navigateTo({
 					 url: '/pages/index/customer'
@@ -64,14 +95,10 @@
 <style lang="scss">
 	.condition{
 		margin-bottom: 60upx;
-		text{
+		align-items: baseline;
+		.font{
 			font-size:26upx;
 			color:rgba(51,51,51,1);
-			image{
-				width:14upx;
-				height:9upx;
-				margin-left: 10upx;
-			}
 		}
 		.select{
 			position: relative;
@@ -83,7 +110,7 @@
 				background-image: url(../../static/image/list_icon.png);
 				background-size: 14upx 9upx;
 				position: absolute;
-				top: 20upx;
+				top: 16upx;
 				right: -20upx;
 			}
 		}

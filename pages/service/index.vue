@@ -46,10 +46,21 @@
 				<text>选择想要申请的产品</text>
 			</view>
 		</view>
+		<uni-popup ref="popup" type="center">
+			<view class="phone">
+				<text class="title cc">提示</text>
+				<text class="des cc">确定拨打电话：13912345678 吗？</text>
+				<view class="bottom ct">
+					<text class="cc" @click="cancel">取消</text>
+					<text class="cc" @click="sure">确定</text>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+	import uniPopup from '@/components/uni-popup/uni-popup.vue'
 	export default {
 		data() {
 			return {
@@ -117,9 +128,17 @@
 			}
 		},
 		methods: {
+			cancel(){
+				this.$refs.popup.close()
+			},
+			sure(){
+				uni.makePhoneCall({
+				    phoneNumber: '13912345678' //仅为示例
+				});
+			},
 			link(url){
 				if(url=='phone'){
-					console.log('000')
+					this.$refs.popup.open()
 				}else{
 					uni.navigateTo({
 						 url: url
@@ -134,6 +153,37 @@
 
 <style lang="scss">
 	.service{
+		.phone{
+			width: 503upx;
+			background:rgba(255,255,255,1);
+			border-radius:10upx;
+			.title{
+				font-size:30upx;
+				color:rgba(51,51,51,1);
+				margin-top: 53px;
+			}
+			.des{
+				font-size:26upx;
+				color:rgba(51,51,51,1);
+				padding: 40upx 0 48upx;
+				border-bottom: 1upx solid rgba(238,238,238,1);
+			}
+			.bottom{
+				height: 87upx;
+				text{
+					flex: 1;
+					height: 87upx;
+					font-size:30upx;
+					&:nth-child(1){
+						color:rgba(153,153,153,1);
+						border-right: 1px solid rgba(238,238,238,1);
+					}
+					&:nth-child(2){
+						color:rgba(51,51,51,1);
+					}
+				}
+			}
+		}
 		.process{
 			background:rgba(255,255,255,1);
 			border-radius:10upx;

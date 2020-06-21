@@ -6,18 +6,17 @@
 				 <text class="cc">搜索</text>
 			</view>
 			<view class="condition cs">
-				<text class="ct select">2020年6月1日</text>
+				<picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
+				       <view class="uni-input select data">{{date}}</view>
+				</picker>
+				<!-- <text class="ct select">2020年6月1日</text> -->
 			</view>
 		</view>
 		<view class="query_nav">
 			<view class="item" v-for="(item,index) in nav" :key="index" :class="{'active':index == navIndex}" @click="change(index)">{{item}}</view>
 		</view>
 		<view class="wrp hot">
-			<view class="title cs">
-				<text>热门推荐</text>
-				<image src="../../static/image/home_search.png" mode="" @click="search"></image>
-			</view>
-			<view class="hot_item mb30">
+			<view class="hot_item mt30" v-for="(item,index) in 2" :key="index">
 				<view class="hot_top" @click="detail">
 					<view class="ct">
 						<text>产品名称333333</text>
@@ -43,7 +42,11 @@
 <script>
 	export default {
 		data() {
+			const currentDate = this.getDate({
+			        format: true
+			    })
 			return {
+				date: currentDate,
 				navIndex: 0,
 				nav: ['申请中','审核中','已通过','已拒绝']
 			}
@@ -71,13 +74,42 @@
 				uni.navigateTo({
 					 url: '/pages/service/credit?title='+'贷款申请'
 				})
-			}
+			},
+			bindPickerChange: function(e) {
+			            console.log('picker发送选择改变，携带值为', e.target.value)
+			            this.index = e.target.value
+			        },
+			        bindDateChange: function(e) {
+			            this.date = e.target.value
+			        },
+			        bindTimeChange: function(e) {
+			            this.time = e.target.value
+			        },
+			getDate(type) {
+			            const date = new Date();
+			            let year = date.getFullYear();
+			            let month = date.getMonth() + 1;
+			            let day = date.getDate();
+			
+			            if (type === 'start') {
+			                year = year - 60;
+			            } else if (type === 'end') {
+			                year = year + 2;
+			            }
+			            month = month > 9 ? month : '0' + month;;
+			            day = day > 9 ? day : '0' + day;
+			            return `${year}-${month}-${day}`;
+			        }
 		}
 	}
 </script>
 
 
 <style lang="scss">
+	.data{
+		font-size:26upx;
+		color:rgba(51,51,51,1);
+	}
 	.hot_query{
 		text{
 			&:nth-child(2){
@@ -133,8 +165,8 @@
 				background-image: url(../../static/image/list_icon.png);
 				background-size: 14upx 9upx;
 				position: absolute;
-				top: 20upx;
-				right: -20upx;
+				top: 16upx;
+				right: -22upx;
 			}
 		}
 	}

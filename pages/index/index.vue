@@ -1,7 +1,12 @@
 <template>
 	<view class="home">
-		<view class="login ct"  @click="login(true)">
-			<image src="../../static/image/home_head.png" mode=""></image>
+		<view class="login ct"  @click="login">
+			<view class="avatar" v-if="!isLogin">
+				<image src="../../static/image/home_head.png" mode="" ></image>
+			</view>
+			<view class="avatar" v-else>
+				<image src="../../static/image/atavar.png" mode="" ></image>
+			</view>
 			<text>登录即可申请银行贷款</text>
 			<view class="head cc">
 				<image src="../../static/image/home_head2.png" mode=""></image>
@@ -53,6 +58,7 @@
 	export default {
 		data() {
 			return {
+				isLogin: false,
 				isMore: false,
 				hotNum: 2,
 				product:[
@@ -85,8 +91,10 @@
 				]
 			}
 		},
-		onLoad() {
-			
+		onLoad(options) {
+			if(options.isLoin){
+				this.isLogin = true;
+			}
 		},
 		methods: {
 			search(){
@@ -98,8 +106,8 @@
 				this.isMore?this.hotNum--:this.hotNum++;
 				this.isMore = !this.isMore;
 			},
-			login(login){
-				if(login){
+			login(){
+				if(this.isLogin){
 					uni.switchTab({
 						url:'/pages/mine/index'
 					});
@@ -177,13 +185,14 @@
 		box-shadow: 0px 5upx 15upx 1px 
 			rgba(0, 0, 0, 0.02);
 		border-radius: 0px 0px 20upx 20upx;
-		image{
-			&:nth-child(1){
+		.avatar{
+			image{
 				width: 70upx;
 				height: 70upx;
 				border-radius: 50%;
-				padding: 0 40upx 0 30upx;
+				margin: 0 40upx 0 30upx;
 			}
+			
 		}
 		text{
 			font-size: 26upx;

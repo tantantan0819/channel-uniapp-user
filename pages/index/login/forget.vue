@@ -19,9 +19,6 @@
 				<text>确认密码</text>
 				 <input class="uni-input" password placeholder="请输入确认密码" />
 			</view>
-			<view class="forget">
-				<text @click="login">忘记密码？</text>
-			</view>
 		</view>
 		<view class="login_wrp cc">
 			<view class="login_btn cc" @click="back()">

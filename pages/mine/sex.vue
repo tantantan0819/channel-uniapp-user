@@ -14,6 +14,11 @@
 				sex:['男','女']
 			}
 		},
+		onNavigationBarButtonTap:function(e){
+		         uni.navigateBack({
+		         	delta: 1
+		         });
+		},
 		methods: {
 			selectSex(sex){
 				this.select = sex;

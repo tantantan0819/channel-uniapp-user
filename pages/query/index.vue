@@ -31,16 +31,12 @@
 	export default {
 		data() {
 			return {
-
 				banner:{
 					indicatorDots: true,
 					autoplay: true,
 					interval: 2000,
 					duration: 500
 				},
-			
-				
-				          
 			}
 		},
 		methods: {

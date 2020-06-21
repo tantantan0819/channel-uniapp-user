@@ -82,10 +82,10 @@
         "devServer" : {
             "port" : 8989
         },
-        "template" : "",
+        "template" : "template.h5.html",
         "router" : {
             "mode" : "hash",
-            "base" : "/"
+            "base" : "./"
         }
     }
 }

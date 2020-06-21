@@ -11,7 +11,7 @@
 				 <input class="uni-input" password placeholder="请输入密码" />
 			</view>
 			<view class="forget">
-				<text @click="login">忘记密码？</text>
+				<text @click="forget">忘记密码？</text>
 			</view>
 		</view>
 		<view class="login_wrp cc">
@@ -36,16 +36,26 @@
 				
 			}
 		},
+		onNavigationBarButtonTap:function(e){
+		         uni.navigateTo({
+		         	url: '/pages/index/login/register'
+		         })
+		},
 		methods: {
 			back(){
-				uni.navigateBack({
-				    delta: 1
+				uni.switchTab({
+					url:'/pages/index/index?isLogin='+'true'
 				});
 			},
 			code(){
-			uni.navigateTo({
-				 url: '/pages/index/login/code'
-			})
+				uni.navigateTo({
+					 url: '/pages/index/login/code'
+				})
+			},
+			forget(){
+				uni.navigateTo({
+					 url: '/pages/index/login/forget'
+				})
 			}
 		}
 	}
