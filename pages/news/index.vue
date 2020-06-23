@@ -23,7 +23,6 @@
 					url:"/pages/news/detail?title="+'新闻标题'+index
 				})
 			}
-			
 		}
 	}
 </script>

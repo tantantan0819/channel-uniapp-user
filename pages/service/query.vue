@@ -105,13 +105,14 @@
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.data{
 		font-size:26upx;
 		color:rgba(51,51,51,1);
 	}
 	.hot_query{
 		text{
+			background: none!important;
 			&:nth-child(2){
 				width: auto!important;
 				height: auto!important;

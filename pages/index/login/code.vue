@@ -1,6 +1,9 @@
 <template>
 	<view class="login wrp">
-		<v-login></v-login>
+		<view class="logo cc">
+			<image src="../../../static/image/logo.png" mode=""></image>
+			<image src="../../../static/image/login_text.png" mode=""></image>
+		</view>
 		<view class="login_form">
 			<view class="login_item ct">
 				<text>手机号</text>
