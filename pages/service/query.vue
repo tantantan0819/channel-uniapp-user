@@ -18,11 +18,11 @@
 		<view class="wrp hot">
 			<view class="hot_item mt30" v-for="(item,index) in 2" :key="index">
 				<view class="hot_top" @click="detail">
-					<view class="ct">
+					<view class="ct cs">
 						<text>产品名称333333</text>
 						<text>产品类型：产品类型</text>
 					</view>
-					<view class="ct">
+					<view class="ct cs">
 						<text>最低月利率：<text>最低月利率</text></text>
 						<text>最高额度：<text>最高额度</text></text>
 					</view>

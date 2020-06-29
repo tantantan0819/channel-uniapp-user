@@ -4,18 +4,23 @@
 	            <view class="page-section swiper">
 	                <view class="page-section-spacing">
 	                    <swiper class="swiper" :indicator-dots="banner.indicatorDots" :autoplay="banner.autoplay" :interval="banner.interval" :duration="banner.duration">
-	                        <swiper-item v-for="(item,index) in 3" :key="index">
+	                        <swiper-item v-for="(item,index) in 3" :key="index" @click="link">
 	                            <image src="../../static/image/service_banner.png" mode=""></image>
 	                        </swiper-item>
 	                    </swiper>
 	                </view>
 	            </view>
 	        </view>
-		<view class="title cs">
+	<!-- 	<view class="title cs">
 			<text>附近渠道商</text>
+		</view> -->
+		<view class="query_nav">
+			<view class="nav_wrp cs ct">
+				<text class="font-30 f-gray" :class="{'active':index == navIndex}" v-for="(item,index) in nav" @click="change(index)">{{item}}</text>
+			</view>
 		</view>
 		<view class="query_item" v-for="(item,index) in 4" :key="index">
-			<text class="title">渠道商名称</text>
+			<text class="title">渠道商名称{{navIndex+1}}</text>
 			<view class="des cs">
 				<text>渠道商地址渠道商地址渠道商地址...</text>
 				<view class="info">
@@ -31,6 +36,8 @@
 	export default {
 		data() {
 			return {
+				navIndex: 0,
+				nav: ['公司服务门店','征信打印网点'],
 				banner:{
 					indicatorDots: true,
 					autoplay: true,
@@ -40,6 +47,11 @@
 			}
 		},
 		methods: {
+			link(){
+				uni.navigateTo({
+					 url: '/pages/query/finance'
+				})
+			},
 			contact(){
 				uni.navigateTo({
 					 url: '/pages/index/customer'
@@ -50,13 +62,40 @@
 				uni.navigateTo({
 					 url: '/pages/query/map'
 				})
+			},
+			change(index){
+				this.navIndex = index;
 			}
 			
 		}
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+	.query_nav{
+		padding: 40upx 0;
+		.nav_wrp{
+			width: 450upx;
+			padding: 20upx 0;
+		}
+		.active{
+			font-size: 36upx;
+			font-weight: bold;
+			color:rgba(51,51,51,1)!important;
+			position: relative;
+			&::before{
+				content: '';
+				display: inline-block;
+				width:80upx;
+				height:10upx;
+				background:rgba(254,153,0,1);
+				position: absolute;
+				bottom: -20upx;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		}
+	}
 	.query_item{
 		margin-top: 14upx;
 		background:rgba(255,255,255,1);

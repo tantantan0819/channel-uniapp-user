@@ -283,6 +283,12 @@
 			}
 		},
 		{
+			"path": "pages/query/finance",
+			"style": {
+				"navigationBarTitleText": "金融视频/平台介绍"
+			}
+		},
+		{
 			"path": "pages/service/query",
 			"style": {
 				"navigationBarTitleText": "申请查询",

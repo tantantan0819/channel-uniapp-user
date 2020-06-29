@@ -80,12 +80,12 @@
 	.scroll-view-item {
 		width:280upx;
 		height:96upx;
-		background:#eaeaea;
+		background:#cacaca;
 		font-size:30upx;
 		color:rgba(51,51,51,1);
 	}
 	.active{
-		background:rgba(247,247,247,1);
+		background: #f7f7f7;
 	}
 	.scroll-view-item_H {
 		display: inline-block;

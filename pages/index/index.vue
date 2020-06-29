@@ -19,11 +19,11 @@
 			</view>
 			<view class="hot_item mb30" v-for="(item,index) in hotNum" :key="index">
 				<view class="hot_top" @click="detail">
-					<view class="ct">
+					<view class="ct cs">
 						<text>产品名称333333</text>
 						<text>产品类型：产品类型</text>
 					</view>
-					<view class="ct">
+					<view class="ct cs mt6">
 						<text>最低月利率：<text>最低月利率</text></text>
 						<text>最高额度：<text>最高额度</text></text>
 					</view>
@@ -180,7 +180,8 @@
 	}
 	.login{
 		width: 750upx;
-		height: 120upx;
+		height: 90upx;
+		padding-bottom: 10upx;
 		background-color: #ffffff;
 		box-shadow: 0px 5upx 15upx 1px 
 			rgba(0, 0, 0, 0.02);
@@ -203,7 +204,8 @@
 			position: absolute;
 			right: 0;
 			width: 100upx;
-			height: 120upx;
+			height: 90upx;
+			padding-bottom: 10upx;
 			background-color: #ffffff;
 			box-shadow: -5px 0px 15px 1px 
 				rgba(0, 0, 0, 0.02);
