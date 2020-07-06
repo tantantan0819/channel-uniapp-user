@@ -25,9 +25,9 @@
 		<text class="login_code cc" @click="code">验证码登录 >></text>
 		<text class="login_quick cc">快捷登录</text>
 		<view class="login_method">
-			<image src="../../../static/image/login_method4.png" mode=""></image>
-			<image src="../../../static/image/login_method5.png" mode=""></image>
-			<image src="../../../static/image/login_method6.png" mode=""></image>
+			<image src="../../../static/image/login_method1.png" mode=""></image>
+			<image src="../../../static/image/login_method2.png" mode=""></image>
+			<image src="../../../static/image/login_method3.png" mode=""></image>
 		</view>
 	</view>
 </template>
