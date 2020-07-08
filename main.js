@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import App from './App'
-import Api from './api/index'
 import store from './store'
+import api from './plugins/http';
 import myComponents from './components'
 Vue.config.productionTip = false
 
+//挂载接口请求方法
+Vue.prototype.$get = api.get;
+Vue.prototype.$post = api.post;
 App.mpType = 'app'
-let api = new Api();
-Vue.prototype.$api = api;
 myComponents.registerComponent(Vue)
 const app = new Vue({
 	store,

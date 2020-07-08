@@ -1,9 +1,9 @@
 <template>
 	<view class="login wrp">
-		<view class="logo cc">
+		<!-- <view class="logo cc">
 		<image src="../../../static/image/logo.png" mode=""></image>
 		<image src="../../../static/image/login_text.png" mode=""></image>
-	</view>
+	</view> -->
 		<view class="login_form">
 			<view class="login_item ct">
 				<text>手机号</text>
@@ -17,18 +17,21 @@
 				<text @click="forget">忘记密码？</text>
 			</view>
 		</view>
-		<view class="login_wrp cc">
-			<view class="login_btn cc" @click="back()">
+	<!-- 	<view class="login_wrp cc">
+			<view class="login_btn cc" @click="login()">
 				<text>立即登录</text>
 			</view>
+		</view> -->
+		<view class="login" @click="login">
+			hhhh
 		</view>
 		<text class="login_code cc" @click="code">验证码登录 >></text>
 		<text class="login_quick cc">快捷登录</text>
-		<view class="login_method">
+		<!-- <view class="login_method">
 			<image src="../../../static/image/login_method4.png" mode=""></image>
 			<image src="../../../static/image/login_method5.png" mode=""></image>
 			<image src="../../../static/image/login_method6.png" mode=""></image>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -45,10 +48,12 @@
 		         })
 		},
 		methods: {
-			back(){
-				uni.switchTab({
-					url:'/pages/index/index?isLogin='+'true'
-				});
+		
+			login(){
+				let json = {"mobile":"15882781033","password":"123456"}
+				this.$post('/login',json).then(res=>{
+					console.log(res,'------')
+				})
 			},
 			code(){
 				uni.navigateTo({
