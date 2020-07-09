@@ -1,6 +1,5 @@
 import Config from './config.js'
-// import {getToken} from './token.js'
-// import {randomString,getUnixTime,createSign} from './util.js'
+
 const http = {
 	/**
 	 * 检测网络状态
@@ -51,8 +50,9 @@ const http = {
 	 * @param {Boolean} refresh 是否强制刷新Token
 	 */
 	post: function(url, data = {}, onSucess, onError, retry, refresh) {
+		let isCode = url == '/getIdentifyingCode';
 		var cfg = {
-			url: Config.app_host + url,
+			url: isCode ? Config.code_host + url:Config.app_host + url,
 			data: data,
 			method: 'POST',
 		}
@@ -68,7 +68,6 @@ const http = {
 	 * @param {Boolean} refresh 是否强制刷新Token
 	 */
 	request: async function(cfg, onSucess, onError, retry, refresh) {
-
 		//判断网络状态
 		var status = await http.networkState();
 		if (status == false) {
@@ -77,21 +76,11 @@ const http = {
 			});
 			return false;
 		}
-		// let salt = randomString(4);
-		// let timestamp = getUnixTime();
-		// let token = await getToken();
 		//请求头
 		var header = {
 			"content-type": "application/json",
-			// "api-appid": Config.app_id,
-			// "api-salt": salt,
-			// "api-timestamp": timestamp,
-			// "api-token": token,
-			// "api-sign": createSign(cfg.data,timestamp, salt),
 		}
 		let data = JSON.stringify(cfg.data)
-		// console.log(cfg.data,'object格式')
-		// console.log(data,'json格式')
 		var res = await uni.request({
 			url: cfg.url,
 			data: data,
@@ -100,7 +89,13 @@ const http = {
 			responseType: 'text',
 			header: header
 		})
-		return res
+		return new Promise((resolve,reject)=>{
+			if(res[1].data.code == 0){
+				resolve(res[1].data)
+			}else{
+				reject(res[1].data.message)
+			}
+		})
 	}
 }
 
