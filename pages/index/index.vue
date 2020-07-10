@@ -25,8 +25,8 @@
 						<text>产品类型：{{item.typeName}}</text>
 					</view>
 					<view class="ct cs mt6">
-						<text>最低月利率：<text>最低月利率</text></text>
-						<text>最高额度：<text>最高额度</text></text>
+						<text>最低月利率：<text>{{itme.accrual}}</text></text>
+						<text>最高额度：<text>{{item.amount}}</text></text>
 					</view>
 				</view>
 				<view class="hot_bottom cs">

@@ -1,15 +1,18 @@
+
 <script>
-	export default {
-		onLaunch: function() {
-			console.log('App Launch')
-		},
-		onShow: function() {
-			console.log('App Show')
-		},
-		onHide: function() {
-			console.log('App Hide')
-		}
+export default {
+	onLaunch: function() {
+		// //在页面加载时读取sessionStorage里的状态信息
+		// if (getSession("store")) {
+		// 	this.$store.replaceState(Object.assign({}, this.$store.state, JSON.parse(getSession("store"))))
+		// }
+		// //在页面刷新时将vuex里的信息保存到sessionStorage里
+		// window.addEventListener("beforeunload", () => {
+		// 	setSession("store", JSON.stringify(this.$store.state))
+		// })
+		console.log('加载')
 	}
+};
 </script>
 
 <style lang="scss">
