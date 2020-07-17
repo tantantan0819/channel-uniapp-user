@@ -1,9 +1,8 @@
 <template>
 	<view class="complaint wrp login">
 		<view class="uni-textarea mt30">
-			<textarea maxlength="1000" auto-height placeholder-style="color:#999" placeholder="写评论..."/>
+			<textarea v-model="content" maxlength="1000" auto-height placeholder-style="color:#999" placeholder="写评论..." />
 		</view>
-		
 	</view>
 </template>
 
@@ -11,19 +10,37 @@
 	export default {
 		data() {
 			return {
-			
+				spuId: '',//产品id
+				content: '',
+				token: ''
 			}
 		},
-		onNavigationBarButtonTap:function(e){
-		         uni.navigateBack({
-		         	delta: 1
-		         });
-					
+		onLoad(options) {
+			if (options.id) {
+				this.spuId = options.id;
+			}
+			this.token = this.$store.state.token;
 		},
-		methods: {
-			
-			
-		}
+		onNavigationBarButtonTap:function(e){
+			if(!this.content){
+				uni.showToast({
+					title: '请填写您的评论',
+					icon: 'none'
+				});
+			}else{
+				this.$post('/product/commentSub',{spuId:this.spuId,content:this.content}).then(res=>{
+					uni.showToast({
+						title: '评论成功！',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.navigateBack({
+						    delta: 1
+						});
+					}, 600)
+				})
+			}
+		},
 	}
 </script>
 

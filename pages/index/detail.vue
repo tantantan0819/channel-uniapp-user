@@ -4,7 +4,7 @@
 			<view class="con">
 				<view class="top cs">
 					<text>{{product.name}}</text>
-					<text>点赞 {{product.praiseNum}}</text>
+					<text @click="thumbs">点赞 {{product.praiseNum}}</text>
 				</view>
 				<text class="detail_con" v-html="product.content"></text>
 			</view>
@@ -26,27 +26,47 @@
 		<view class="write cc" @click="write">
 			<image src="../../static/image/open.png" mode=""></image>
 		</view>
+		
+		<uni-popup ref="showtip" :type="type" :mask-click="false">
+			<view class="uni-tip">
+				<text class="uni-tip-content">{{msg}}</text>
+				<view class="uni-tip-group-button">
+					<text class="uni-tip-button" @click="cancel">取消</text>
+					<text class="uni-tip-button" @click="sure">确定</text>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+	import uniPopup from '@/components/uni-popup/uni-popup.vue'
 	export default {
+		components: {
+			uniPopup
+		},
 		data() {
 			return {
+				type: 'center',//居中弹出
 				id: '', //产品id
 				product: {}, //产品详情
 				comment: [], //评论列表
+				token: '',//没有token重新登录
+				path: '',//为登录的返回地址
+				msg: '',
 			}
 		},
 		onLoad(options) {
 			if (options.id) {
 				this.id = options.id;
 				this.getDetail();
-				this.getComment();
 			}
+			this.path = window.location.url;
 		},
 		onShow() {
 			this.getComment();
+			this.getDetail();
+			this.token = uni.getStorageSync('token');
 		},
 		methods: {
 			//获取产品详情
@@ -55,11 +75,6 @@
 					id: this.id
 				}).then(res => {
 					this.product = res.data;
-				}).catch(error => {
-					uni.showToast({
-						title: error,
-						icon: 'none'
-					});
 				})
 			},
 			//获取评论
@@ -79,15 +94,52 @@
 			},
 			//投诉
 			complaint() {
-				uni.navigateTo({
-					url: '/pages/index/complaint'
-				})
+				if(!this.token){
+					this.msg = '登录后才能进行投诉，是否立即去登录？'
+					this.$refs['showtip'].open();
+				}else{
+					uni.navigateTo({
+						url: '/pages/index/complaint?id='+this.id
+					})
+				}
+			
 			},
 			//写评论
 			write() {
+				if(!this.token){
+					this.msg = '登录后才能进行评论，是否立即去登录？'
+					this.$refs['showtip'].open();
+				}else{
+					uni.navigateTo({
+						url: '/pages/index/write?id='+this.id
+					})
+				}
+			},
+			//取消登录
+			cancel() {
+				this.$refs['showtip'].close();
+			},
+			//确定登录
+			sure(){
+				this.$refs['showtip'].close();
 				uni.navigateTo({
-					url: '/pages/index/write'
+					url: '/pages/login/login?url='+this.path
 				})
+			},
+			//点赞
+			thumbs(){
+				if(!this.token){
+					this.msg = '登录后才能进行评论，是否立即去登录？'
+					this.$refs['showtip'].open();
+				}else{
+					this.$post('/product/praise',{id:this.id}).then(re=>{
+						uni.showToast({
+							title: '点赞成功！',
+							icon: 'none'
+						});
+						this.getDetail();
+					})
+				}
 			}
 		}
 	}
@@ -203,4 +255,164 @@
 			}
 		}
 	}
+	/* 头条小程序组件内不能引入字体 */
+		/* #ifdef MP-TOUTIAO */
+		@font-face {
+			font-family: uniicons;
+			font-weight: normal;
+			font-style: normal;
+			src: url('~@/static/uni.ttf') format('truetype');
+		}
+	
+		/* #endif */
+	
+		/* #ifndef APP-NVUE */
+		page {
+			display: flex;
+			flex-direction: column;
+			box-sizing: border-box;
+			background-color: #efeff4;
+			min-height: 100%;
+			height: auto;
+		}
+	
+		view {
+			font-size: 14px;
+			line-height: inherit;
+		}
+	
+		.example {
+			padding: 0 15px 15px;
+		}
+	
+		.example-info {
+			padding: 15px;
+			color: #3b4144;
+			background: #ffffff;
+		}
+	
+		.example-body {
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center;
+			padding: 0;
+			font-size: 14px;
+			background-color: #ffffff;
+		}
+	
+		/* #endif */
+		.example {
+			padding: 0 15px;
+		}
+	
+		.example-info {
+			/* #ifndef APP-NVUE */
+			display: block;
+			/* #endif */
+			padding: 15px;
+			color: #3b4144;
+			background-color: #ffffff;
+			font-size: 14px;
+			line-height: 20px;
+		}
+	
+		.example-info-text {
+			font-size: 14px;
+			line-height: 20px;
+			color: #3b4144;
+		}
+	
+	
+		.example-body {
+			flex-direction: column;
+			padding: 15px;
+			background-color: #ffffff;
+		}
+	
+		.word-btn-white {
+			font-size: 18px;
+			color: #FFFFFF;
+		}
+	
+		.word-btn {
+			/* #ifndef APP-NVUE */
+			display: flex;
+			/* #endif */
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			border-radius: 6px;
+			height: 48px;
+			margin: 15px;
+			background-color: #007AFF;
+		}
+	
+		.word-btn--hover {
+			background-color: #4ca2ff;
+		}
+	
+	
+		.example-body {
+			/* #ifndef APP-NVUE */
+			display: block;
+			/* #endif */
+			padding: 5px 15px;
+		}
+	
+		.button {
+			flex: 1;
+			margin: 10px 0;
+		}
+	
+		.popup-content {
+			/* #ifndef APP-NVUE */
+			display: block;
+			/* #endif */
+			background-color: #fff;
+			padding: 15px;
+			font-size: 14px;
+		}
+	
+		/* 提示窗口 */
+		.uni-tip {
+			/* #ifndef APP-NVUE */
+			display: flex;
+			flex-direction: column;
+			/* #endif */
+			padding: 15px;
+			width: 300px;
+			background-color: #fff;
+			border-radius: 10px;
+		}
+	
+		.uni-tip-title {
+			margin-bottom: 10px;
+			text-align: center;
+			font-weight: bold;
+			font-size: 16px;
+			color: #333;
+		}
+	
+		.uni-tip-content {
+			/* padding: 15px;
+	*/
+			font-size: 14px;
+			color: #666;
+		}
+	
+		.uni-tip-group-button {
+			/* #ifndef APP-NVUE */
+			display: flex;
+			/* #endif */
+			flex-direction: row;
+			margin-top: 20px;
+		}
+	
+		.uni-tip-button {
+			flex: 1;
+			text-align: center;
+			font-size: 14px;
+			color: #3b4144;
+		}
+	
 </style>

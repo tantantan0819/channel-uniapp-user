@@ -15,7 +15,7 @@
 		</view>
 		<text class="reason_title">描述详细理由</text>
 		<view class="uni-textarea mt30">
-			<textarea maxlength="1000" auto-height placeholder-style="color:#999" placeholder="详细理由..."/>
+			<textarea maxlength="1000" auto-height placeholder-style="color:#999" placeholder="详细理由..." v-model="parms.content"/>
 		</view>
 		<view class="login_wrp cc">
 			<view class="login_btn cc" >
@@ -55,21 +55,59 @@
 					},
 				],
 				reasonId: 0,
+				parms: {
+					type: '',//投诉理由中文字符
+					content:'',//content
+					spuId: ''//产品id
+					
+				}
 			}
+		},
+		onLoad(options) {
+			if(options.id){
+				this.parms.spuId = options.id;
+			}
+		},
+		mounted() {
+			this.parms.type = this.reason[0].name
 		},
 		methods: {
 			reaChange: function(evt) {
 				for (let i = 0; i < this.reason.length; i++) {
 					if (this.reason[i].value === evt.target.value) {
 						this.reasonId = i;
+						this.parms.type = this.reason[i].name;
 						break;
 					}
 				}
 			},
 			submit(){
-				uni.navigateBack({
-					delta: 1
-				});
+				if(!this.parms.type){
+					uni.showToast({
+						title: '请选择您的投诉理由',
+						icon: 'none'
+					});
+					return false;
+				}
+				if(!this.parms.content){
+					uni.showToast({
+						title: '请填写您的详细投诉理由',
+						icon: 'none'
+					});
+					return false;
+				}
+				this.$post('/product/complain',this.parms).then(res=>{
+					uni.showToast({
+						title: '已成功进行投诉',
+						icon: 'none'
+					});
+					setTimeout(()=> {
+						uni.navigateBack({
+							delta: 1
+						});
+					}, 600)
+				})
+				
 			}
 		}
 	}

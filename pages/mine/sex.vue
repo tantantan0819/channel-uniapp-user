@@ -1,7 +1,7 @@
 <template>
 	<view class="sex">
-		<view class="item ct" v-bind:class="{ active: item == select }" v-for="(item,index) in sex" :key="index" @click="selectSex(item)">
-		  {{item}}
+		<view class="item ct" v-bind:class="{ active: item.value == select }" v-for="(item,index) in sex" :key="index" @click="selectSex(item)">
+		  {{item.text}}
 		</view>
 	</view>
 </template>
@@ -10,18 +10,46 @@
 	export default {
 		data() {
 			return {
-				select: '男',
-				sex:['男','女']
+				select: '',
+				sex: [
+					{
+						text: '男',
+						value: '1'
+					},
+					{
+						text: '女',
+						value: '2'
+					}
+				],
+				type: 2, //1-头像，2-性别，3-昵称，4-地区
 			}
 		},
 		onNavigationBarButtonTap:function(e){
-		         uni.navigateBack({
-		         	delta: 1
-		         });
+		     if(!this.select){
+				 uni.showToast({
+				 	title: '请选择您的性别',
+				 	icon: 'none'
+				 });
+			 }else{
+				 this.$post('/changeInfo', {
+				 	type: this.type,
+				 	content: this.select,
+				 }).then(res => {
+				 	uni.showToast({
+				 		title: '保存成功',
+				 		icon: 'none'
+				 	});
+				 	setTimeout(function() {
+				 		uni.redirectTo({
+				 			url:'/pages/mine/info'
+				 		});
+				 	}, 600)
+				 })
+			 }
 		},
 		methods: {
 			selectSex(sex){
-				this.select = sex;
+				this.select = sex.value;
 			}
 		}
 	}

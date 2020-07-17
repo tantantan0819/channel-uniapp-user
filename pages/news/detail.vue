@@ -1,11 +1,8 @@
 <template>
 	<view class="news_detail wrp ">
-		<text class="title">新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题</text>
-		<text class="time">2020/5/26 12:56</text>
-		<image src="../../static/image/news_detail.png" mode=""></image>
-		<text class="con">正文内容正文内容正文内容正文内容正文内容正文内容正文 内容正文内容正文内容正文内容正文内容正文内容正文内容 正文内容正文内容正文内容正文内容正文内容</text>
-		<image src="../../static/image/news_detail.png" mode=""></image>
-		<text class="con">正文内容正文内容正文内容正文内容正文内容正文内容正文 内容正文内容正文内容正文内容正文内容正文内容正文内容 正文内容正文内容正文内容正文内容正文内容</text>
+		<text class="title">{{title}}</text>
+		<text class="time">{{createdTime}}</text>
+		<view class="con" v-html="content"></view>
 	</view>
 </template>
 
@@ -13,16 +10,27 @@
 	export default {
 		data() {
 			return {
-				
+				id: '',
+				title: '',
+				createdTime: '',
+				content: '',
 			}
 		},
 		onLoad(options) {
 			uni.setNavigationBarTitle({
 			    title: options.title
 			});
+			this.id = options.id;
+			this.getDetail();
 		},
 		methods: {
-			
+			getDetail(){
+				this.$post('/article/view',{id:this.id}).then(res=>{
+					this.createdTime = res.createdTime;
+					this.title = res.title;
+					this.content = res.content;
+				})
+			}
 		}
 	}
 </script>
@@ -48,6 +56,7 @@
 		.con{
 			font-size:26upx;
 			color:rgba(51,51,51,1);
+			padding: 20upx 0;
 		}
 		
 	}

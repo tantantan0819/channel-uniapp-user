@@ -1,13 +1,10 @@
 <template>
 	<view class="login wrp">
-		<view class="logo cc">
-			<image src="../../../static/image/logo.png" mode=""></image>
-			<image src="../../../static/image/login_text.png" mode=""></image>
-		</view>
+		<v-login></v-login>
 		<view class="login_form">
 			<view class="login_item ct">
 				<text>手机号</text>
-				<input class="uni-input" focus placeholder="请输入手机号" v-model="mobile" />
+				<input class="uni-input" focus placeholder="请输入手机号" v-model.number="mobile" />
 			</view>
 			<view class="login_item ct code_box">
 				<text>验证码</text>
@@ -44,11 +41,6 @@
 				this.$post('/getIdentifyingCode',{mobile:this.mobile}).then(res=>{
 					uni.showToast({
 						title: '发送成功',
-						icon: 'none'
-					});
-				}).catch(error=>{
-					uni.showToast({
-						title: error,
 						icon: 'none'
 					});
 				})

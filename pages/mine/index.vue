@@ -3,12 +3,12 @@
 		<view class="mine_top">
 			<image src="../../static/image/mine_bg.png" mode="" class="mine_bg"></image>
 			<view class="user_info ct">
-				<image src="../../static/image/atavar.png" mode=""></image>
-				<text>用户昵称,哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</text>
+				<image :src="headurl" mode=""></image>
+				<text>{{nickname}}</text>
 			</view>
 		</view>
 		<view class="line-up">
-			<view class="line-item mt20" v-for="(item,index) in mine" :key="index" @click="link(item.link)">
+			<view class="line-item mt20" v-for="(item,index) in mine" :key="index" @click="link(item.link,item.name)">
 				<view class="line_left">
 					<view class="line-img info">
 						<image :src="item.icon" mode=""></image>
@@ -28,6 +28,8 @@
 	export default {
 		data() {
 			return {
+				headurl: '',//头像
+				nickname:'',//昵称
 				mine:[
 					{   
 						link: '/pages/mine/info',
@@ -46,15 +48,24 @@
 						icon: '../../static/image/mine_icon3.png'
 					},
 					{
-						link: '/pages/index/login/login',
+						link: '/pages/login/login',
 						name: '安全退出',
 						icon: '../../static/image/mine_icon4.png'
 					},
 				]
 			}
 		},
+		
+		onShow() {
+			this.headurl = uni.getStorageSync('headurl');
+			this.nickname = uni.getStorageSync('nickname');
+		},
 		methods: {
-			link(url){
+		
+			link(url,name){
+				if(name=="安全退出"){
+					uni.clearStorageSync();
+				}
 				uni.navigateTo({
 					 url: url
 				})

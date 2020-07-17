@@ -5,10 +5,8 @@
 			<text class="cc" @click="getList">搜索</text>
 		</view>
 		<view class="condition cs">
-			<view class="item ct">
-				<picker @change="bindPickerChange" :value="areaValue" :range="array">
-					<text class="font">地区：请选择</text>
-				</picker>
+			<view class="item ct" @click="popup_bottom">
+				<text class="font">地区：{{area}}</text>
 			</view>
 			<view class="item ct">
 				<picker @change="interestChange" :value="interestValue" :range="interest">
@@ -21,11 +19,11 @@
 				</picker>
 			</view>
 			<view class="item ct">
-				<text class="font">最近查看</text>
+				<text class="font" @click="lastView">最近查看</text>
 			</view>
 		</view>
 		<view class="hot_item mb30" v-for="(item,index) in list" :key="index">
-			<view class="hot_top" @click="detail">
+			<view class="hot_top"  @click="detail(item.id)">
 				<view class="ct cs">
 					<text>{{item.name}}</text>
 					<text>产品类型：{{item.typeName}}</text>
@@ -40,6 +38,8 @@
 				<text class="cc" @click="apply">立即申请</text>
 			</view>
 		</view>
+		<v-city ref="linkAddress" :height="height" @confirmCallback="confirmCallback()"></v-city>
+		<view class="no_data font-24 f-gray cc" v-if="list.length<1">暂无数据……</view>
 	</view>
 </template>
 
@@ -47,11 +47,13 @@
 	export default {
 		data() {
 			return {
+				height: '500px',
+				area: '请选择', //选择地区
 				list: [], //产品列表
 				params: {
 					typeId: -1, //类型id，全部传-1
 					keywords: '', //查询关键词,不筛选传空字符串
-					cityp: '金牛区', //地址，不筛选传空字符串
+					city: '', //地址，不筛选传空字符串
 					accrualSort: true, //true-按照利息降序排序
 					amountSort: true, //true-按照额度降序排序
 					page: 1, //页数
@@ -67,24 +69,21 @@
 		},
 		onLoad(options) {
 			//设置导航栏
-			let title = options.title ? options.title : '产品列表'
+			let title = options.title ? options.title : '产品列表';
+			this.params.keywords = options.keywords;
 			uni.setNavigationBarTitle({
 				title: title
 			});
 			//获取产品列表
 			this.getList();
 		},
+
 		methods: {
 			//获取产品列表
 			getList() {
 				this.$post('/product/getSpuList', this.params).then(res => {
 					this.list = res.list;
-					console.log(res.list,'产品列表')
-				}).catch(error => {
-					uni.showToast({
-						title: error,
-						icon: 'none'
-					});
+					console.log(res.list, '产品列表')
 				})
 			},
 			bindPickerChange: function(e) {
@@ -101,6 +100,7 @@
 				this.quotaValue == 0 ? this.params.amountSort = true : this.params.amountSort = false;
 				this.getList();
 			},
+			//立即联系
 			customer() {
 				uni.navigateTo({
 					url: '/pages/index/customer'
@@ -111,10 +111,32 @@
 					url: '/pages/service/credit?title=' + '贷款申请'
 				})
 			},
-			detail() {
+			//查看产品详情
+			detail(id) {
 				uni.navigateTo({
-					url: '/pages/index/detail'
+					url: '/pages/index/detail?id='+id
 				})
+			},
+			//确认选择地区
+			confirmCallback: function(e) {
+				let cityArr = uni.getStorageSync('city').split('-')
+				this.area = cityArr[cityArr.length - 1];
+				this.params.city = this.area;
+				this.getList();
+			},
+			//点击弹出弹窗
+			popup_bottom: function() {
+				this.height = '550rpx';
+				//显示
+				this.show_popup();
+			},
+			//显示弹窗
+			show_popup: function() {
+				this.$refs.linkAddress.show();
+			},
+			//最近查看
+			lastView() {
+				
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 <template>
 	<view class="home">
 		<view class="login ct" @click="login">
-			<view class="avatar" v-if="!isLogin">
+			<view class="avatar" v-if="!isLogin || isLogin && !headurl">
 				<image src="../../static/image/home_head.png" mode=""></image>
 			</view>
 			<view class="avatar" v-else>
@@ -25,7 +25,7 @@
 						<text>产品类型：{{item.typeName}}</text>
 					</view>
 					<view class="ct cs mt6">
-						<text>最低月利率：<text>{{itme.accrual}}</text></text>
+						<text>最低月利率：<text>{{item.accrual}}</text></text>
 						<text>最高额度：<text>{{item.amount}}</text></text>
 					</view>
 				</view>
@@ -50,7 +50,6 @@
 				</view>
 			</view>
 		</view>
-		<v-tab></v-tab>
 		<v-contact></v-contact>
 	</view>
 </template>
@@ -61,7 +60,7 @@
 			return {
 				isLogin: false,//是否已登录
 				isMore: false,//点击收起--查看更多
-				hotNum: 1, //热门推荐默认展示几条
+				hotNum: 4, //热门推荐默认展示几条
 				headurl: '', //用户头像
 				nickname: '', //用户昵称
 				list: '',//产品列表
@@ -95,14 +94,16 @@
 				]
 			}
 		},
-		onShow(options) {
+		onShow() {
 			let _this = this;
-			_this.isLogin = _this.$store.state.isLogin;
+			_this.isLogin = uni.getStorageSync('isLogin');
 			_this.$get('/main/list').then(res=>{
 				_this.headurl = res.headurl;
 				_this.nickname = res.nickname;
 				_this.list = res.list;
 				_this.showList = res.list.slice(0,_this.hotNum);
+				uni.setStorageSync('headurl', _this.headurl);
+				uni.setStorageSync('nickname', _this.nickname);
 			})
 		},
 		methods: {
@@ -116,7 +117,6 @@
 			more() {
 				this.isMore = !this.isMore;
 				this.isMore ? this.showList = this.list:this.showList = this.list.slice(0,this.hotNum)
-				console.log(this.isMore)
 			},
 			//点击头部信息
 			login() {
@@ -126,7 +126,7 @@
 					});
 				} else {
 					uni.navigateTo({
-						url: '/pages/index/login/login'
+						url: '/pages/login/login'
 					})
 				}
 			},
