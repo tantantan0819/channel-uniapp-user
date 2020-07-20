@@ -10,9 +10,14 @@
 	export default {
 		data() {
 			return {
+				user:'',
 				nickname: '',
 				type: 3, //1-头像，2-性别，3-昵称，4-地区
 			}
+		},
+		onShow(){
+			this.user = uni.getStorageSync('user');
+			this.nickname = this.user.nickname;
 		},
 		onNavigationBarButtonTap: function(e) {
 			if(!this.nickname){
@@ -25,6 +30,8 @@
 					type: this.type,
 					content: this.nickname
 				}).then(res => {
+					this.user.nickname = this.nickname;
+					uni.setStorageSync('user', this.user);
 					uni.showToast({
 						title: '保存成功',
 						icon: 'none'
@@ -39,7 +46,7 @@
 			
 		},
 		methods: {
-
+			
 		}
 	}
 </script>

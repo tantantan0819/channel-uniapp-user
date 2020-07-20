@@ -34,48 +34,56 @@
 				type: 4, //1-头像，2-性别，3-昵称，4-地区
 				height: '500px',
 				area:'',
-				mine: [{
+				mine:[
+					{   
 						link: '/pages/mine/nickname',
 						name: '昵称',
-						text: '吴亦凡'
+						text: ''
 					},
 					{
 						link: '/pages/mine/sex',
 						name: '性别',
-						text: '男'
+						text: ''
 					},
-				]
+				],
+				user:{}
 			}
 		},
-		onNavigationBarButtonTap: function(e) {
-			if(this.area){
-				this.$post('/changeInfo', {
-					type: this.type,
-					provinceId: this.provinceId,
-					cityId: this.cityId,
-					areaId:this.areaId
-				}).then(res => {
-					uni.showToast({
-						title: '保存成功',
-						icon: 'none'
-					});
-					setTimeout(function() {
-						uni.switchTab({
-							url:'/pages/mine/index'
-						})
-					}, 600)
-				})
-			}else{
+		onShow(){
+			this.user = uni.getStorageSync('user');
+			this.mine[0].text = this.user.nickname;
+			this.user.gender == 1 ? this.mine[1].text = '男' : this.mine[1].text = '女';
+			this.area = this.user.address;
+		},
+	onNavigationBarButtonTap: function(e) {
+		if(this.area){
+			this.$post('/changeInfo', {
+				type: this.type,
+				provinceId: this.provinceId,
+				cityId: this.cityId,
+				areaId:this.areaId
+			}).then(res => {
 				uni.showToast({
-					title: '请选择您的地址',
+					title: '保存成功',
 					icon: 'none'
 				});
-			}
-		},
+				setTimeout(function() {
+					uni.switchTab({
+						url:'/pages/mine/index'
+					})
+				}, 600)
+			})
+		}else{
+			uni.showToast({
+				title: '请选择您的地址',
+				icon: 'none'
+			});
+		}
+	},
 		methods: {
-			link(url) {
+			link(url){
 				uni.navigateTo({
-					url: url
+					 url: url
 				})
 			},
 			//点击弹出弹窗

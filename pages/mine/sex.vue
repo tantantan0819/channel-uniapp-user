@@ -10,6 +10,7 @@
 	export default {
 		data() {
 			return {
+				user: '',
 				select: '',
 				sex: [
 					{
@@ -24,6 +25,10 @@
 				type: 2, //1-头像，2-性别，3-昵称，4-地区
 			}
 		},
+		onShow(){
+			this.user = uni.getStorageSync('user');
+			this.select = this.user.gender;
+		},
 		onNavigationBarButtonTap:function(e){
 		     if(!this.select){
 				 uni.showToast({
@@ -35,6 +40,8 @@
 				 	type: this.type,
 				 	content: this.select,
 				 }).then(res => {
+					this.user.gender = this.select;
+					uni.setStorageSync('user', this.user);
 				 	uni.showToast({
 				 		title: '保存成功',
 				 		icon: 'none'

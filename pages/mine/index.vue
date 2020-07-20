@@ -3,8 +3,8 @@
 		<view class="mine_top">
 			<image src="../../static/image/mine_bg.png" mode="" class="mine_bg"></image>
 			<view class="user_info ct">
-				<image :src="headurl" mode=""></image>
-				<text>{{nickname}}</text>
+				<image :src="user.headurl" mode=""></image>
+				<text>{{user.nickname}}</text>
 			</view>
 		</view>
 		<view class="line-up">
@@ -28,6 +28,7 @@
 	export default {
 		data() {
 			return {
+				user: {},
 				headurl: '',//头像
 				nickname:'',//昵称
 				mine:[
@@ -44,7 +45,7 @@
 					{   
 						link: '/pages/mine/phone',
 						name: '手机号',
-						text: '18381007234',
+						text: '',
 						icon: '../../static/image/mine_icon3.png'
 					},
 					{
@@ -57,11 +58,13 @@
 		},
 		
 		onShow() {
-			this.headurl = uni.getStorageSync('headurl');
-			this.nickname = uni.getStorageSync('nickname');
+			this.$post('/getInfo').then(res=>{
+				this.user = res;
+				this.mine[2].text = res.mobile;
+				uni.setStorageSync('user', res);
+			})
 		},
 		methods: {
-		
 			link(url,name){
 				if(name=="安全退出"){
 					uni.clearStorageSync();
