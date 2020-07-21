@@ -1,11 +1,11 @@
 <template>
 	<view class="news wrp">
-		<view class="item mt30 ct" v-for="(item,index) in 6" :key="index" @click="link(index)">
+		<view class="item mt30 ct" v-for="(item,index) in list" :key="index" @click="link(item)">
 			<view class="info ct">
-				<text class="title">新闻标题新闻标题新闻标 题新闻标题新闻标题</text>
-				<text class="time">2020/5/26 12:56</text>
+				<text class="title">{{item.title}}</text>
+				<text class="time">{{item.createdTime}}</text>
 			</view>
-			<image src="../../static/image/news.png" mode=""></image>
+			<image :src="item.imgUrl" mode=""></image>
 		</view>
 	</view>
 </template>
@@ -14,13 +14,23 @@
 	export default {
 		data() {
 			return {
-				
+				list: [],
+				page: 1,
+				pageSize: 10,
+				total: null
 			}
 		},
+		mounted() {
+			this.$post('/article/list',{page:this.page,pageSize:this.pageSize}).then(res=>{
+				console.log(res,'res--')
+				this.list = res.data.rows;
+				this.total = res.data.total;
+			})
+		},
 		methods: {
-			link(index){
+			link(item){
 				uni.navigateTo({
-					url:"/pages/news/detail?title="+'新闻标题'+index
+					url:"/pages/news/detail?id="+item.id+'&&title='+item.title
 				})
 			}
 		}

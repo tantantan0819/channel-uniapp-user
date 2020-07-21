@@ -13,13 +13,22 @@
 	export default {
 		data() {
 			return {
-				
+				id: ''
 			}
 		},
 		onLoad(options) {
-			uni.setNavigationBarTitle({
-			    title: options.title
-			});
+			if(options.id){
+				this.id = options.id
+				uni.setNavigationBarTitle({
+				    title: options.title
+				});
+			}
+		
+		},
+		mounted() {
+			this.$post('/article/view',{id:this.id}).then(res=>{
+				console.log(res)
+			})
 		},
 		methods: {
 			
