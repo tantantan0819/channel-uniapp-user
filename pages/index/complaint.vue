@@ -4,9 +4,9 @@
 			<view class="item ct mt40">
 				<text class="title">选择投诉理由</text>
 				<radio-group @change="reaChange" class="cs">
-					<label class="uni-list-cell uni-list-cell-pd ct" v-for="(item, index) in reason" :key="item.value">
+					<label class="uni-list-cell uni-list-cell-pd ct" v-for="(item, index) in reason" :key="item.id">
 						<view>
-							<radio :value="item.value" :checked="index === reasonId" />
+							<radio :value="item.id" :checked="item.id === reasonId" />
 						</view>
 						<view>{{item.name}}</view>
 					</label>
@@ -29,31 +29,7 @@
 	export default {
 		data() {
 			return {
-				reason: [{
-						value: '0',
-						name: '理由1'
-					},
-					{
-						value: '1',
-						name: '理由2',
-					},
-					{
-						value: '2',
-						name: '理由3',
-					},
-					{
-						value: '3',
-						name: '理由4',
-					},
-					{
-						value: '4',
-						name: '理由5',
-					},
-					{
-						value: '5',
-						name: '理由6',
-					},
-				],
+				reason: [],
 				reasonId: 0,
 				parms: {
 					type: '',//投诉理由中文字符
@@ -67,20 +43,31 @@
 			if(options.id){
 				this.parms.spuId = options.id;
 			}
+			this.getReason();
 		},
-		mounted() {
-			this.parms.type = this.reason[0].name
-		},
+		
 		methods: {
 			reaChange: function(evt) {
 				for (let i = 0; i < this.reason.length; i++) {
-					if (this.reason[i].value === evt.target.value) {
-						this.reasonId = i;
+					if (this.reason[i].id === evt.target.id) {
+						this.reasonId = his.reason[i].idsss;
 						this.parms.type = this.reason[i].name;
 						break;
 					}
 				}
 			},
+			//获取投诉理由
+			getReason(){
+				this.$get('/product/complainTypeList').then(res=>{
+					this.reason = res.list;
+					this.reason.map(item=>{
+						item.id = item.id.toString();
+					})
+					this.parms.type = this.reason[0].name;
+					this.reasonId = this.reason[0].id;
+				})
+			},
+			//提交投诉
 			submit(){
 				if(!this.parms.type){
 					uni.showToast({

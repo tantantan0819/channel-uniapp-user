@@ -15,7 +15,7 @@
 			<text>热门搜索</text>
 		</view>
 		<view class="search_box">
-			<text @click="linkList(item)" v-for="(item,index) in 6" :key="index">热门搜索内容呃呃呃1</text>
+			<text @click="detail(item.id)" v-for="(item,index) in hotList" :key="index">{{item.name}}1</text>
 		</view>
 	</view>
 </template>
@@ -27,7 +27,13 @@
 				keywords: '', //搜索关键字
 				historyList: [],//默认6个
 				sortLen: 10,//历史保存记录长度
+				hotList: [],//热门搜索
 			}
+		},
+		onLoad() {
+			this.$get('/main/getSearch').then(res=>{
+				this.hotList = res.hot;
+			})
 		},
 		onShow() {
 			this.getHistory();
@@ -63,7 +69,13 @@
 				console.log('000')
 				uni.removeStorageSync('history');
 				this.getHistory();
-			}
+			},
+			//查看产品详情
+			detail(id) {
+				uni.navigateTo({
+					url: '/pages/index/detail?id='+id
+				})
+			},
 		}
 	}
 </script>

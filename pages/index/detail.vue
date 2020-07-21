@@ -54,6 +54,8 @@
 				token: '',//没有token重新登录
 				path: '',//为登录的返回地址
 				msg: '',
+				page: 1,//获取评论页数
+				pageSize: 10,//获取评论条数
 			}
 		},
 		onLoad(options) {
@@ -81,8 +83,8 @@
 			getComment() {
 				this.$post('/product/commentList', {
 					id: this.id,
-					page: 1,
-					pageSize: 1
+					page: this.page,
+					pageSize: this.pageSize
 				}).then(res => {
 					this.comment = res.data.rows;
 				}).catch(error => {
@@ -170,6 +172,7 @@
 		margin-top: 26upx;
 
 		.item {
+			margin-bottom: 20upx;
 			image {
 				width: 80upx;
 				height: 80upx;

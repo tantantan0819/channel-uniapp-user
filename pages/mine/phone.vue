@@ -1,7 +1,6 @@
 <template>
 	<view class="login">
 		<view class="form wrp login_form">
-			
 			<view class="item ct mt30">
 				<text>手机号</text>
 				<input class="uni-input" placeholder="请输入手机号" v-model="params.mobile"/>

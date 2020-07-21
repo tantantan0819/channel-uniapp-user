@@ -127,7 +127,16 @@
 				          
 			}
 		},
+		onLoad() {
+			this.getPhone();
+		},
 		methods: {
+			//获取官方客服电话
+			getPhone(){
+				this.$get('/getRegisterMobile').then(res=>{
+					console.log(res,'----')
+				})
+			},
 			cancel(){
 				this.$refs.popup.close()
 			},

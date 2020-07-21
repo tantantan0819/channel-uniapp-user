@@ -1,18 +1,18 @@
 <template>
 	<view class="share">
 		<view class="top ct">
-			<image src="../../static/image/atavar.png" mode="" class="avatar"></image>
+			<image :src="user.headurl" mode="" class="avatar"></image>
 			<view class="info">
 				<view class="name ct">
-					<text>用户昵称</text>
+					<text>{{user.nickname}}</text>
 					<image src="../../static/image/male.png" mode="" v-if="true"></image>
 					<image src="../../static/image/female.png" mode="" v-else></image>
 				</view>
-				<text class="address">四川 成都</text>
+				<text class="address">{{user.addr}}</text>
 			</view>
 		</view>
 		<view class="con cc">
-			<image src="../../static/image/share.png" mode=""></image>
+			<image :src="user.qrcode" mode=""></image>
 		</view>
 		<view class="tip mt40 cc">扫描二维码，注册成为渠道宝典用户</view>
 	</view>
@@ -22,7 +22,9 @@
 	export default {
 		data() {
 			return {
-				
+				user:{
+					
+				}
 			}
 		},
 		onNavigationBarButtonTap:function(e){
@@ -30,8 +32,15 @@
 		         	url: '/pages/service/record'
 		         });
 		},
+		onLoad() {
+			this.getInfo();
+		},
 		methods: {
-			
+			getInfo(){
+				this.$get('/getShareInfo').then(res=>{
+					this.user = res;
+				})
+			}
 		}
 	}
 </script>

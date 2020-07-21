@@ -82,8 +82,8 @@
 			//获取产品列表
 			getList() {
 				this.$post('/product/getSpuList', this.params).then(res => {
-					this.list = res.list;
-					console.log(res.list, '产品列表')
+					this.list = res.data.rows;
+					console.log(res)
 				})
 			},
 			bindPickerChange: function(e) {
