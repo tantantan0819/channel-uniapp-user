@@ -60,6 +60,14 @@
 				]
 			}
 		},
+		onLoad() {
+			this.$post('/product/getInfoTypeList').then(res=>{
+				console.log(res,'apply')
+			})
+			this.$post('/product/getInfo').then(res=>{
+				console.log(res,'填写资料项')
+			})
+		},
 		methods: {
 			link(url){
 				uni.navigateTo({

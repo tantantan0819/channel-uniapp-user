@@ -1,6 +1,14 @@
 <template>
 	<view class="login">
-		<view class="realname fail">
+		<view class="realname fail" v-if="status==0">
+			<image src="../../static/image/realname_fail.png" mode=""></image>
+			<text>未认证，请重新填写</text>
+		</view>
+		<view class="realname " v-else-if="status==1">
+			<image src="../../static/image/realname_success.png" mode=""></image>
+			<text>认证成功</text>
+		</view>
+		<view class="realname fail" v-else>
 			<image src="../../static/image/realname_fail.png" mode=""></image>
 			<text>认证失败，请重新填写</text>
 		</view>
@@ -18,8 +26,13 @@
 	export default {
 		data() {
 			return {
-				
+				status: null,//审核状态，0-未认证，1-已认证，2-认证失败
 			}
+		},
+		onLoad() {
+			this.$get('/getAuthStatus').then(res=>{
+				this.status = res.status;
+			})
 		},
 		methods: {
 			back(){
@@ -41,6 +54,10 @@
 			font-size:30upx;
 			padding: 60upx 0 150upx 0;
 		}
+		image{
+			width: 230upx;
+			height: 166upx;
+		}
 	}
 	.success{
 		text{
@@ -48,10 +65,7 @@
 		}
 	}
 	.fail{
-		image{
-			width: 230upx;
-			height: 166upx;
-		}
+	
 		text{
 			color:rgba(230,0,18,1);
 		}

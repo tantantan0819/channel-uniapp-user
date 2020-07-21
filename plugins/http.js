@@ -1,5 +1,5 @@
-import Config from './config.js'
-
+import Config from './config.js';
+import Store from '../store/index.js'
 const http = {
 	/**
 	 * 检测网络状态
@@ -80,6 +80,10 @@ const http = {
 		var header = {
 			"content-type": "application/json",
 		}
+		let token = uni.getStorageSync('token');
+		if(token){
+			header.token = token;
+		}
 		let data = JSON.stringify(cfg.data)
 		var res = await uni.request({
 			url: cfg.url,
@@ -89,10 +93,18 @@ const http = {
 			responseType: 'text',
 			header: header
 		})
+		//未登录跳转登录页面
+		if(res.msg == ''){
+			console.log('000')
+		}
 		return new Promise((resolve,reject)=>{
 			if(res[1].data.code == 0){
 				resolve(res[1].data)
 			}else{
+				uni.showToast({
+					title: res[1].data.message,
+					icon: 'none'
+				});
 				reject(res[1].data.message)
 			}
 		})

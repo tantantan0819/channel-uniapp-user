@@ -1,6 +1,7 @@
 <template>
 	<view class="news wrp">
-		<view class="item mt30 ct" v-for="(item,index) in list" :key="index" @click="link(item)">
+		<view class="item mt30 ct" v-for="(item,index) in news" :key="index" @click="link(item.id,item.title)">
+
 			<view class="info ct">
 				<text class="title">{{item.title}}</text>
 				<text class="time">{{item.createdTime}}</text>
@@ -14,23 +15,29 @@
 	export default {
 		data() {
 			return {
-				list: [],
-				page: 1,
-				pageSize: 10,
-				total: null
+				params: {
+					page: 1,
+					pageSize: 10,
+				},
+				total: null,//新闻总数
+				news: [],//新闻列表
 			}
 		},
-		mounted() {
-			this.$post('/article/list',{page:this.page,pageSize:this.pageSize}).then(res=>{
-				console.log(res,'res--')
-				this.list = res.data.rows;
-				this.total = res.data.total;
-			})
+		onLoad() {
+			//获取新闻列表
+			this.getNews();
 		},
 		methods: {
-			link(item){
+			link(id,title){
 				uni.navigateTo({
-					url:"/pages/news/detail?id="+item.id+'&&title='+item.title
+					url:"/pages/news/detail?id="+id+'&title='+title
+				})
+			},
+			//获取新闻列表
+			getNews(){
+				this.$post('/article/list',this.params).then(res=>{
+					this.total = res.data.total;
+					this.news = res.data.rows;
 				})
 			}
 		}

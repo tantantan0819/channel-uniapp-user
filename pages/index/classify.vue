@@ -2,16 +2,15 @@
 	<view class="classify">
 		<view class="uni-padding-wrap uni-common-mt">
 			<view>
-				<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
-				@scroll="scroll">
-					<view v-for="(item,index) in nav" :key="index" class="scroll-view-item uni-bg-red cc" :class="{'active':activeIndex == index}" @click="check(index)">{{item}}</view>
+				<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scroll="scroll">
+					<view v-for="(item,index) in list" :key="index" class="scroll-view-item uni-bg-red cc" :class="{'active':activeId == item.id}" @click="check(item)">{{item.name}}</view>
 				</scroll-view>
 			</view>
 		</view>
 		<view class="classify_con">
-			<view class="item" v-for="(item,index) in 20" :key="index" @click="link">
+			<view class="item" v-for="(item,index) in children" :key="index" @click="link">
 				<image src="../../static/image/classify.png" mode=""></image>
-				<text>房屋贷</text>
+				<text>{{item.name}}</text>
 			</view>
 		</view>
 	</view>
@@ -20,30 +19,34 @@
 	export default {
 		data() {
 			return {
-				activeIndex: 0,
-				nav: ['抵押贷款','信用贷款','抵押贷款','信用贷款','抵押贷款','信用贷款','抵押贷款','信用贷款','抵押贷款','信用贷款','抵押贷款','信用贷款','抵押贷款','信用贷款','抵押贷款','信用贷款','抵押贷款','信用贷款','抵押贷款','信用贷款'],
+				activeId: null,
 				scrollTop: 0,
 				old: {
 					scrollTop: 0
-				}
+				},
+				list:[],
+				children: [],
 			}
 		},
 		onLoad(options) {
-			  
+			this.$post('/product/getTypeList').then(res=>{
+				this.list = res.list;
+				console.log(res)
+			    if(res.list.length>0){
+					this.activeId  = res.list[0].id;
+					this.children = res.list[0].children;
+				}
+			})
 		},
 		methods: {
-			upper: function(e) {
-				console.log(e)
-			},
-			lower: function(e) {
-				console.log(e)
-			},
+			
 			scroll: function(e) {
 				// console.log(e)
 				this.old.scrollTop = e.detail.scrollTop
 			},
-			check(index){
-				this.activeIndex = index;
+			check(item){
+				this.activeId = item.id;
+				this.children = item.children;
 			},
 			link(index){
 				uni.navigateTo({

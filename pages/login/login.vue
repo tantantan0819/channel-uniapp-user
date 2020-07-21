@@ -1,13 +1,10 @@
 <template>
 	<view class="login wrp">
-		<view class="logo cc">
-			<image src="../../../static/image/logo.png" mode=""></image>
-			<image src="../../../static/image/login_text.png" mode=""></image>
-		</view>
+		<v-login></v-login>
 		<view class="login_form">
 			<view class="login_item ct">
 				<text>手机号</text>
-				<input class="uni-input" focus placeholder="请输入手机号" v-model="mobile" />
+				<input class="uni-input" focus placeholder="请输入手机号" v-model.number="mobile" />
 			</view>
 			<view class="login_item ct">
 				<text>密码</text>
@@ -25,9 +22,9 @@
 		<text class="login_code cc" @click="code">验证码登录 >></text>
 		<text class="login_quick cc">快捷登录</text>
 		<view class="login_method">
-			<image src="../../../static/image/login_method1.png" mode=""></image>
-			<image src="../../../static/image/login_method2.png" mode=""></image>
-			<image src="../../../static/image/login_method3.png" mode=""></image>
+			<image src="../../static/image/login_method1.png" mode=""></image>
+			<image src="../../static/image/login_method2.png" mode=""></image>
+			<image src="../../static/image/login_method3.png" mode=""></image>
 		</view>
 
 	</view>
@@ -39,15 +36,21 @@
 			return {
 				mobile: '', //手机号
 				password: '', //密码
+				url: '', //内页跳转登录url，登录后立即返回跳转页面
 			}
 		},
+		//立即注册
 		onNavigationBarButtonTap: function(e) {
 			uni.navigateTo({
-				url: '/pages/index/login/register'
+				url: '/pages/login/register'
 			})
+		},
+		onLoad(options) {
+			this.url = options.url;
 		},
 		methods: {
 			login() {
+				let _this = this;
 				if (!this.mobile) {
 					uni.showToast({
 						title: '请输入您的手机号',
@@ -67,33 +70,40 @@
 					password: this.password
 				}).then(res => {
 					if (res.token) {
-						this.$store.commit('SET_LOGIN',true);
+						uni.setStorageSync('isLogin', true);
+						uni.setStorageSync('token', res.token);
 						uni.showToast({
 							title: '登录成功',
 							icon: 'none'
 						});
-						setTimeout(function() {
-							uni.switchTab({
-								url:'/pages/index/index'
-							});
-						}, 600)
+						if (!this.url) {
+							setTimeout(function() {
+								uni.switchTab({
+									url: '/pages/index/index'
+								});
+							}, 600)
+						} else {
+							setTimeout(function() {
+								uni.navigateBack({
+									delta: 1
+								});
+							}, 600)
+						}
+
 					}
 
-				}).catch(error => {
-					uni.showToast({
-						title: error,
-						icon: 'none'
-					});
 				})
 			},
+			//验证码登录
 			code() {
 				uni.navigateTo({
-					url: '/pages/index/login/code'
+					url: '/pages/login/code'
 				})
 			},
+			//忘记密码
 			forget() {
 				uni.navigateTo({
-					url: '/pages/index/login/forget'
+					url: '/pages/login/forget'
 				})
 			}
 		}
@@ -124,7 +134,7 @@
 			display: inline-block;
 			width: 113upx;
 			height: 2upx;
-			background: url(../../../static/image/login_quick2.png);
+			background: url(../../static/image/login_quick2.png);
 			transform: rotate(180deg);
 			position: absolute;
 			top: 20upx;
@@ -136,7 +146,7 @@
 			display: inline-block;
 			width: 113upx;
 			height: 2upx;
-			background: url(../../../static/image/login_quick2.png);
+			background: url(../../static/image/login_quick2.png);
 			position: absolute;
 			top: 20upx;
 			right: 160upx;

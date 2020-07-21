@@ -5,7 +5,7 @@
 			<radio-group @change="sexChange" class="cs">
 				<label class="uni-list-cell uni-list-cell-pd ct" v-for="(item, index) in job" :key="item.value">
 					<view>
-						<radio :value="item.value" :checked="index === sexId" />
+						<radio :value="item.value" :checked="index === jobId" />
 					</view>
 					<view>{{item.name}}</view>
 				</label>

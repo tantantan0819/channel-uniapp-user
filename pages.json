@@ -7,7 +7,7 @@
 			}
 		},
 		{
-			"path": "pages/index/login/login",
+			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "登录",
 				"app-plus": {
@@ -23,19 +23,19 @@
 			}
 		},
 		{
-			"path": "pages/index/login/forget",
+			"path": "pages/login/forget",
 			"style": {
 				"navigationBarTitleText": "找回密码"
 			}
 		},
 		{
-			"path": "pages/index/login/code",
+			"path": "pages/login/code",
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
 		},
 		{
-			"path": "pages/index/login/register",
+			"path": "pages/login/register",
 			"style": {
 				"navigationBarTitleText": "注册"
 			}
