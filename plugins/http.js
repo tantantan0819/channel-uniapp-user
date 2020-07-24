@@ -94,8 +94,17 @@ const http = {
 			header: header
 		})
 		//未登录跳转登录页面
-		if(res.msg == ''){
-			console.log('000')
+		if(res[1].data.message == '用户未登录'){
+			uni.showToast({
+				title: '未登陆，即将跳转登陆页面',
+				icon: 'none'
+			});
+			setTimeout(function() {
+				uni.navigateTo({
+					url: '/pages/login/login'
+				});
+			}, 700);
+			return false;
 		}
 		return new Promise((resolve,reject)=>{
 			if(res[1].data.code == 0){

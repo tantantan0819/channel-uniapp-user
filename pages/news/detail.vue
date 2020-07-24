@@ -10,8 +10,10 @@
 	export default {
 		data() {
 			return {
-<<<<<<< HEAD
-				id: ''
+				id: '',
+				title: '',
+				createdTime: '',
+				content: ''
 			}
 		},
 		onLoad(options) {
@@ -21,26 +23,7 @@
 				    title: options.title
 				});
 			}
-		
-		},
-		mounted() {
-			this.$post('/article/view',{id:this.id}).then(res=>{
-				console.log(res)
-			})
-=======
-				id: '',
-				title: '',
-				createdTime: '',
-				content: '',
-			}
-		},
-		onLoad(options) {
-			uni.setNavigationBarTitle({
-			    title: options.title
-			});
-			this.id = options.id;
-			this.getDetail();
->>>>>>> c2572db9aa475d84de93a82c562aa64c8f73edac
+			this.getDetail(options.id)
 		},
 		methods: {
 			getDetail(){

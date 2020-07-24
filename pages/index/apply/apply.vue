@@ -1,6 +1,6 @@
 <template>
 	<view class="apply">
-		<text class="ap mt30 ct" v-for="(item,index) in apply" :key="index" @click="link(item.link)">{{item.name}}
+		<text class="ap mt30 ct" v-for="(item,index) in apply" :key="index" @click="link(item)">{{item.name}}
 		    <text v-if="item.des">{{item.des}}</text>
 		</text>
 		<view class="login_wrp cc">
@@ -15,63 +15,69 @@
 	export default {
 		data() {
 			return {
+				id: '',//产品id
 				apply:[
-					{
-						name: '请填写用户信息',
-						link:'/pages/index/apply/user',
-						des: '（必填）',
-					},
-					{
-						name: '请填写个人基本信息',
-						link:'/pages/index/apply/basic',
-					},
-					{
-						name: '请填写工作单位信息',
-						link:'/pages/index/apply/unit',
-					},
-					{
-						name: '请填写企业信息',
-						link:'/pages/index/apply/company',
-					},
-					{
-						name: '请填写商业保险信息',
-					    link:'/pages/index/apply/business',
-					},
-					{
-						name: '请填写全款车信息',
-						 link:'/pages/index/apply/full',
-					},
-					{
-						name: '请填写按揭车信息',
-						link:'/pages/index/apply/mortgage',
-					},
-					{
-						name: '请填写全款房信息',
-						link:'/pages/index/apply/full-room',
-					},
-					{
-						name: '请填写按揭房信息',
-						link:'/pages/index/apply/mortgage-room',
-					},
-					{
-						name: '请填写其他信息',
-						link:'/pages/index/apply/other',
-					},
+					// {
+					// 	name: '请填写用户信息',
+					// 	link:'/pages/index/apply/user',
+					// 	des: '（必填）',
+					// },
+					// {
+					// 	name: '请填写个人基本信息',
+					// 	link:'/pages/index/apply/basic',
+					// },
+					// {
+					// 	name: '请填写工作单位信息',
+					// 	link:'/pages/index/apply/unit',
+					// },
+					// {
+					// 	name: '请填写企业信息',
+					// 	link:'/pages/index/apply/company',
+					// },
+					// {
+					// 	name: '请填写商业保险信息',
+					//     link:'/pages/index/apply/business',
+					// },
+					// {
+					// 	name: '请填写全款车信息',
+					// 	 link:'/pages/index/apply/full',
+					// },
+					// {
+					// 	name: '请填写按揭车信息',
+					// 	link:'/pages/index/apply/mortgage',
+					// },
+					// {
+					// 	name: '请填写全款房信息',
+					// 	link:'/pages/index/apply/full-room',
+					// },
+					// {
+					// 	name: '请填写按揭房信息',
+					// 	link:'/pages/index/apply/mortgage-room',
+					// },
+					// {
+					// 	name: '请填写其他信息',
+					// 	link:'/pages/index/apply/other',
+					// },
 				]
 			}
 		},
-		onLoad() {
-			this.$post('/product/getInfoTypeList').then(res=>{
-				console.log(res,'apply')
+		onLoad(options) {
+			if(options.id){
+				this.id = options.id;
+			}
+			this.$post('/product/getInfoTypeList',{id:this.id}).then(res=>{
+				if(res.list){
+					this.apply = res.list
+				}
 			})
-			this.$post('/product/getInfo').then(res=>{
-				console.log(res,'填写资料项')
-			})
+			// this.$post('/product/getInfo').then(res=>{
+			// 	console.log(res,'填写资料项')
+			// })
 		},
 		methods: {
-			link(url){
+			link(item){
 				uni.navigateTo({
-					 url: url
+					 url: '/pages/index/apply/show?id='+item.id+'&title='+item.name
 				})
 			},
 			match(){
@@ -118,3 +124,4 @@
 		}
 	}
 </style>
+
