@@ -1,6 +1,7 @@
 <template>
 	<view class="news wrp">
 		<view class="item mt30 ct" v-for="(item,index) in news" :key="index" @click="link(item.id,item.title)">
+
 			<view class="info ct">
 				<text class="title">{{item.title}}</text>
 				<text class="time">{{item.createdTime}}</text>

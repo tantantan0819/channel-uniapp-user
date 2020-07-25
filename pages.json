@@ -65,6 +65,28 @@
 			}
 		},
 		{
+		    "path" : "pages/index/apply/index",
+		   "style": {
+		   	"navigationBarTitleText": "填写资料"
+		   }
+		},
+		{
+		    "path" : "pages/index/apply/show",
+		   "style": {
+		   	"navigationBarTitleText": "填写资料",
+			"app-plus": {
+				"titleNView": {
+					"buttons": [{
+							"text": "保存",
+							"fontSize": "32upx",
+							"float": "right"
+						}
+					]
+				}
+			}
+		   }
+		},
+		{
 			"path": "pages/index/classify",
 			"style": {
 				"navigationBarTitleText": "分类专区"
@@ -444,7 +466,8 @@
 				"navigationBarTitleText": "更改手机号"
 			}
 		}
-	],
+	   
+    ],
 	"tabBar": {
 	    "color": "#999999",
 	    "selectedColor": "#333333",

@@ -96,14 +96,14 @@ const http = {
 		//未登录跳转登录页面
 		if(res[1].data.message == '用户未登录'){
 			uni.showToast({
-				title: '未登录，即将为你跳转登录页面',
+				title: '未登陆，即将跳转登陆页面',
 				icon: 'none'
 			});
 			setTimeout(function() {
 				uni.navigateTo({
 					url: '/pages/login/login'
-				})
-			}, 600)
+				});
+			}, 700);
 			return false;
 		}
 		

@@ -13,15 +13,17 @@
 				id: '',
 				title: '',
 				createdTime: '',
-				content: '',
+				content: ''
 			}
 		},
 		onLoad(options) {
-			uni.setNavigationBarTitle({
-			    title: options.title
-			});
-			this.id = options.id;
-			this.getDetail();
+			if(options.id){
+				this.id = options.id
+				uni.setNavigationBarTitle({
+				    title: options.title
+				});
+			}
+			this.getDetail(options.id)
 		},
 		methods: {
 			getDetail(){
