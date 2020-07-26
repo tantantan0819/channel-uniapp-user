@@ -8,8 +8,8 @@
 			</view>
 		</view>
 		<view class="classify_con">
-			<view class="item" v-for="(item,index) in children" :key="index" @click="link">
-				<image src="../../static/image/classify.png" mode=""></image>
+			<view class="item" v-for="(item,index) in children" :key="index+'class'" @click="link(item.id)">
+				<image :src="item.icon" mode=""></image>
 				<text>{{item.name}}</text>
 			</view>
 		</view>
@@ -48,9 +48,9 @@
 				this.activeId = item.id;
 				this.children = item.children;
 			},
-			link(index){
+			link(id){
 				uni.navigateTo({
-					 url: '/pages/index/list'
+					 url: '/pages/index/list?typeId='+id
 				})
 			}
 		}
@@ -58,6 +58,7 @@
 </script>
 
 <style>
+
 	
 		uni-page-body{
 			padding: 0!important;

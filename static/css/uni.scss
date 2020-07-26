@@ -508,19 +508,22 @@ page{
 	}
 	.classify_con{
 		padding: 27upx 36upx 26upx 39upx;
-		display: flex;
-		flex-wrap: wrap;
+		// display: flex;
+		// flex-wrap: wrap;
 		.item{
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			margin-right: 66upx;
+			height: 200upx;
+			float: left;
 			&:nth-child(3n+3){
 				margin-right: 0;
 			}
 			image{
 				width: 88upx;
 				height: 88upx;
+				border-radius: 50%;
 			}
 			text{
 				margin-top: 8upx;

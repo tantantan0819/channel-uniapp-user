@@ -23,7 +23,7 @@
 			</view>
 		</view>
 		<view class="hot_item mb30" v-for="(item,index) in list" :key="index">
-			<view class="hot_top"  @click="detail(item.id)">
+			<view class="hot_top"  @click="detail(item.id,item)">
 				<view class="ct cs">
 					<text>{{item.name}}</text>
 					<text>产品类型：{{item.typeName}}</text>
@@ -62,9 +62,10 @@
 				areaValue: 0,
 				quotaValue: 0,
 				interestValue: 0,
-				array: ['中国', '美国', '巴西', '日本'],
 				interest: ['降序', '升序'],
-				quota: ['降序', '升序']
+				quota: ['降序', '升序'],
+				total: 0,//列表总数
+				lastList: [],//最近查看
 			}
 		},
 		onLoad(options) {
@@ -74,28 +75,37 @@
 			uni.setNavigationBarTitle({
 				title: title
 			});
+			if(options.typeId){
+				this.params.typeId = options.typeId;
+			}
 			//获取产品列表
 			this.getList();
+			//清除最近查看
+			uni.removeStorageSync('lastList');
 		},
-
+		//上拉加载
+		onReachBottom(){
+			if(this.total>this.list.length){
+				this.params.pageSize += 10; 
+				this.getList();
+			}
+		},
 		methods: {
 			//获取产品列表
 			getList() {
 				this.$post('/product/getSpuList', this.params).then(res => {
 					this.list = res.data.rows;
-					console.log(res)
+					this.total = res.data.total;
 				})
 			},
-			bindPickerChange: function(e) {
-				console.log('picker发送选择改变，携带值为', e.target.value)
-				this.areaValue = e.target.value
-			},
 			interestChange: function(e) {
+				this.params.total = 10;
 				this.interestValue = e.target.value;
 				this.interestValue == 0 ? this.params.accrualSort = true : this.params.accrualSort = false;
 				this.getList();
 			},
 			quotaChange: function(e) {
+				this.params.total = 10;
 				this.quotaValue = e.target.value;
 				this.quotaValue == 0 ? this.params.amountSort = true : this.params.amountSort = false;
 				this.getList();
@@ -112,7 +122,17 @@
 				})
 			},
 			//查看产品详情
-			detail(id) {
+			detail(id,item) {
+				if(this.lastList.length>0){
+					this.lastList.map((item2,index2)=>{
+						item2.id == item.id? delete this.lastList[index2] : '';
+					})
+					this.lastList.unshift(item);
+					uni.setStorageSync('lastList', this.lastList);
+				}else{
+					this.lastList.unshift(item);
+					uni.setStorageSync('lastList', this.lastList);
+				}
 				uni.navigateTo({
 					url: '/pages/index/detail?id='+id
 				})
@@ -122,6 +142,7 @@
 				let cityArr = uni.getStorageSync('city').split('-')
 				this.area = cityArr[cityArr.length - 1];
 				this.params.city = this.area;
+				this.params.total = 10;
 				this.getList();
 			},
 			//点击弹出弹窗
@@ -136,7 +157,7 @@
 			},
 			//最近查看
 			lastView() {
-				
+				this.list = this.lastList;
 			}
 		}
 	}

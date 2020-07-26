@@ -2,7 +2,7 @@
 	<view>
 		<view class="uni-common-mt">
 			<view>
-				<map :latitude="latitude" :longitude="longitude" :markers="covers">
+				<map :latitude="latitude" :longitude="longitude" >
 				</map>
 			</view>
 		</view>
@@ -12,28 +12,16 @@
 	export default {
 		data() {
 			return {
-				latitude: 39.909,
-				longitude: 116.39742,
-				covers: [{
-					latitude: 39.9085,
-					longitude: 116.39747,
-					// #ifdef APP-PLUS
-					iconPath: '../../../static/app-plus/location@3x.png',
-					// #endif
-					// #ifndef APP-PLUS
-					iconPath: '../../static/location.png',
-					// #endif
-				}, {
-					latitude: 39.90,
-					longitude: 116.39,
-					// #ifdef APP-PLUS
-					iconPath: '../../static/app-plus/location@3x.png',
-					// #endif
-					// #ifndef APP-PLUS
-					iconPath: '../../static/location.png',
-					// #endif
-				}]
+				latitude: null,
+				longitude: null,
 			}
+		},
+		onLoad(options) {
+			if(options.lat || options.lng){
+				this.latitude = options.lat;
+				this.longitude = options.lng;
+			}
+		
 		},
 		methods: {
 

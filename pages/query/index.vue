@@ -4,8 +4,8 @@
 	            <view class="page-section swiper">
 	                <view class="page-section-spacing">
 	                    <swiper class="swiper" :indicator-dots="banner.indicatorDots" :autoplay="banner.autoplay" :interval="banner.interval" :duration="banner.duration">
-	                        <swiper-item v-for="(item,index) in 3" :key="index" @click="link">
-	                            <image src="../../static/image/service_banner.png" mode=""></image>
+	                        <swiper-item v-for="(item,index) in bannerList" :key="index" @click="link(item.url)">
+	                            <image :src="item.imgUrl" mode=""></image>
 	                        </swiper-item>
 	                    </swiper>
 	                </view>
@@ -19,13 +19,13 @@
 				<text class="font-30 f-gray" :class="{'active':index == navIndex}" v-for="(item,index) in nav" @click="change(index)">{{item}}</text>
 			</view>
 		</view>
-		<view class="query_item" v-for="(item,index) in 4" :key="index">
-			<text class="title">渠道商名称{{navIndex+1}}</text>
+		<view class="query_item" v-for="(item,index) in list" :key="index">
+			<text class="title">{{item.name}}</text>
 			<view class="des cs">
-				<text>渠道商地址渠道商地址渠道商地址...</text>
+				<text>{{item.meraddr}}</text>
 				<view class="info">
 					<image src="../../static/image/query_icon1.png" mode="" @click="contact"></image>
-					<image src="../../static/image/query_icon2.png" mode="" @click="map"></image>
+					<image src="../../static/image/query_icon2.png" mode="" @click="map(item.lat,item.lng)"></image>
 				</view>
 			</view>
 		</view>
@@ -44,13 +44,52 @@
 					interval: 2000,
 					duration: 500
 				},
+				bannerList:[],//banner
+				list:[],//门店列表
+				apiUrl: ['/query/merchantList','/query/zhengxinList'],
+				params:{
+					lat: '',//纬度
+					lng: '',//经度
+					page: 1,//页数
+					pageSize: 10,//每页条数
+				},
+				total: 0,//
+				msg: 0
 			}
 		},
+		//上拉加载
+		onReachBottom(){
+			if(this.total>this.list.length){
+				this.params.pageSize += 10; 
+				this.change(this.navIndex);
+			}
+		},
+		onLoad(options) {
+			this.getBanner();
+			this.change(0);
+			uni.getLocation({
+				 type: 'wgs84',
+				 success: function(res){
+					 console.log(res,'localtion')
+				 },
+				 fail:function(error){
+					 console.log(error,'失败')
+				 }
+			})
+		},
 		methods: {
-			link(){
-				uni.navigateTo({
-					 url: '/pages/query/finance'
+			//获取banner
+			getBanner(){
+				this.$get('/query/main').then(res=>{
+					this.bannerList = res.banners;
 				})
+			},
+			//banner图跳转
+			link(url){
+				if(url){
+					window.open(url,'_target')
+				}
+				
 			},
 			contact(){
 				uni.navigateTo({
@@ -58,13 +97,19 @@
 				})
 				
 			},
-			map(){
+			//查看位置
+			map(lat,lng){
 				uni.navigateTo({
-					 url: '/pages/query/map'
+					 url: '/pages/query/map?lat='+lat+'&lng='+lng
 				})
 			},
+			//门店和网点
 			change(index){
 				this.navIndex = index;
+				this.$post(this.apiUrl[index],this.params).then(res=>{
+					this.list = res.data.rows;
+					this.total = res.data.total;
+				})
 			}
 			
 		}

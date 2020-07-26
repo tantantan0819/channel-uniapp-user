@@ -77,7 +77,7 @@
 					if(res.list){
 						this.list = res.list;
 						this.list.map(item=>{
-							_this.params[item.id] = null;
+							_this.params[item.id] = '';
 						})
 					}
 				})

@@ -56,6 +56,14 @@
 				msg: '',
 				page: 1,//获取评论页数
 				pageSize: 10,//获取评论条数
+				total: 0,//评论总条数
+			}
+		},
+		//上拉加载--获取评论条数
+		onReachBottom(){
+			if(this.total>this.comment.length){
+				this.pageSize += 10; 
+				this.getComment();
 			}
 		},
 		onLoad(options) {
@@ -87,6 +95,7 @@
 					pageSize: this.pageSize
 				}).then(res => {
 					this.comment = res.data.rows;
+					this.total = res.data.total;
 				}).catch(error => {
 					uni.showToast({
 						title: error,

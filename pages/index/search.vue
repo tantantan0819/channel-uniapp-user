@@ -49,7 +49,6 @@
 				}
 			},
 			linkList(keywords) {
-				console.log(keywords,'需要点击')
 				uni.navigateTo({
 					url: '/pages/index/list?keywords='+keywords
 				})
@@ -66,7 +65,6 @@
 			},
 			//清空搜索记录
 			clearHistory(){
-				console.log('000')
 				uni.removeStorageSync('history');
 				this.getHistory();
 			},

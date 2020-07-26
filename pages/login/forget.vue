@@ -4,24 +4,24 @@
 		<view class="login_form">
 			<view class="login_item ct">
 				<text>手机号</text>
-				 <input class="uni-input" focus placeholder="请输入手机号" />
+				 <input class="uni-input" type="number" focus placeholder="请输入手机号" v-model="params.mobile"/>
 			</view>
 			<view class="login_item ct code_box">
 				<text>验证码</text>
-				<input class="uni-input" placeholder="请输入验证码" />
-				<view class="code cc">发验证码</view>
+				<input class="uni-input" placeholder="请输入验证码" v-model="params.code"/>
+				<view class="code cc" @click="send">发验证码</view>
 			</view>
 			<view class="login_item ct">
 				<text>密码</text>
-				 <input class="uni-input" password placeholder="请设置6-14位密码" />
+				 <input class="uni-input" password placeholder="请设置6-14位密码" v-model="params.password"/>
 			</view>
 			<view class="login_item ct">
 				<text>确认密码</text>
-				 <input class="uni-input" password placeholder="请输入确认密码" />
+				 <input class="uni-input" password placeholder="请输入确认密码" v-model="rePassword"/>
 			</view>
 		</view>
 		<view class="login_wrp cc">
-			<view class="login_btn cc" @click="back()">
+			<view class="login_btn cc" @click="forget">
 				<text>确认修改</text>
 			</view>
 		</view>
@@ -29,95 +29,110 @@
 </template>
 
 <script>
+	import {isPhone} from '@/plugins/validate.js'
 	export default {
 		data() {
 			return {
-				
+				rePassword: '',//确认密码
+				params:{
+					mobile: '',//手机号
+					code: '',//验证码
+					password: '',//密码
+				}
 			}
 		},
 		methods: {
-			back(){
-				uni.navigateBack({
-				    delta: 1
-				});
-			}
+			//注册
+			forget(){
+				if (!this.params.mobile) {
+					uni.showToast({
+						title: '请输入您的手机号',
+						icon: 'none'
+					});
+					return false;
+				}
+				if (!isPhone.test(this.params.mobile)) {
+					uni.showToast({
+						title: '手机号格式不正确',
+						icon: 'none'
+					});
+					return false;
+				}
+				if (!this.params.code) {
+					uni.showToast({
+						title: '请输入您的手机验证码',
+						icon: 'none'
+					});
+					return false;
+					}
+				if (!this.params.password) {
+					uni.showToast({
+						title: '请设置您的密码',
+						icon: 'none'
+					});
+					return false;
+				}
+				if (!/^\w{6,14}$/.test(this.params.password)) {
+					uni.showToast({
+						title: '请设置6-14位密码',
+						icon: 'none'
+					});
+					return false;
+				}
+				if (!this.rePassword) {
+					uni.showToast({
+						title: '请输入确认密码',
+						icon: 'none'
+					});
+					return false;
+				}
+				if (this.rePassword != this.params.password) {
+					uni.showToast({
+						title: '密码不一致',
+						icon: 'none'
+					});
+					return false;
+				}
+				this.$post('/changePassword',this.params).then(res=>{
+					uni.showToast({
+						title: '修改成功',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.switchTab({
+							url: '/pages/login/login'
+						});
+					}, 600)
+				})
+			},
+			//发送验证码
+			send(){
+			    if (!this.params.mobile) {
+			    	uni.showToast({
+			    		title: '请输入您的手机号',
+			    		icon: 'none'
+			    	});
+			    	return false;
+			    }
+			    if (!isPhone.test(this.params.mobile)) {
+			    	uni.showToast({
+			    		title: '手机号格式不正确',
+			    		icon: 'none'
+			    	});
+			    	return false;
+			    }
+				this.$post('/getIdentifyingCode',{mobile:this.params.mobile}).then(res=>{
+					uni.showToast({
+						title: '发送成功',
+						icon: 'none'
+					});
+				})
+			},
+			
 		}
 	}
 </script>
 
 <style lang="scss">
-	.login_wrp{
-		padding: 83upx 0 58upx 0;
-		.login_btn{
-			width:520upx;
-			height:90upx;
-			background:rgba(254,120,0,1);
-			border-radius:45upx;
-			text{
-				font-size:30upx;
-				color:rgba(255,255,255,1);
-			}
-		}
-	}
-	.login{
-		.logo{
-			padding: 66upx 0 50upx 0;
-			flex-direction: column;
-			image{
-				&:nth-child(1){
-					width:127upx;
-					height:127upx;
-					border-radius:20px;
-				}
-				&:nth-child(2){
-					width:141upx;
-					height:34upx;
-					font-size:36upx;
-					margin-top: 22upx;
-				}
-			}
-		}
-		.login_form{
-			.forget{
-				display: flex;
-				justify-content: flex-end;
-				text{
-					font-size:26upx;
-					color:rgba(153,153,153,1);
-				}
-			}
-			.code_box{
-				input{
-					width: 320upx!important;
-				}
-			}
-			.login_item{
-				background:rgba(255,255,255,1);
-				border-radius:10upx;
-				padding: 38upx 28upx;
-				margin-bottom: 22upx;
-				text{
-					width: 130upx;
-					font-size:26upx;
-					font-weight:bold;
-					color:rgba(51,51,51,1);
-				}
-				input{
-					font-size:26upx;
-					width: 464upx;
-				}
-				position: relative;
-				.code{
-					width:182upx;
-					height:108upx;
-					background:rgba(254,120,0,1);
-					border-radius:0px 10upx 10upx 0px;
-					font-size:26upx;
-					color:rgba(255,255,255,1);
-					position: absolute;
-					right: 0;
-				}
-			}
-		}
-	}
+	
 </style>
