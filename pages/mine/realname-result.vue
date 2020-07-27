@@ -1,8 +1,12 @@
 <template>
 	<view class="login">
-		<view class="realname fail" v-if="status==0">
+		<view class="realname fail" v-if="status == 0">
 			<image src="../../static/image/realname_fail.png" mode=""></image>
 			<text>未认证，请重新填写</text>
+		</view>
+		<view class="realname " v-else-if="status==1">
+			<image src="../../static/image/realname_success.png" mode=""></image>
+			<text>待审核，请等待认证</text>
 		</view>
 		<view class="realname " v-else-if="status==1">
 			<image src="../../static/image/realname_success.png" mode=""></image>
