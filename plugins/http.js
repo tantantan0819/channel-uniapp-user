@@ -51,9 +51,16 @@ const http = {
 	 * @param {Boolean} refresh 是否强制刷新Token
 	 */
 	post: function(url, data = {}, onSucess, onError, retry, refresh) {
-		let isCode = url == '/getIdentifyingCode';
+		let sendUrl = '';
+		if(url == '/getIdentifyingCode'){
+			sendUrl = Config.code_host + url;
+		}else if(url == '/product/main'){
+			sendUrl = Config.channel_host + url;
+		}else{
+			sendUrl = Config.app_host + url;
+		}
 		var cfg = {
-			url: isCode ? Config.code_host + url:Config.app_host + url,
+			url: sendUrl,
 			data: data,
 			method: 'POST',
 		}

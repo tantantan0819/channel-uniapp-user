@@ -1,11 +1,11 @@
 <template>
 	<view class="record">
 		<view class="top wrp">
-			<text class="num">邀请*人，可成为会员</text>
+			<text class="num">邀请{{shareNumVip}}人，可成为会员</text>
 			<view class="info mt30 cs ct">
 				<view class="invite">
 					已邀请用户
-					<text>（12）</text>
+					<text>（{{shareNum}}）</text>
 				</view>
 				<text class="phone">手机号</text>
 			</view>
@@ -15,12 +15,12 @@
 				<view>
 					<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
 					@scroll="scroll">
-						<view class="scroll-view-item con_box cs ct" v-for="(item,index) in 30" :key="index">
+						<view class="scroll-view-item con_box cs ct" v-for="(item,index) in list" :key="index">
 							<view class="con_info ct">
-								<image src="../../static/image/record.png" mode=""></image>
-								<text>用户昵称</text>
+								<image :src="item.headurl" mode=""></image>
+								<text>{{item.nickname}}</text>
 							</view>
-							<view class="tel">13912345678</view>
+							<view class="tel">{{item.mobile}}</view>
 						</view>
 					</scroll-view>
 				</view>
@@ -40,7 +40,11 @@
 				params:{
 					page: 1,
 					pageSize: 10
-				}
+				},
+				list: [],
+				total: 0,
+				shareNum: 0,//已分享人数
+				shareNumVip: 0,//达到**人可成为会员
 			}
 		},
 		onLoad() {
@@ -49,7 +53,10 @@
 		methods: {
 			getInfo(){
 				this.$post('/getShareList',this.params).then(res=>{
-					console.log(res,'000')
+					this.list = res.data.rows;
+					this.total = res.data.total;
+					this.shareNumVip = res.shareNumVip;
+					this.shareNum = res.shareNum;
 				})
 			},
 			scroll: function(e) {

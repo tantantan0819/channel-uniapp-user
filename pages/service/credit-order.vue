@@ -111,9 +111,9 @@
 					icon: 'none'
 				});
 				setTimeout(function() {
-					uni.navigateBack({
-						delta: 1
-					});
+					uni.redirectTo({
+						url:'/pages/service/credit'
+					})
 				}, 600)
 			})
 		},

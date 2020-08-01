@@ -57,36 +57,6 @@
 				return val.toString();
 			}
 		},
-		onNavigationBarButtonTap:function(e){
-			//提交表单
-		     for(var i in this.params){
-				 if(!this.params[i]){
-					 this.list.map(item=>{
-						 if(item.id == i){
-							 uni.showToast({
-							 	title: item.hint,
-							 	icon: 'none'
-							 });
-						 }
-					 })
-					 	  console.log('5555')
-					 return false;
-				 }
-				  console.log('444')
-			 } 
-			 this.params.spuId = this.spuId;
-			 this.$post('/product/infoSub',this.params).then(res=>{
-				 uni.showToast({
-				 	title: '保存成功',
-				 	icon: 'none'
-				 });
-				 setTimeout(function() {
-				 	uni.redirectTo({
-				 		url:'/pages/index/apply/apply'
-				 	})
-				 }, 600)
-			 })
-		},
 		methods: {
 			//获取表单
 			getList(id){

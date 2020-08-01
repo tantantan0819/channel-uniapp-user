@@ -87,6 +87,12 @@
 		   }
 		},
 		{
+		    "path" : "pages/index/apply/see",
+		   "style": {
+		   	"navigationBarTitleText": "填写资料"
+		   }
+		},
+		{
 			"path": "pages/index/classify",
 			"style": {
 				"navigationBarTitleText": "分类专区"

@@ -77,7 +77,7 @@
 		methods: {
 			link(item){
 				uni.navigateTo({
-					 url: '/pages/index/apply/show?id='+item.id+'&title='+item.name
+					 url: '/pages/index/apply/show?id='+item.id+'&title='+item.name+'&spuId='+this.id
 				})
 			},
 			match(){
