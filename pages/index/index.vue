@@ -31,7 +31,7 @@
 				</view>
 				<view class="hot_bottom cs">
 					<text>在线咨询：<text @click="customer">立即联系</text></text>
-					<text class="cc" @click="apply">立即申请</text>
+					<text class="cc" @click="apply(item.id)">立即申请</text>
 				</view>
 			</view>
 			<view class="hot_more cc " v-bind:class="{ active: isMore }" v-if="list.length>hotNum">
@@ -137,9 +137,9 @@
 				})
 			},
 			//产品立即申请
-			apply() {
+			apply(id) {
 				uni.navigateTo({
-					url: '/pages/service/credit?title=' + '贷款申请'
+					url: '/pages/service/credit?title=' + '贷款申请&id='+id
 				})
 			},
 			//查看产品详情

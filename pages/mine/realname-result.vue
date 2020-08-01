@@ -1,6 +1,6 @@
 <template>
 	<view class="login">
-		<view class="realname fail" v-if="status == 0">
+		<view class="realname fail" v-if="status==0">
 			<image src="../../static/image/realname_fail.png" mode=""></image>
 			<text>未认证，请重新填写</text>
 		</view>

@@ -2,13 +2,13 @@
 	<view class="member">
 		<view class="show">
 			<view class="top wrp ct">
-				<text>60</text>
+				<text>{{days}}</text>
 				<text>剩余会员时间（天）</text>
 			</view>
 		</view>
 		<view class="recharge cs wrp">
-			<view class="item cc" v-for="(item,index) in recharge" :key="index" :class="{'active':index == checked}" @click="change(index)">
-				<text class="month">{{item.month}}</text>
+			<view class="item cc" v-for="(item,index) in recharge" :key="index" :class="{'active':index == checked}" @click="change(index,item.id)">
+				<text class="month">{{item.month}}个月</text>
 				<view class="price mt20">
 					<text>￥</text>
 					<text>{{item.price}}</text>
@@ -28,7 +28,8 @@
 	export default {
 		data() {
 			return {
-				checked: 0,
+				checked: null,
+				days: '',
 				recharge: [
 					{
 						month: '12个月',
@@ -45,9 +46,21 @@
 				]
 			}
 		},
+		onLoad(){
+			this.$get('/vip/getList').then(res=>{
+				this.recharge = res.list;
+				this.days = res.days;
+			})
+		},
 		methods: {
-			change(index){
+			change(index,id){
 				this.checked = index;
+				this.$post('/vip/buy',{id:id}).then(res=>{
+					uni.showToast({
+						title: res.message,
+						icon: 'none'
+					});
+				})
 			}
 		}
 	}

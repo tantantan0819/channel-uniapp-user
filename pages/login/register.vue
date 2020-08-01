@@ -38,7 +38,13 @@
 					mobile: '',//手机号
 					code: '',//验证码
 					password: '',//密码
+					pid: 0,//分享pid
 				}
+			}
+		},
+		onLoad(options) {
+			if(options.pid){
+				this.params.pid = options.pid;
 			}
 		},
 		methods: {

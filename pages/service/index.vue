@@ -49,7 +49,7 @@
 		<uni-popup ref="popup" type="center">
 			<view class="phone">
 				<text class="title cc">提示</text>
-				<text class="des cc">确定拨打电话：13912345678 吗？</text>
+				<text class="des cc">确定拨打电话：{{phone}} 吗？</text>
 				<view class="bottom ct">
 					<text class="cc" @click="cancel">取消</text>
 					<text class="cc" @click="sure">确定</text>
@@ -64,6 +64,7 @@
 	export default {
 		data() {
 			return {
+				phone: null,//官方电话
 				product:[
 					{
 						name: '申请贷款',
@@ -134,7 +135,7 @@
 			//获取官方客服电话
 			getPhone(){
 				this.$get('/getRegisterMobile').then(res=>{
-					console.log(res,'----')
+					this.phone = res.mobile;
 				})
 			},
 			cancel(){
@@ -142,7 +143,7 @@
 			},
 			sure(){
 				uni.makePhoneCall({
-				    phoneNumber: '13912345678' //仅为示例
+				    phoneNumber: this.phone //仅为示例
 				});
 			},
 			link(url){

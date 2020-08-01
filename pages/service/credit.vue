@@ -16,10 +16,13 @@
 	export default {
 		data() {
 			return {
-				
+				id: '',
 			}
 		},
 		onLoad(options) {
+			if(options.id){
+				this.id = options.id
+			}
 			uni.setNavigationBarTitle({
 			    title: options.title
 			});
@@ -32,7 +35,7 @@
 			},
 			apply(){
 				uni.navigateTo({
-					 url: '/pages/index/apply/apply'
+					 url: '/pages/index/apply/apply?id='+this.id
 				})
 			}
 		}

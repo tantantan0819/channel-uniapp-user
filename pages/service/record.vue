@@ -36,10 +36,22 @@
 				scrollTop: 0,
 				old: {
 					scrollTop: 0
+				},
+				params:{
+					page: 1,
+					pageSize: 10
 				}
 			}
 		},
+		onLoad() {
+			this.getInfo();
+		},
 		methods: {
+			getInfo(){
+				this.$post('/getShareList',this.params).then(res=>{
+					console.log(res,'000')
+				})
+			},
 			scroll: function(e) {
 				// console.log(e)
 				this.old.scrollTop = e.detail.scrollTop

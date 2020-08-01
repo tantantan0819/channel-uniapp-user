@@ -32,8 +32,9 @@ const http = {
 	 * @param {Boolean} refresh 是否强制刷新Token
 	 */
 	get: function(url, data = {}, onSucess, onError, retry, refresh) {
+		let isPhone = url == '/getRegisterMobile';
 		var cfg = {
-			url: Config.app_host + url,
+			url: isPhone ? Config.channel_host + url:Config.app_host + url,
 			data: data,
 			method: 'GET',
 		}
