@@ -17,12 +17,11 @@
 			<input class="uni-input" placeholder="请填写地址" v-model="params.address" />
 		</view>
 		<view class="item ct mt30">
-			<!-- <text>时间</text> -->
-			<!-- <picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
-			        <view class="uni-input">{{date}}</view>
-			 </picker> -->
+			<text>时间</text>
 			<picker mode="date" :value="date" @change="bindDateChange">
-				<text>时间</text>
+				<view class="uni-input">{{date}}</view>
+			</picker>
+			<picker mode="date" :value="date" @change="bindDateChange">
 				<view class="uni-input">{{date}}</view>
 			</picker>
 			<!-- <input class="uni-input" placeholder="请选择时间" /> -->

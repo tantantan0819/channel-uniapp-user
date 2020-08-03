@@ -341,7 +341,9 @@
 		{
 			"path": "pages/service/member",
 			"style": {
-				"navigationBarTitleText": "升级会员"
+				"navigationBarTitleText": "升级会员",
+				"navigationBarBackgroundColor":"#606a72",
+				"navigationBarTextStyle":"white"
 			}
 		},
 		{

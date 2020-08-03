@@ -8,6 +8,7 @@
 			<radio-group @change="marChange($event,item.id)" class="cs" v-if="item.type == 1">
 				<label class="uni-list-cell uni-list-cell-pd ct" v-for="(item2, index) in item.radios" :key="item2.id">
 					<view>
+						
 						<radio :value="item2.id | isString"/>
 					</view>
 					<view>{{item2.name}}</view>
@@ -35,6 +36,7 @@
 				title: '',//导航名称
 				list: [],//需要填写的表单
 				params: {},//需要提交的参数
+				apply: {},
 			}
 		},
 		onLoad(options) {
@@ -51,6 +53,8 @@
 					title: this.title
 				});
 			}
+			let applyInfo = uni.getStorageSync('apply')
+			applyInfo ? this.apply = applyInfo : this.apply = {};
 		},
 		filters:{
 			isString(val){
@@ -58,6 +62,7 @@
 			}
 		},
 		onNavigationBarButtonTap:function(e){
+			let _this = this;
 			//提交表单
 		     for(var i in this.params){
 				 if(!this.params[i]){
@@ -69,10 +74,8 @@
 							 });
 						 }
 					 })
-					 	  console.log('5555')
 					 return false;
 				 }
-				  console.log('444')
 			 } 
 			 this.params.spuId = this.spuId;
 			 this.$post('/product/infoSub',this.params).then(res=>{
@@ -81,9 +84,12 @@
 				 	icon: 'none'
 				 });
 				 setTimeout(function() {
-				 	uni.redirectTo({
-				 		url:'/pages/index/apply/apply'
-				 	})
+					_this.apply[_this.id] = _this.params;
+					uni.setStorageSync('apply',_this.apply)
+				 	uni.navigateBack({
+				 	    delta: 1
+				 	});
+					
 				 }, 600)
 			 })
 		},

@@ -70,15 +70,20 @@
 					this.apply = res.list
 				}
 			})
-			// this.$post('/product/getInfo').then(res=>{
-			// 	console.log(res,'填写资料项')
-			// })
+			uni.removeStorageSync('apply');
 		},
 		methods: {
 			link(item){
-				uni.navigateTo({
-					 url: '/pages/index/apply/show?id='+item.id+'&title='+item.name+'&spuId='+this.id
-				})
+				let apply = uni.getStorageSync('apply');
+				if(apply[item.id]){
+					uni.navigateTo({
+						 url: '/pages/index/apply/see?id='+item.id+'&title='+item.name+'&spuId='+this.id
+					})
+				}else{
+					uni.navigateTo({
+						 url: '/pages/index/apply/show?id='+item.id+'&title='+item.name+'&spuId='+this.id
+					})
+				}
 			},
 			match(){
 				uni.navigateTo({
