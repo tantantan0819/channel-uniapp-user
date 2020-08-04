@@ -5,8 +5,8 @@
 			<view class="info">
 				<view class="name ct">
 					<text>{{user.nickname}}</text>
-					<image src="../../static/image/male.png" mode="" v-if="true"></image>
-					<image src="../../static/image/female.png" mode="" v-else></image>
+					<image src="../../static/image/male.png" mode="" v-if="user.gender == 1"></image>
+					<image src="../../static/image/female.png" mode="" v-if="user.gender == 2"></image>
 				</view>
 				<text class="address">{{user.addr}}</text>
 			</view>

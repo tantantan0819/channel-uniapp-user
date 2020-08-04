@@ -3,13 +3,12 @@
 		<view class="item ct mt30" v-for="(item,index) in list" :key="index">
 			<text>{{item.name}}</text>
 			<!-- 填写 -->
-			<input class="uni-input" :placeholder="item.hint" v-model="params[item.id]" v-if="item.type == 0"/>
+			<input class="uni-input" :placeholder="item.hint" v-model="apply[item.id]" v-if="item.type == 0" disabled="disabled"/>
 			<!-- 单选 -->
 			<radio-group @change="marChange($event,item.id)" class="cs" v-if="item.type == 1">
 				<label class="uni-list-cell uni-list-cell-pd ct" v-for="(item2, index) in item.radios" :key="item2.id">
 					<view>
-						
-						<radio :value="item2.id | isString"/>
+						<radio :value="item2.id | isString" :checked="Number(item2.id) == apply[item.id]" disabled="disabled"/>
 					</view>
 					<view>{{item2.name}}</view>
 				</label>
@@ -18,7 +17,7 @@
 			<checkbox-group @change="insChange($event,item.id)" v-if="item.type == 2">
 			 	<label class="uni-list-cell uni-list-cell-pd ct edu" v-for="(item2, index) in item.radios" :key="item2.id">
 			 		<view>
-			 			<checkbox :value="item2.id | isString"/>
+			 			<checkbox :value="item2.id | isString" disabled="disabled" :checked="isCheck(item2.id,apply[item.id])"/>
 			 		</view>
 			 		<view>{{item2.name}}</view>
 			 	</label>
@@ -36,7 +35,7 @@
 				title: '',//导航名称
 				list: [],//需要填写的表单
 				params: {},//需要提交的参数
-				apply: {},
+				apply:{}
 			}
 		},
 		onLoad(options) {
@@ -53,45 +52,13 @@
 					title: this.title
 				});
 			}
-			let applyInfo = uni.getStorageSync('apply')
-			applyInfo ? this.apply = applyInfo : this.apply = {};
+			this.apply = uni.getStorageSync('apply')[this.id];
+			console.log(this.apply)
 		},
 		filters:{
 			isString(val){
 				return val.toString();
 			}
-		},
-		onNavigationBarButtonTap:function(e){
-			let _this = this;
-			//提交表单
-		     for(var i in this.params){
-				 if(!this.params[i]){
-					 this.list.map(item=>{
-						 if(item.id == i){
-							 uni.showToast({
-							 	title: item.hint,
-							 	icon: 'none'
-							 });
-						 }
-					 })
-					 return false;
-				 }
-			 } 
-			 this.params.spuId = this.spuId;
-			 this.$post('/product/infoSub',this.params).then(res=>{
-				 uni.showToast({
-				 	title: '保存成功',
-				 	icon: 'none'
-				 });
-				 setTimeout(function() {
-					_this.apply[_this.id] = _this.params;
-					uni.setStorageSync('apply',_this.apply)
-				 	uni.navigateBack({
-				 	    delta: 1
-				 	});
-					
-				 }, 600)
-			 })
 		},
 		methods: {
 			//获取表单
@@ -114,6 +81,16 @@
 			 insChange: function (evt,id) {
 				 this.params[id] = evt.detail.value.join(',');
 			 },
+			 isCheck(id,str){
+				 let result = false;
+				 let arr = str.split(',');
+				 if(arr.length>0){
+					 arr.map(item=>{
+						 item == id ? result = true : '';
+					 })
+				 }
+				 return result;
+			 }
 		}
 	}
 </script>

@@ -17,12 +17,11 @@
 			<input class="uni-input" placeholder="请填写地址" v-model="params.address" />
 		</view>
 		<view class="item ct mt30">
-			<!-- <text>时间</text> -->
-			<!-- <picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
-			        <view class="uni-input">{{date}}</view>
-			 </picker> -->
+			<text>时间</text>
 			<picker mode="date" :value="date" @change="bindDateChange">
-				<text>时间</text>
+				<view class="uni-input">{{date}}</view>
+			</picker>
+			<picker mode="date" :value="date" @change="bindDateChange">
 				<view class="uni-input">{{date}}</view>
 			</picker>
 			<!-- <input class="uni-input" placeholder="请选择时间" /> -->
@@ -63,7 +62,6 @@
 		},
 		//提交
 		onNavigationBarButtonTap: function(e) {
-			console.log(isPhone.test(this.params.mobile),'mobile')
 			if (!this.params.name) {
 				uni.showToast({
 					title: '请填写姓名',
@@ -112,17 +110,13 @@
 					icon: 'none'
 				});
 				setTimeout(function() {
-					uni.navigateBack({
-						delta: 1
-					});
+					uni.redirectTo({
+						url:'/pages/service/credit'
+					})
 				}, 600)
 			})
 		},
 		methods: {
-			bindPickerChange: function(e) {
-				console.log('picker发送选择改变，携带值为', e.target.value)
-				this.index = e.target.value
-			},
 			bindDateChange: function(e) {
 				this.date = e.target.value
 			},

@@ -87,6 +87,12 @@
 		   }
 		},
 		{
+		    "path" : "pages/index/apply/see",
+		   "style": {
+		   	"navigationBarTitleText": "填写资料"
+		   }
+		},
+		{
 			"path": "pages/index/classify",
 			"style": {
 				"navigationBarTitleText": "分类专区"
@@ -335,7 +341,9 @@
 		{
 			"path": "pages/service/member",
 			"style": {
-				"navigationBarTitleText": "升级会员"
+				"navigationBarTitleText": "升级会员",
+				"navigationBarBackgroundColor":"#606a72",
+				"navigationBarTextStyle":"white"
 			}
 		},
 		{

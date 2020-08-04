@@ -1,30 +1,32 @@
 <template>
 	<view class="service wrp">
-	  <view class="uni-padding-wrap mt30 banner">
-	            <view class="page-section swiper">
-	                <view class="page-section-spacing">
-	                    <swiper class="swiper" :indicator-dots="banner.indicatorDots" :autoplay="banner.autoplay" :interval="banner.interval" :duration="banner.duration">
-	                        <swiper-item v-for="(item,index) in 3" :key="index">
-	                            <image src="../../static/image/service_banner.png" mode=""></image>
-	                        </swiper-item>
-	                    </swiper>
-	                </view>
-	            </view>
-	        </view>
-			<view class="notice">
-				<image src="../../static/image/notice.png" mode=""></image>
-				<view class="uni-padding-wrap">
-				          <view class="page-section swiper">
-				              <view class="page-section-spacing">
-				                  <swiper class="swiper" :indicator-dots="notice.indicatorDots" :autoplay="notice.autoplay" :interval="notice.interval" :duration="notice.duration" vertical="true">
-				                      <swiper-item v-for="(item,index) in noticeArr" :key="index">
-										  <text class="notice_con">{{item}}</text>
-				                      </swiper-item>
-				                  </swiper>
-				              </view>
-				          </view>
-				      </view>
+		<view class="uni-padding-wrap mt30 banner">
+			<view class="page-section swiper">
+				<view class="page-section-spacing">
+					<swiper class="swiper" :indicator-dots="banner.indicatorDots" :autoplay="banner.autoplay" :interval="banner.interval"
+					 :duration="banner.duration">
+						<swiper-item v-for="(item,index) in bannerList" :key="index" @click="bannerLink(item.url)">
+							<image :src="item.imgUrl" mode=""></image>
+						</swiper-item>
+					</swiper>
+				</view>
 			</view>
+		</view>
+		<view class="notice">
+			<image src="../../static/image/notice.png" mode=""></image>
+			<view class="uni-padding-wrap">
+				<view class="page-section swiper">
+					<view class="page-section-spacing">
+						<swiper class="swiper" :indicator-dots="notice.indicatorDots" :autoplay="notice.autoplay" :interval="notice.interval"
+						 :duration="notice.duration" vertical="true">
+							<swiper-item v-for="(item,index) in noticeArr" :key="index">
+								<text class="notice_con">{{item.title}}</text>
+							</swiper-item>
+						</swiper>
+					</view>
+				</view>
+			</view>
+		</view>
 		<view class="product mt30">
 			<view class="item" v-for="(item,index) in product" :key="index" @click="link(item.link)">
 				<image :src="item.icon" mode=""></image>
@@ -49,7 +51,7 @@
 		<uni-popup ref="popup" type="center">
 			<view class="phone">
 				<text class="title cc">提示</text>
-				<text class="des cc">确定拨打电话：13912345678 吗？</text>
+				<text class="des cc">确定拨打电话：{{phone}} 吗？</text>
 				<view class="bottom ct">
 					<text class="cc" @click="cancel">取消</text>
 					<text class="cc" @click="sure">确定</text>
@@ -64,16 +66,16 @@
 	export default {
 		data() {
 			return {
-				product:[
-					{
+				phone: null, //官方电话
+				product: [{
 						name: '申请贷款',
 						icon: '../../static/image/service_icon1.png',
-						link: '/pages/service/credit?title='+'贷款申请'
+						link: '/pages/service/credit?title=' + '贷款申请'
 					},
 					{
 						name: '申请信用卡',
 						icon: '../../static/image/service_icon2.png',
-						link: '/pages/service/credit?title='+'信用卡申请'
+						link: '/pages/service/credit?title=' + '信用卡申请'
 					},
 					{
 						name: '申请查询',
@@ -83,7 +85,7 @@
 					{
 						name: '产品查询',
 						icon: '../../static/image/service_icon4.png',
-						link: '/pages/index/list?title='+'产品查询'
+						link: '/pages/index/list?title=' + '产品查询'
 					},
 					{
 						name: '升级会员',
@@ -106,114 +108,131 @@
 						link: '/pages/service/share'
 					},
 				],
-				banner:{
+				banner: {
 					indicatorDots: true,
 					autoplay: true,
 					interval: 2000,
 					duration: 500
 				},
-				notice:{
+				notice: {
 					indicatorDots: false,
 					autoplay: true,
 					interval: 4000,
 					duration: 500
 				},
-				noticeArr: [
-					'1、通知内容通知内容通知内容通知内容通知内容...通知内容通知内容通知内容通知内容通知内容...',
-				'2、通知内容通知内容通知内容通知内容通知内容...通知内容通知内容通知内容通知内容通知内容...',
-				'3、通知内容通知内容通知内容通知内容通知内容...通知内容通知内容通知内容通知内容通知内容...',
-				'4、通知内容通知内容通知内容通知内容通知内容...通知内容通知内容通知内容通知内容通知内容...'
-				]
-				          
+				noticeArr: [],
+				bannerList: []
 			}
 		},
 		onLoad() {
 			this.getPhone();
+			this.$post('/product/main').then(res => {
+				this.noticeArr = res.noticeList;
+				this.bannerList = res.banners;
+			})
 		},
 		methods: {
+			bannerLink(url){
+				if(url){
+					window.open(url,'_target')
+				}
+			},
 			//获取官方客服电话
-			getPhone(){
-				this.$get('/getRegisterMobile').then(res=>{
-					console.log(res,'----')
+			getPhone() {
+				this.$get('/getRegisterMobile').then(res => {
+					this.phone = res.mobile;
 				})
 			},
-			cancel(){
+			cancel() {
 				this.$refs.popup.close()
 			},
-			sure(){
+			sure() {
 				uni.makePhoneCall({
-				    phoneNumber: '13912345678' //仅为示例
+					phoneNumber: this.phone //仅为示例
 				});
 			},
-			link(url){
-				if(url=='phone'){
+			link(url) {
+				if (url == 'phone') {
 					this.$refs.popup.open()
-				}else{
+				} else {
 					uni.navigateTo({
-						 url: url
+						url: url
 					})
 				}
-				
+
 			}
-			
+
 		}
 	}
 </script>
 
 <style lang="scss">
-	.service{
-		.phone{
+	.service {
+		.phone {
 			width: 503upx;
-			background:rgba(255,255,255,1);
-			border-radius:10upx;
-			.title{
-				font-size:30upx;
-				color:rgba(51,51,51,1);
+			background: rgba(255, 255, 255, 1);
+			border-radius: 10upx;
+
+			.title {
+				font-size: 30upx;
+				color: rgba(51, 51, 51, 1);
 				margin-top: 53px;
 			}
-			.des{
-				font-size:26upx;
-				color:rgba(51,51,51,1);
+
+			.des {
+				font-size: 26upx;
+				color: rgba(51, 51, 51, 1);
 				padding: 40upx 0 48upx;
-				border-bottom: 1upx solid rgba(238,238,238,1);
+				border-bottom: 1upx solid rgba(238, 238, 238, 1);
 			}
-			.bottom{
+
+			.bottom {
 				height: 87upx;
-				text{
+
+				text {
 					flex: 1;
 					height: 87upx;
-					font-size:30upx;
-					&:nth-child(1){
-						color:rgba(153,153,153,1);
-						border-right: 1px solid rgba(238,238,238,1);
+					font-size: 30upx;
+
+					&:nth-child(1) {
+						color: rgba(153, 153, 153, 1);
+						border-right: 1px solid rgba(238, 238, 238, 1);
 					}
-					&:nth-child(2){
-						color:rgba(51,51,51,1);
+
+					&:nth-child(2) {
+						color: rgba(51, 51, 51, 1);
 					}
 				}
 			}
 		}
-		.process{
-			background:rgba(255,255,255,1);
-			border-radius:10upx;
+
+		.process {
+			background: rgba(255, 255, 255, 1);
+			border-radius: 10upx;
 			padding: 44upx 54upx 45upx 53upx;
-			.row{
+
+			.row {
 				display: flex;
 				justify-content: space-between;
-				&:first-child{
+
+				&:first-child {
 					padding-bottom: 70upx;
 				}
-				text{
-					font-size:26upx;
-					color:rgba(51,51,51,1);
+
+				text {
+					font-size: 26upx;
+					color: rgba(51, 51, 51, 1);
 					margin-right: 60upx;
-					&:nth-child(3n+3){
+
+					&:nth-child(3n+3) {
 						margin-right: 0;
 					}
 				}
-				.icon{
+
+				.icon {
 					position: relative;
-					&::after{
+
+					&::after {
 						content: '';
 						display: inline-block;
 						width: 14upx;
@@ -224,113 +243,132 @@
 						position: absolute;
 						top: 6upx;
 						right: -38upx;
-						
+
 					}
 				}
-				.contrary{
-					&::after{
-						transform: rotate(90deg)!important;
+
+				.contrary {
+					&::after {
+						transform: rotate(90deg) !important;
 					}
 				}
-				.match{
-					&::after{
-						transform: rotate(0deg)!important;
+
+				.match {
+					&::after {
+						transform: rotate(0deg) !important;
 						top: 54upx;
 						right: 10upx;
 					}
 				}
 			}
-			
+
 		}
-		.product{
-			background:rgba(255,255,255,1);
-			border-radius:10upx;
+
+		.product {
+			background: rgba(255, 255, 255, 1);
+			border-radius: 10upx;
 			padding: 44upx 0 0 42upx;
 			display: flex;
 			flex-wrap: wrap;
-			.item{
+
+			.item {
 				width: 130upx;
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
 				margin: 0 28upx 47upx 0;
-				&:nth-child(4n+4){
+
+				&:nth-child(4n+4) {
 					margin-right: 0;
 				}
-				image{
+
+				image {
 					width: 98upx;
 					height: 98upx;
 				}
-				text{
+
+				text {
 					margin-top: 34upx;
-					font-size:26upx;
-					color:rgba(51,51,51,1);
+					font-size: 26upx;
+					color: rgba(51, 51, 51, 1);
 				}
 			}
 		}
-		.notice{
+
+		.notice {
 			padding: 22upx 26upx;
-			background:rgba(255,255,255,1);
-			border-radius:10upx;
+			background: rgba(255, 255, 255, 1);
+			border-radius: 10upx;
 			margin-top: 50upx;
 			display: flex;
 			align-items: center;
-			image{
+
+			image {
 				width: 38upx;
 				height: 36upx;
 				margin-right: 30upx;
 			}
 		}
-		.notice{
-		uni-swiper-item{
-			display: flex;
-		}
-			.page-section-spacing{
+
+		.notice {
+			uni-swiper-item {
+				display: flex;
+			}
+
+			.page-section-spacing {
 				height: 30upx;
 				overflow: hidden;
 			}
-			.swiper{
+
+			.swiper {
 				height: 30upx;
 				overflow: hidden;
 			}
-			.page-section{
+
+			.page-section {
 				height: 30upx;
 				overflow: hidden;
 			}
-			.uni-padding-wrap{
-				width:500upx;
-				height:30upx;
+
+			.uni-padding-wrap {
+				width: 500upx;
+				height: 30upx;
 			}
-			.notice_con{
-				width:500upx;
+
+			.notice_con {
+				width: 500upx;
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
-				font-size:24upx;
-				color:rgba(51,51,51,1);
+				font-size: 24upx;
+				color: rgba(51, 51, 51, 1);
 			}
 		}
-		.banner{
-			.uni-swiper-dots-horizontal{
-				right: 20upx!important;
+
+		.banner {
+			.uni-swiper-dots-horizontal {
+				right: 20upx !important;
 				left: auto;
 			}
-			uni-swiper .uni-swiper-dot-active{
+
+			uni-swiper .uni-swiper-dot-active {
 				background-color: #FFFE9900;
 			}
-			.uni-padding-wrap{
-				width:690upx;
-				height:320upx;
-				background:rgba(245,244,249,1);
-				box-shadow:0px 7upx 29upx 3upx rgba(0, 0, 0, 0.1);
-				border-radius:10upx;
+
+			.uni-padding-wrap {
+				width: 690upx;
+				height: 320upx;
+				background: rgba(245, 244, 249, 1);
+				box-shadow: 0px 7upx 29upx 3upx rgba(0, 0, 0, 0.1);
+				border-radius: 10upx;
 			}
-			swiper-item{
-				image{
+
+			swiper-item {
+				image {
 					width: 690upx;
 					height: 320upx;
-					border-radius:10upx;
+					border-radius: 10upx;
 					overflow: hidden;
 				}
 			}
