@@ -54,8 +54,8 @@
 					typeId: -1, //类型id，全部传-1
 					keywords: '', //查询关键词,不筛选传空字符串
 					city: '', //地址，不筛选传空字符串
-					accrualSort: true, //true-按照利息降序排序
-					amountSort: true, //true-按照额度降序排序
+					accrualSort: false, //true-按照利息降序排序
+					amountSort: false, //true-按照额度降序排序
 					page: 1, //页数
 					pageSize: 10 //每页条数
 				}, //获取产品列表的参数
@@ -102,12 +102,20 @@
 				this.params.total = 10;
 				this.interestValue = e.target.value;
 				this.interestValue == 0 ? this.params.accrualSort = true : this.params.accrualSort = false;
+				if(this.interestValue == 1){
+					this.quotaValue = 0;
+					this.params.amountSort = true;
+				}
 				this.getList();
 			},
 			quotaChange: function(e) {
 				this.params.total = 10;
 				this.quotaValue = e.target.value;
 				this.quotaValue == 0 ? this.params.amountSort = true : this.params.amountSort = false;
+				if(this.quotaValue == 1){
+					this.interestValue = 0;
+					this.params.accrualSort = true;
+				}
 				this.getList();
 			},
 			//立即联系
