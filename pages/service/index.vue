@@ -124,9 +124,9 @@
 				bannerList: []
 			}
 		},
-		onLoad() {
+		onLoad() {                
 			this.getPhone();
-			this.$post('/product/main').then(res => {
+			this.$post('/main/getServiceInfo').then(res => {
 				this.noticeArr = res.noticeList;
 				this.bannerList = res.banners;
 			})

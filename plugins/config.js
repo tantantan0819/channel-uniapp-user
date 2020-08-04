@@ -9,6 +9,7 @@ const config = {
 	app_host: 'http://47.108.91.77/treasure/m/customer',
 	channel_host: 'http://47.108.91.77/treasure/m/merchant',
 	code_host: 'http://47.108.91.77/treasure/m/sms',//发送验证码
+	upload_host: 'http://47.108.91.77/treasure/m/upload',//图片上传地址
 	networkTip: '网络已断开链接，请稍后再试'
 }
 
