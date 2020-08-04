@@ -17,9 +17,13 @@
 		data() {
 			return {
 				id: '',
+				mate: '',
 			}
 		},
 		onLoad(options) {
+			if(options.mate){
+				this.mate = options.mate;
+			}
 			if(options.id){
 				this.id = options.id
 			}
@@ -34,9 +38,16 @@
 				})
 			},
 			apply(){
-				uni.navigateTo({
-					 url: '/pages/index/apply/apply?id='+this.id
-				})
+				if(this.mate){
+					uni.navigateTo({
+						 url: '/pages/index/apply/apply?id='+this.id+'&mate='+this.mate
+					})
+				}else{
+					uni.navigateTo({
+						 url: '/pages/index/apply/apply?id='+this.id
+					})
+				}
+			
 			}
 		}
 	}

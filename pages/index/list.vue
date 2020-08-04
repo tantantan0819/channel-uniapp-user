@@ -57,7 +57,8 @@
 					accrualSort: false, //true-按照利息降序排序
 					amountSort: false, //true-按照额度降序排序
 					page: 1, //页数
-					pageSize: 10 //每页条数
+					pageSize: 10, //每页条数
+					mate: 1,//0-所有，1-贷款，2-信用卡
 				}, //获取产品列表的参数
 				areaValue: 0,
 				quotaValue: 0,
@@ -66,17 +67,22 @@
 				quota: ['降序', '升序'],
 				total: 0,//列表总数
 				lastList: [],//最近查看
+				title: '',
 			}
 		},
 		onLoad(options) {
 			//设置导航栏
 			let title = options.title ? options.title : '产品列表';
+			this.title = title;
 			this.params.keywords = options.keywords;
 			uni.setNavigationBarTitle({
 				title: title
 			});
 			if(options.typeId){
 				this.params.typeId = options.typeId;
+			}
+			if(options.mate){
+				this.params.mate = Number(options.mate);
 			}
 			//获取产品列表
 			this.getList();
@@ -125,9 +131,18 @@
 				})
 			},
 			apply(id) {
-				uni.navigateTo({
-					url: '/pages/service/credit?title=' + '贷款申请&id='+id
-				})
+				if(this.title == '产品匹配'){
+					this.$post('/product/applySub',{id:id}).then(res=>{
+						uni.showToast({
+							title: '申请成功',
+							icon: 'none'
+						});
+					})
+				}else{
+					uni.navigateTo({
+						url: '/pages/service/credit?title=' + '贷款申请&id='+id
+					})
+				}
 			},
 			//查看产品详情
 			detail(id,item) {

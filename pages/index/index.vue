@@ -84,7 +84,7 @@
 					{
 						icon: '../../static/image/home4.png',
 						name: '信用卡',
-						link: '/pages/service/credit?title=' + '信用卡申请'
+						link: '/pages/service/credit?title=' + '信用卡申请&mate=2'
 					},
 					{
 						icon: '../../static/image/home5.png',
