@@ -4,7 +4,7 @@
 		<view class="login_form">
 			<view class="login_item ct">
 				<text>手机号</text>
-				<input class="uni-input" type="number" focus placeholder="请输入手机号" v-model.number="mobile" />
+				<input class="uni-input" focus placeholder="请输入手机号" v-model.number="mobile" />
 			</view>
 			<view class="login_item ct">
 				<text>密码</text>
@@ -32,6 +32,7 @@
 
 <script>
 	import Config from '@/plugins/config.js'
+	import {isPhone} from '@/plugins/validate.js'
 	export default {
 		data() {
 			return {
@@ -98,6 +99,13 @@
 				if (!this.mobile) {
 					uni.showToast({
 						title: '请输入您的手机号',
+						icon: 'none'
+					});
+					return false;
+				}
+				if (!isPhone.test(this.mobile)) {
+					uni.showToast({
+						title: '手机号格式不正确',
 						icon: 'none'
 					});
 					return false;

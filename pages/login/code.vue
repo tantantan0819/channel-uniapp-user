@@ -4,7 +4,7 @@
 		<view class="login_form">
 			<view class="login_item ct">
 				<text>手机号</text>
-				<input class="uni-input" type="number" focus placeholder="请输入手机号" v-model.number="mobile" />
+				<input class="uni-input" focus placeholder="请输入手机号" v-model.number="mobile" />
 			</view>
 			<view class="login_item ct code_box">
 				<text>验证码</text>
