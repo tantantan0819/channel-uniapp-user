@@ -44,9 +44,9 @@
 				this.id = options.id;
 				this.getList(this.id);	
 			}
-			if(options.spuId){
-				this.spuId = options.spuId;
-			}
+			// if(options.spuId){
+			// 	this.spuId = options.spuId;
+			// }
 			if(options.title){
 				this.title = options.title;
 				uni.setNavigationBarTitle({
@@ -77,7 +77,7 @@
 					 return false;
 				 }
 			 } 
-			 this.params.spuId = this.spuId;
+			 // this.params.spuId = this.spuId;
 			 this.$post('/product/infoSub',this.params).then(res=>{
 				 uni.showToast({
 				 	title: '保存成功',

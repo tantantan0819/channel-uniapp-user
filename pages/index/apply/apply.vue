@@ -4,8 +4,8 @@
 		    <text v-if="item.des">{{item.des}}</text>
 		</text>
 		<view class="login_wrp cc">
-			<view class="login_btn cc" >
-				<text @click="match">确认匹配</text>
+			<view class="login_btn cc" @click="match">
+				<text>确认匹配</text>
 			</view>
 		</view>
 	</view>
@@ -15,6 +15,7 @@
 	export default {
 		data() {
 			return {
+				mate: '',
 				id: '',//产品id
 				apply:[
 					// {
@@ -65,6 +66,9 @@
 			if(options.id){
 				this.id = options.id;
 			}
+			if(options.mate){
+				this.mate = options.mate;
+			}
 			this.$post('/product/getInfoTypeList',{id:this.id}).then(res=>{
 				if(res.list){
 					this.apply = res.list
@@ -86,9 +90,16 @@
 				}
 			},
 			match(){
-				uni.navigateTo({
-					 url: '/pages/index/list?title='+'产品匹配'
-				})
+				if(this.mate){
+					uni.navigateTo({
+						 url: '/pages/index/list?title='+'产品匹配&mate='+this.mate
+					})
+				}else{
+					uni.navigateTo({
+						 url: '/pages/index/list?title='+'产品匹配'
+					})
+				}
+				
 			}
 		}
 	}

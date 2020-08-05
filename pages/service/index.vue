@@ -75,7 +75,7 @@
 					{
 						name: '申请信用卡',
 						icon: '../../static/image/service_icon2.png',
-						link: '/pages/service/credit?title=' + '信用卡申请'
+						link: '/pages/service/credit?title=' + '信用卡申请&mate=2'
 					},
 					{
 						name: '申请查询',
