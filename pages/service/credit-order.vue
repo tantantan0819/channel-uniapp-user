@@ -21,8 +21,8 @@
 			<picker mode="date" :value="date" @change="bindDateChange">
 				<view class="uni-input">{{date}}</view>
 			</picker>
-			<picker mode="date" :value="date" @change="bindDateChange">
-				<view class="uni-input">{{date}}</view>
+			<picker mode="time" :value="time" start="09:01" end="21:01" @change="bindTimeChange" class="chooseTime">
+				<view class="uni-input">{{time}}</view>
 			</picker>
 			<!-- <input class="uni-input" placeholder="请选择时间" /> -->
 		</view>
@@ -40,6 +40,7 @@
 			})
 			return {
 				date: currentDate,
+				time: '12:00',
 				params: {
 					type: '', //0-信用卡，1-产品
 					spuId: '', //产品id，type为0时可传0
@@ -47,7 +48,7 @@
 					idcard: '', //身份证
 					mobile: '', //手机
 					address: '', //地址
-					dropinTime: currentDate, //上门时间，格式yyyy-MM-dd HH:mm
+					dropinTime: '', //上门时间，格式yyyy-MM-dd HH:mm
 				}
 			}
 		},
@@ -104,6 +105,7 @@
 				});
 				return false;
 			}
+			this.params.dropinTime = this.date+' '+this.time;
 			this.$post('/product/dropinApply',this.params).then(res=>{
 				uni.showToast({
 					title: '预约成功',
@@ -119,6 +121,10 @@
 		methods: {
 			bindDateChange: function(e) {
 				this.date = e.target.value
+			},
+			bindTimeChange: function(e) {
+				this.time = e.detail.value;
+				console.log(this.time,'time')
 			},
 			getDate(type) {
 				const date = new Date();
@@ -140,5 +146,8 @@
 </script>
 
 <style>
+	.chooseTime{
+		margin-left: 10upx;
+	}
 
 </style>

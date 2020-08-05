@@ -22,7 +22,7 @@
 		<text class="login_code cc" @click="code">验证码登录 >></text>
 		<text class="login_quick cc">快捷登录</text>
 		<view class="login_method">
-			<image src="../../static/image/login_method1.png" mode=""></image>
+			<image src="../../static/image/login_method1.png" mode="" @click="weixin"></image>
 			<image src="../../static/image/login_method2.png" mode=""></image>
 			<image src="../../static/image/login_method3.png" mode=""></image>
 		</view>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+	import Config from '@/plugins/config.js'
 	export default {
 		data() {
 			return {
@@ -45,9 +46,52 @@
 				url: '/pages/login/register'
 			})
 		},
-		onLoad(options) {
-			this.url = options.url;
+		mounted() {
+			function getQueryObject(url) {
+				url = url == null ? window.location.href : url;
+				var search = url.substring(url.lastIndexOf("?") + 1);
+				var obj = {};
+				var reg = /([^?&=]+)=([^?&=]*)/g;
+				search.replace(reg, function(rs, $1, $2) {
+					var name = decodeURIComponent($1);
+					var val = decodeURIComponent($2);
+					val = String(val);
+					obj[name] = val;
+					return rs;
+				});
+				return obj;
+			}
+			let obj = getQueryObject();
+ 			if (obj.code) {
+				this.$post('/webLogin', {
+					code: obj.code
+				}).then(res => {
+					if (res.token) {
+						uni.setStorageSync('isLogin', true);
+						uni.setStorageSync('token', res.token);
+						uni.showToast({
+							title: '登录成功',
+							icon: 'none'
+						});
+						if (!this.url) {
+							setTimeout(function() {
+								uni.switchTab({
+									url: '/pages/index/index'
+								});
+							}, 600)
+						} else {
+							setTimeout(function() {
+								uni.navigateBack({
+									delta: 1
+								});
+							}, 600)
+						}
+
+					}
+				})
+			}
 		},
+
 		methods: {
 			login() {
 				let _this = this;
@@ -105,6 +149,14 @@
 				uni.navigateTo({
 					url: '/pages/login/forget'
 				})
+			},
+			//微信登陆
+			weixin() {
+				let appid = Config.appid;
+				let redirect_url = encodeURIComponent(Config.redirect_host);
+				let url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + redirect_url +
+					'&response_type=code&scope=snsapi_userinfo&state=&conn';
+				window.open(url)
 			}
 		}
 	}

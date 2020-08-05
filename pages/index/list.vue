@@ -61,8 +61,8 @@
 					mate: 1,//0-所有，1-贷款，2-信用卡
 				}, //获取产品列表的参数
 				areaValue: 0,
-				quotaValue: 0,
-				interestValue: 0,
+				quotaValue: 1,
+				interestValue: 1,
 				interest: ['降序', '升序'],
 				quota: ['降序', '升序'],
 				total: 0,//列表总数

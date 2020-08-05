@@ -70,10 +70,15 @@
 			link(url,name){
 				if(name=="安全退出"){
 					uni.clearStorageSync();
+					uni.reLaunch({
+					    url: url
+					});
+				}else{
+					uni.navigateTo({
+						 url: url
+					})
 				}
-				uni.navigateTo({
-					 url: url
-				})
+				
 			},
 			//更改头像
 			changeImg(){
