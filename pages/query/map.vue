@@ -7,7 +7,7 @@
 					</map>
 				</view>
 			</view>
-			<div class="address_text" v-if="address">
+			<div class="address_text" v-if="address" @click="link">
 				<text>{{address}}</text>
 			</div>
 		</div>
@@ -41,7 +41,17 @@
 
 		},
 		methods: {
-
+			link(){
+				let _this = this;
+				this.address = '000'
+				uni.openLocation({
+					latitude: Number(_this.latitude),
+					longitude: Number(_this.longitude),
+					success: function () {
+						console.log('success');
+					}
+				});
+			}
 		}
 	}
 </script>

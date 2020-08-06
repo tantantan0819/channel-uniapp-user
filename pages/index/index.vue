@@ -105,6 +105,7 @@
 				uni.setStorageSync('headurl', _this.headurl);
 				uni.setStorageSync('nickname', _this.nickname);
 			})
+			this.scrollEnd();
 		},
 		methods: {
 			//跳转搜索页面
@@ -116,7 +117,10 @@
 			//更多热门产品
 			more() {
 				this.isMore = !this.isMore;
-				this.isMore ? this.showList = this.list:this.showList = this.list.slice(0,this.hotNum)
+				this.isMore ? this.showList = this.list:this.showList = this.list.slice(0,this.hotNum);
+				if(this.isMore){
+					this.scrollEnd();
+				}
 			},
 			//点击头部信息
 			login() {
@@ -153,6 +157,15 @@
 				uni.navigateTo({
 					url: url
 				})
+			},
+			scrollEnd() {
+				//添加完消息 跳转到最后一条
+				var list = document.querySelectorAll(".hot_item");
+				console.log(list,'list---')
+				if (list.length > 1) {
+					var last = list[list.length - 1];
+					last.scrollIntoView();
+				}
 			}
 		}
 	}
