@@ -105,9 +105,9 @@
 						icon: 'none'
 					});
 					setTimeout(function() {
-						uni.switchTab({
+						uni.navigateTo({
 							url: '/pages/login/login'
-						});
+						})
 					}, 600)
 				})
 			},

@@ -25,7 +25,7 @@
 				<text>{{item.meraddr}}</text>
 				<view class="info">
 					<image src="../../static/image/query_icon1.png" mode="" @click="contact"></image>
-					<image src="../../static/image/query_icon2.png" mode="" @click="map(item.lat,item.lng)"></image>
+					<image src="../../static/image/query_icon2.png" mode="" @click="map(item.lat,item.lng,item.meraddr)"></image>
 				</view>
 			</view>
 		</view>
@@ -98,9 +98,9 @@
 				
 			},
 			//查看位置
-			map(lat,lng){
+			map(lat,lng,meraddr){
 				uni.navigateTo({
-					 url: '/pages/query/map?lat='+lat+'&lng='+lng
+					 url: '/pages/query/map?lat='+lat+'&lng='+lng+'&address='+meraddr
 				})
 			},
 			//门店和网点

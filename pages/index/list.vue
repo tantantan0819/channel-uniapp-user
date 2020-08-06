@@ -108,9 +108,9 @@
 				this.params.total = 10;
 				this.interestValue = e.target.value;
 				this.interestValue == 0 ? this.params.accrualSort = true : this.params.accrualSort = false;
-				if(this.interestValue == 1){
-					this.quotaValue = 0;
-					this.params.amountSort = true;
+				if(this.interestValue == 0){
+					this.quotaValue = 1;
+					this.params.amountSort = false;
 				}
 				this.getList();
 			},
@@ -118,9 +118,9 @@
 				this.params.total = 10;
 				this.quotaValue = e.target.value;
 				this.quotaValue == 0 ? this.params.amountSort = true : this.params.amountSort = false;
-				if(this.quotaValue == 1){
-					this.interestValue = 0;
-					this.params.accrualSort = true;
+				if(this.quotaValue == 0){
+					this.interestValue = 1;
+					this.params.accrualSort = false;
 				}
 				this.getList();
 			},

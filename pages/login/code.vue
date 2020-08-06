@@ -34,7 +34,7 @@
 			sendCode() {
 				if (!this.mobile) {
 					uni.showToast({
-						title: '请输入您的手机号',
+						title: '请输入手机号',
 						icon: 'none'
 					});
 					return false;
@@ -46,13 +46,6 @@
 					});
 					return false;
 				}
-				if (!this.code) {
-					uni.showToast({
-						title: '请输入您的手机验证码',
-						icon: 'none'
-					});
-					return false;
-					}
 				this.$post('/getIdentifyingCode',{mobile:this.mobile}).then(res=>{
 					uni.showToast({
 						title: '发送成功',

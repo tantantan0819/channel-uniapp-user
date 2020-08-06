@@ -1,20 +1,27 @@
 <template>
 	<view class="customer" id="chat">
 		<view class="wrp">
-			<view class="time cc">2020/5/23 12:34</view>
-			<view class="official">
+			<!-- <view class="time cc">2020/5/23 12:34</view> -->
+		<!-- 	<view class="official">
 				<image src="../../static/image/customer.png" mode=""></image>
 				<view class="item">
 					<text class="mb30">官方客服</text>
 					<text>您好，很高兴为您服务！</text>
+				</view>
+			</view> -->
+			<view class="official" v-for="(item,index) in list" :key="index">
+				<image :src="item.content.user.portrait" mode=""></image>
+				<view class="item">
+					<text class="mb30">{{item.content.user.name}}</text>
+					<text>{{item.content.content}}</text>
 				</view>
 			</view>
 		</view>
 		<view class="footer" v-bind:class="{ active: isPicture }" id="footer">
 			<view class="send ">
 				<view class="wrp ct">
-					<image id="pictureImg" src="../../static/image/customer_icon1.png" mode="" @click="showPicture"></image>
-					<input class="uni-input" focus placeholder="说点什么..."  />
+					<image id="pictureImg" src="../../static/image/customer_icon1.png" mode="" @click="showPicture" ></image>
+					<input class="uni-input" focus placeholder="说点什么..."  v-model="msg"/>
 					<text class="cc" @click="sendMsg">发送</text>
 				</view>
 			</view>
@@ -48,13 +55,13 @@
 				appKey: '8luwapkv84g2l',//融云 appKey
 				token: 'NH4u2jwaokAl0lUetVSqGHxn0vlmi8fpUseAiRSYHeY=@ahuf.cn.rongnav.com;ahuf.cn.rongcfg.com',//融云token
 				userId: '',//自己的id
-				otherId: 'customer_2',//他人的id -- 官方id
+				otherId: '',//他人的id -- 官方id
 				msg:'',//发送的消息
 				list: [],//聊天信息框
 				user:{
 				    id: '',
-				    name: '小道',
-				    portrait: 'http://47.108.91.77/treasure/uploadFiles/imgs/1589354557665.png',
+				    name: '',
+				    portrait: '',
 				}
 			}
 		},
@@ -62,6 +69,10 @@
 			let _this = this;
 			_this.userInfo.appKey = Config.ryKey;
 			_this.userInfo.token = uni.getStorageSync('ryToken');
+			_this.$post('/getInfo').then(res=>{
+				_this.user.name = res.nickname;
+				_this.user.portrait = res.headurl;
+			})
 			//点击展示区域
 			document.onclick = function() {
 				var e = e || window.event; //浏览器兼容性
@@ -87,7 +98,7 @@
 			//获取融云官方客服id
 			kefu(){
 				this.$get('/kefu').then(res=>{
-					console.log(res,'kefu')
+					this.otherId = res.kefuId;
 				})
 			},
 			new(){
@@ -105,7 +116,6 @@
 				RongIMLib.RongIMClient.setOnReceiveMessageListener({
 				    onReceived: function (message) {
 				        console.log(message,'消息监听')
-				        message.type = _this.others;
 				        _this.list.push(message);
 				    }
 				});
@@ -114,7 +124,6 @@
 				    onSuccess: function(userId) {
 				        _this.userId = userId;
 				        _this.user.id = userId;
-				        console.log('连接成功, 用户 ID 为', userId);
 				        // 连接已成功, 此时可通过 getConversationList 获取会话列表并展示
 				    },
 				    onTokenIncorrect: function() {
@@ -153,22 +162,27 @@
 			//发送消息
 			sendMsg(){
 			    let _this = this;
-			    let con = {
-			        content: _this.msg,
-			        user:_this.user
-			    }
-			    var msg = new RongIMLib.TextMessage(con);
-			    var conversationType = RongIMLib.ConversationType.PRIVATE; // 单聊
-			    var targetId = _this.otherId; // 用户 B 的 userId
-			    RongIMClient.getInstance().sendMessage(conversationType, targetId, msg, {
-			        onSuccess: function (message) {
-			            // message 为发送的消息对象并且包含服务器返回的消息唯一 ID 和发送消息时间戳
-			            _this.list.push(message)
-			        },
-			        onError: function (errorCode, message) {
-			            console.log(errorCode)
-			        }
-			    });
+				if(_this.msg){
+					let con = {
+					    content: _this.msg,
+					    user:_this.user
+					}
+					var msg = new RongIMLib.TextMessage(con);
+					var conversationType = RongIMLib.ConversationType.PRIVATE; // 单聊
+					var targetId = _this.otherId; // 用户 B 的 userId
+					RongIMClient.getInstance().sendMessage(conversationType, targetId, msg, {
+					    onSuccess: function (message) {
+							_this.msg = '';
+					        // message 为发送的消息对象并且包含服务器返回的消息唯一 ID 和发送消息时间戳
+							console.log(message)
+					        _this.list.push(message)
+					    },
+					    onError: function (errorCode, message) {
+					        console.log(errorCode)
+					    }
+					});
+				}
+			  
 			},
 			scrollEnd() {
 				//添加完消息 跳转到最后一条
