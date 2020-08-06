@@ -266,7 +266,7 @@
 	.customer {
 		.official {
 			display: flex;
-
+			margin-top: 10upx;
 			image {
 				width: 110upx;
 				height: 110upx;
