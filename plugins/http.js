@@ -1,5 +1,6 @@
 import Config from './config.js';
-import Store from '../store/index.js'
+import Store from '../store/index.js';
+import routerArr from './router.js'
 const http = {
 	/**
 	 * 检测网络状态
@@ -128,5 +129,4 @@ const http = {
 		})
 	}
 }
-
 export default http;
