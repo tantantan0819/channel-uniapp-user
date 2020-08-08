@@ -2,28 +2,24 @@
 	<view class="customer" id="chat">
 		<view class="wrp">
 			<view class="time cc" v-if="list.length>0">{{show_time}}</view>
-			<!-- 	<view class="official">
-				<image src="../../static/image/customer.png" mode=""></image>
-				<view class="item">
-					<text class="mb30">官方客服</text>
-					<text>您好，很高兴为您服务！</text>
-				</view>
-			</view> -->
 			<view class="official active" v-for="(item,index) in list" :key="index+'-'" v-bind:class="{other: item.content.user.id != userId }">
-				<image :src="item.content.user.portrait" mode="" class="avatar"></image>
-				<view class="item">
-					<text class="mb30">{{item.content.user.name}}</text>
-					<image class="content_show" :src="item.content.imageUri" mode="aspectFit" v-if="item.content.imageUri"></image>
-					<text v-else>{{item.content.content}}</text>
+				<view class="left showBox" v-if="item.content.user.id == userId">
+					<image :src="item.content.user.portrait" mode="" class="avatar"></image>
+					<view class="item">
+						<text class="mb30">{{item.content.user.name}}</text>
+						<image class="content_show" :src="item.content.imageUri" mode="aspectFit" v-if="item.content.imageUri" @click="viewImg(item.content.imageUri)"></image>
+						<view class="showCon" v-else>{{item.content.content}}</view>
+					</view>
+				</view>
+				<view class="right showBox" v-else>
+					<view class="item">
+						<text class="mb30">{{item.content.user.name}}</text>
+						<image class="content_show" :src="item.content.imageUri" mode="aspectFit" v-if="item.content.imageUri" @click="viewImg(item.content.imageUri)"></image>
+						<view class="showCon" v-else>{{item.content.content}}</view>
+					</view>
+					<image :src="item.content.user.portrait" mode="" class="avatar"></image>
 				</view>
 			</view>
-			<!-- <view class="official other" v-for="(item,index) in list" :key="index+'2'">
-				<view class="item">
-					<text class="mb30">{{item.content.user.name}}</text>
-					<text>{{item.content.content}}</text>
-				</view>
-				<image :src="item.content.user.portrait" mode=""></image>
-			</view> -->
 		</view>
 		<view class="footer" v-bind:class="{ active: isPicture }" id="footer">
 			<view class="send ">
@@ -42,7 +38,9 @@
 </template>
 
 <script>
-	import {timeFormat} from '@/plugins/validate.js'
+	import {
+		timeFormat
+	} from '@/plugins/validate.js'
 	// import init from "@/static/rongyun/init";
 	// import RongIMLib from '@/static/rongyun/RongIMLib-2.5.9.js'
 	import Config from "@/plugins/config"
@@ -63,9 +61,8 @@
 					appKey: "",
 					token: ""
 				},
-				appKey: '8luwapkv84g2l', //融云 appKey
-				token: 'NH4u2jwaokAl0lUetVSqGHxn0vlmi8fpUseAiRSYHeY=@ahuf.cn.rongnav.com;ahuf.cn.rongcfg.com', //融云token
 				userId: '', //自己的id
+				// otherId: 'merchant_2', //他人的id -- 官方id
 				otherId: '', //他人的id -- 官方id
 				msg: '', //发送的消息
 				list: [], //聊天信息框
@@ -100,11 +97,10 @@
 			}
 			//获取融云官方客服id
 			this.kefu();
+			//融云
 			setTimeout(function() {
 				_this.new();
 			}, 1000)
-			//融云
-			// this.new();
 		},
 		methods: {
 			//获取融云官方客服id
@@ -113,9 +109,17 @@
 					this.otherId = res.kefuId;
 				})
 			},
+			//查看图片
+			viewImg(url){
+				let arr = [];
+				arr.push(url)
+				uni.previewImage({
+						urls: arr
+				})
+			},
 			new() {
 				let _this = this;
-				RongIMLib.RongIMClient.init(_this.appKey); //开发者后台 -> 基本信息 获取
+				RongIMLib.RongIMClient.init(_this.userInfo.appKey); //开发者后台 -> 基本信息 获取
 				console.log(RongIMLib.RongIMClient)
 				/* 连接状态监听器 */
 				RongIMLib.RongIMClient.setConnectionStatusListener({
@@ -127,12 +131,14 @@
 				/* 消息监听器 */
 				RongIMLib.RongIMClient.setOnReceiveMessageListener({
 					onReceived: function(message) {
-						console.log(message, '消息监听')
-						_this.list.push(message);
+						if (message.content.user) {
+							_this.list.push(message);
+							_this.scrollEnd();
+						}
 					}
 				});
 				//链接获取id
-				RongIMLib.RongIMClient.connect(_this.token, {
+				RongIMLib.RongIMClient.connect(_this.userInfo.token, {
 					onSuccess: function(userId) {
 						_this.userId = userId;
 						_this.user.id = userId;
@@ -170,21 +176,21 @@
 
 								let con = {
 									content: '',
-									imageUri:imgUrl,
+									imageUri: imgUrl,
 									user: _this.user
 								}
-								console.log(con,'con---')
 								var msg = new RongIMLib.ImageMessage(con);
 								var conversationType = RongIMLib.ConversationType.PRIVATE; // 单聊
 								var targetId = _this.otherId; // 用户 B 的 userId
 								RongIMClient.getInstance().sendMessage(conversationType, targetId, msg, {
 									onSuccess: function(message) {
 										// message 为发送的消息对象并且包含服务器返回的消息唯一 ID 和发送消息时间戳
-										console.log(message,'图片上传信息')
-										_this.list.push(message)
+										console.log(message, '图片上传信息')
+										_this.list.push(message);
+										_this.scrollEnd();
 									},
 									onError: function(errorCode, message) {
-										console.log(errorCode,'错误看信息-图片')
+										console.log(errorCode, '错误看信息-图片')
 									}
 								});
 							},
@@ -213,11 +219,12 @@
 						onSuccess: function(message) {
 							_this.msg = '';
 							// message 为发送的消息对象并且包含服务器返回的消息唯一 ID 和发送消息时间戳
-							console.log(message,'文字')
-							_this.list.push(message)
+							console.log(message, '文字')
+							_this.list.push(message);
+							_this.scrollEnd();
 						},
 						onError: function(errorCode, message) {
-							console.log(errorCode,'错误')
+							console.log(errorCode, '错误')
 						}
 					});
 				}
@@ -225,11 +232,21 @@
 			},
 			scrollEnd() {
 				//添加完消息 跳转到最后一条
-				var list = document.querySelectorAll(".message-item");
-				if (list.length > 1) {
-					var last = list[list.length - 1];
-					last.scrollIntoView();
-				}
+				setTimeout(()=>{
+					var list = document.querySelectorAll(".official");
+					if (list.length > 1) {
+						var last = list[list.length - 1];
+						last.scrollIntoView();
+					}
+				},50)
+				// this.$nextTick(function(){
+				// 	var list = document.querySelectorAll(".official");
+				// 	if (list.length > 1) {
+				// 		var last = list[list.length - 1];
+				// 		last.scrollIntoView();
+				// 	}
+				// })
+				
 			}
 		}
 	}
@@ -341,25 +358,41 @@
 			display: flex;
 			margin-top: 20upx;
 
+			.showBox {
+				display: flex;
+				image{
+					min-width: 120upx;
+					width: 120upx;
+					height: 120upx;
+				}
+			}
+
 			.avatar {
 				width: 110upx;
 				height: 110upx;
 				border-radius: 50%;
 				margin-right: 20upx;
-				transform:rotate(0deg);
-				-ms-transform:rotate(0deg); 	/* IE 9 */
-				-moz-transform:rotate(0deg); 	/* Firefox */
-				-webkit-transform:rotate(0deg); /* Safari 和 Chrome */
-				-o-transform:rotate(0deg); 
+				transform: rotate(0deg);
+				-ms-transform: rotate(0deg);
+				/* IE 9 */
+				-moz-transform: rotate(0deg);
+				/* Firefox */
+				-webkit-transform: rotate(0deg);
+				/* Safari 和 Chrome */
+				-o-transform: rotate(0deg);
 			}
-			.content_show{
+
+			.content_show {
 				width: 200upx;
 				height: 200upx;
-				transform:rotate(0deg);
-				-ms-transform:rotate(0deg); 	/* IE 9 */
-				-moz-transform:rotate(0deg); 	/* Firefox */
-				-webkit-transform:rotate(0deg); /* Safari 和 Chrome */
-				-o-transform:rotate(0deg); 
+				transform: rotate(0deg);
+				-ms-transform: rotate(0deg);
+				/* IE 9 */
+				-moz-transform: rotate(0deg);
+				/* Firefox */
+				-webkit-transform: rotate(0deg);
+				/* Safari 和 Chrome */
+				-o-transform: rotate(0deg);
 			}
 
 			.item {
@@ -367,22 +400,26 @@
 				flex-direction: column;
 
 				text {
+					max-width: 400upx;
+
 					&:nth-child(1) {
 						font-size: 24upx;
 						color: rgba(102, 102, 102, 1);
 					}
 
-					&:nth-child(2) {
-						padding: 26upx 22upx;
-						font-size: 30upx;
-						color: rgba(51, 51, 51, 1);
-						background: rgba(255, 255, 255, 1);
-						border-radius: 10upx;
-					}
 				}
+
 			}
 		}
-
+		.showCon {
+			max-width: 450upx;
+			padding: 26upx 22upx;
+			font-size: 30upx;
+			color: rgba(51, 51, 51, 1);
+			background: rgba(255, 255, 255, 1);
+			border-radius: 10upx;
+		}
+		
 		.time {
 			padding: 36upx 0;
 			font-size: 24upx;

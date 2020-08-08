@@ -124,6 +124,7 @@
 					if (res.token) {
 						uni.setStorageSync('isLogin', true);
 						uni.setStorageSync('token', res.token);
+						uni.setStorageSync('ryToken', res.ryToken);
 						uni.showToast({
 							title: '登录成功',
 							icon: 'none'

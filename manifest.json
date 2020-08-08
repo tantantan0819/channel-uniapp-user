@@ -82,9 +82,9 @@
     },
     "h5" : {
         "title" : "channel-uniapp",
-        "domain" : "localhost:8989",
+        "domain" : "localhost:878",
         "devServer" : {
-            "port" : 8989
+            "port" : 8787
         },
         "template" : "template.h5.html",
         "router" : {
